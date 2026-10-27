@@ -64,6 +64,25 @@
      border-radius: 0 4px 4px 0}
    dl.bars dd span {position: absolute; top: 50%; translate: 0.4em -50%;
      left: calc(var(--v) * 1%); font-weight: 700; font-size: 0.85em}
+   /* Stacked horizontal bars (docs slide): --v is millions; scale is 0–400M */
+   dl.stacked {display: grid; grid-template-columns: auto 1fr; gap: 0.35em 0.6em;
+     align-items: center; margin: 0 0 0.5em}
+   dl.stacked dt {font-size: 0.85em}
+   dl.stacked dd {margin: 0; display: flex; height: 1.5em}
+   dl.stacked dd span {width: calc(var(--v) / 400 * 100%); position: relative;
+     display: flex; align-items: center; justify-content: center;
+     font-weight: 700; font-size: 0.8em; color: white; text-shadow: none}
+   dl.stacked dd span:last-child {border-radius: 0 4px 4px 0}
+   dl.stacked .human, .legend .human::before {background: hsl(0,0%,55%)}
+   dl.stacked .agent, .legend .agent::before {background: var(--figcaption-fg)}
+   /* Segment too narrow for its label: put the label just after the bar */
+   dl.stacked span.out {color: transparent}
+   dl.stacked span.out::after {content: attr(data-label); position: absolute;
+     left: calc(100% + 0.4em); color: var(--figcaption-fg)}
+   .slide p.legend {font-size: 0.7em; margin: 0 0 0.3em}
+   .legend span {margin-right: 1em; white-space: nowrap}
+   .legend span::before {content: ""; display: inline-block; width: 0.9em;
+     height: 0.9em; border-radius: 2px; margin-right: 0.35em; vertical-align: -0.1em}
    .slide blockquote.note {margin: 0 0 0.6em; font-style: italic}
    .slide .takeaway {font-size: 0.9em; margin: 0.4em 0 1.6em}
    #commits svg.chart {height: 7.4em}
@@ -247,16 +266,19 @@
    <h2>Docs are now read mostly by agents</h2>
    <div class=columns>
     <section>
-     <h3>Agent share of docs traffic</h3>
-     <dl class=bars>
-      <dt>Feb 2026</dt><dd style="--v: 20.8"><span>20.8%</span></dd>
-      <dt>Aug 2026</dt><dd style="--v: 66"><span>66%</span></dd>
+     <h3>Mintlify docs traffic</h3>
+     <p class=legend><span class=human>Human page loads</span>
+     <span class=agent>Agent requests</span></p>
+     <dl class=stacked>
+      <dt>Feb 2026</dt><dd><span class=human style="--v: 109">109M</span><span
+       class="agent out" style="--v: 28" data-label="28M">28M</span></dd>
+      <dt>Aug 2026</dt><dd><span class=human style="--v: 131">131M</span><span
+       class=agent style="--v: 257">257M</span></dd>
      </dl>
-     <p class=note>Mintlify hosts docs for 20,000+ companies (~50M
-     readers a month): APIs and frameworks web devs build on, e.g.
-     Laravel, Notion, Okta, Resend, Zapier, Anthropic. In August, 257M
-     agent requests vs. 131M human page loads. Its customers skew
-     towards AI and dev tools, so the web-wide share is probably lower.</p>
+     <p class=note>Humans up 1.2×, agents 9.3× (21% → 66% of traffic).
+     Mintlify hosts docs for 20,000+ companies, e.g. Laravel, Notion,
+     Okta, Zapier, Anthropic. It skews towards AI and dev tools, so the
+     web-wide agent share is probably lower.</p>
     </section>
     <section>
      <h3>Tailwind CSS, January 2026</h3>
@@ -284,7 +306,12 @@
    <p><a href="https://www.mintlify.com/state-of-knowledge/2026">Mintlify
    2026 State of Knowledge Report</a>: agent share of traffic on
    Mintlify-hosted docs grew from 20.8% (Feb 2026) to 66% (Aug 2026);
-   in August, 257M agent requests vs. 131M human page loads; ~10.8M
+   in August, 257M agent requests vs. 131M human page loads. The report
+   gives absolute counts only for August; the Feb bars are derived from
+   its stated growth since February (human readership 1.2×, agent 9.3×),
+   i.e. ≈109M human and ≈28M agent, which matches the published 20.8%
+   Feb share to within rounding. So on Mintlify human readership did not
+   fall: it grew a little while agent traffic grew ninefold. ~10.8M
    <code>/llms.txt</code> fetches and 2M+ MCP tool calls that month.
    Why Mintlify matters: it is the largest docs host publishing
    agent-traffic numbers. It says it hosts docs for 20,000+ companies
