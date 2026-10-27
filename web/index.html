@@ -133,6 +133,15 @@
    #what-agents-write .stat-list b {font-size: 1.2em}
    #what-agents-write dl.bars {font-size: 0.9em}
    #what-agents-write .next {margin: 0.3em 0 0; font-size: 0.9em}
+   /* --- conflicts slide --- */
+   #conflicts h3 {margin-top: 0}
+   #conflicts .stat-list {font-size: 0.8em; margin: 0}
+   #conflicts .stat-list li {grid-template-columns: 3.6em 1fr; margin-bottom: 0.4em}
+   #conflicts .stat-list b {font-size: 1.2em; white-space: nowrap}
+   #conflicts dl.bars {font-size: 0.9em}
+   #conflicts dl.bars dt {text-align: right}
+   #conflicts p.note {font-size: 0.7em; margin: 0; line-height: 1.25}
+   #conflicts .next {margin: 0.3em 0 0; font-size: 0.9em}
    /* --- robustness slide --- */
    /* Robustness slide: wider value column for ranges like "70–90%" */
    #robustness h3 {margin-top: 0}
@@ -724,7 +733,61 @@
   <section class=comment>
    <ul>
     <li>Topic 6 of 7. Proposal text: “Where agent ergonomics and human DX conflict, how do we weigh them?”</li>
-    <li>No research slide: open discussion</li>
+   </ul>
+  </section>
+
+  <!-- Analysis: analysis/agent-vs-human-dx.md -->
+  <section class="slide" id="conflicts">
+   <h2>Agents write more; humans review it</h2>
+   <div class=columns>
+    <section>
+     <h3>Where the pull shows</h3>
+     <ul class=stat-list>
+      <li><b>40%</b> <span>of State of JS respondents write only TypeScript (28% in 2022);
+       it became GitHub’s #1 language, credited to AI</span></li>
+      <li><b>−40%</b> <span>Tailwind docs traffic as usage grows; an
+       <code>llms.txt</code> PR was declined to keep human visitors</span></li>
+      <li><b>3×</b> <span>readability issues in AI-co-authored PRs
+       (10.8 vs. 6.5 issues per PR overall)</span></li>
+     </ul>
+    </section>
+    <section>
+     <h3>Teams at high vs. low AI use</h3>
+     <dl class=bars>
+      <dt>Tasks done</dt><dd style="--v: 10.9"><span>+21%</span></dd>
+      <dt>PRs merged</dt><dd style="--v: 50.9"><span>+98%</span></dd>
+      <dt>PR size</dt><dd style="--v: 80"><span>+154%</span></dd>
+      <dt>Review time</dt><dd style="--v: 47.3"><span>+91%</span></dd>
+      <dt>Bugs per dev</dt><dd style="--v: 4.7"><span>+9%</span></dd>
+     </dl>
+     <p class=note>10,000+ developers, 1,255 teams; vendor data, correlational.</p>
+    </section>
+   </div>
+   <p class=next><strong>If humans mostly read and review, should APIs
+   favor the reader over the writer?</strong></p>
+   <p class="source">Sources: Devographics, <a
+   href="https://2025.stateofjs.com/">State of JS 2025</a>; GitHub, <a
+   href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/"
+   ><cite>Octoverse 2025</cite></a>; A. Wathan, <a
+   href="https://github.com/tailwindlabs/tailwindcss.com/pull/2388">tailwindcss.com#2388</a>
+   (Jan 2026); CodeRabbit, <a
+   href="https://www.coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report"
+   ><cite>State of AI vs Human Code Generation</cite></a> (Dec 2025); Faros AI, <a
+   href="https://www.faros.ai/blog/ai-software-engineering"><cite>AI Productivity
+   Paradox Report</cite></a> (Jul 2025).</p>
+  </section>
+
+  <section class=comment>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-vs-human-dx.md">analysis/agent-vs-human-dx.md</a></p>
+   <ul>
+    <li>Conflicts are mostly about who writes vs. who reads</li>
+    <li>Types: ceremony for humans, guardrails for agents; TS-only 28% → 40%, TS #1 on GitHub Aug 2025</li>
+    <li>Docs: agent-readable docs cut human traffic; Tailwind docs −40%, revenue −80%, 75% of engineers laid off</li>
+    <li>Review is the bottleneck: PRs merged +98% but review time +91%, PR size +154%</li>
+    <li>AI PRs: 3× readability issues (CodeRabbit, n=470, authorship inferred)</li>
+    <li>METR: experienced devs 19% slower with AI, felt 20% faster</li>
+    <li>Caveat: vendor data, correlational, early-2025 tools</li>
+    <li>Ask: optimize for reading code (explicit, typed, declarative) over terse writing?</li>
    </ul>
   </section>
 
