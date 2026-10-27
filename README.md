@@ -23,7 +23,7 @@ Questions this session will explore:
 - Where agent ergonomics and human DX conflict, how do we weigh them?
 - **Evaluation:** An API's token cost is not an intrinsic property. An agent implementing an unfamiliar API spends tokens on lookup, trial and error, and correction, so a design that would be more token-efficient at parity of familiarity measures as worse until training data catches up — which takes years. Any evaluation we run today privileges familiar over better. How do we separate the two, and how do we evaluate API designs, or design principles, given such a delayed feedback loop?
 
-**Goal:** Make progress on the questions above and identify people interested in exploring this further.
+**Goal:** Provoke discussion. The session will have roughly 15 minutes of presented content, interspersed with group discussion topics. Throughout, we want to bring accurate and useful data to bear on the points under discussion, make progress on the questions above, and identify people interested in exploring this further.
 
 ## Repository layout
 
