@@ -31,6 +31,17 @@
      body.fade-in .slide.active {animation-duration: 0.3s}
    }
 
+   /* Discussion-topic section slides: title in the part header's box,
+      the session question underneath on a card over the illustration */
+   .slide.part.topic {justify-content: flex-start; padding-bottom: 1.5rem}
+   .slide.part.topic h2 {height: 4.6rem; display: flex; align-items: center;
+     justify-content: center; font-size: 2em}
+   .slide.part.topic p {margin: 2.2rem auto 0; max-width: 32rem;
+     padding: 0.6em 1em; border-radius: 0.5em; font-size: 1.05em;
+     line-height: 1.35; text-wrap: balance;
+     background: hsl(0 0% 100% / 0.88); color: hsl(211 100% 17%)}
+   .slide.part.topic p.long {font-size: 0.85em}
+
    /* Charts and stats for the data slides */
    .chart-figure {margin: 0}
    .chart-figure figcaption {font-size: 0.8em; margin: 0}
@@ -787,6 +798,15 @@
    notes after each slide carry the sources and caveats.</p>
   </section>
 
+  <section class="slide part topic" id="topic-agents">
+   <h2>Should we design for agents?</h2>
+   <p>Should we take agent consumers into account at all? The counterarguments are that agents are not uniform — what is efficient for one model generation may not be for the next — and the landscape is still volatile, whereas Web APIs are permanent.</p>
+  </section>
+
+  <section class=comment>
+   <p>Discussion topic 1 of 7. Question text verbatim from the session proposal.</p>
+  </section>
+
   <!-- Analysis: analysis/volatility.md -->
   <section class="slide" id="volatility">
    <h2>Agents churn. Web APIs don't.</h2>
@@ -968,332 +988,22 @@
    machine-readable docs.</p>
   </section>
 
-  <!-- Analysis: analysis/token-efficiency.md -->
-  <section class="slide" id="token-efficiency">
- <h2>Ceremony costs tokens. Long names don't.</h2>
- <table class="striped tokens">
-  <thead>
-   <tr><th>Same task</th><th>Older pattern</th><th></th><th>Newer pattern</th><th></th></tr>
-  </thead>
-  <tbody>
-   <tr><td>Toggle a class</td><td><code>className</code> string ops</td><td class=n>46</td>
-    <td><code>classList.toggle()</code></td><td class=n>7</td></tr>
-   <tr><td>Lazy-load an image</td><td><code>IntersectionObserver</code></td><td class=n>76</td>
-    <td><code>loading=lazy</code></td><td class=n>12</td></tr>
-   <tr><td>Fetch JSON</td><td><code>XMLHttpRequest</code></td><td class=n>76</td>
-    <td><code>fetch</code> + <code>await</code></td><td class=n>40</td></tr>
-   <tr><td>Counter component</td><td>Custom element</td><td class=n>123</td>
-    <td>React / Svelte</td><td class=n>61 / 29</td></tr>
-   <tr><td>Scoped CSS rules</td><td>Repeated selectors</td><td class=n>48</td>
-    <td>CSS nesting</td><td class=n>50</td></tr>
-  </tbody>
- </table>
- <ul class="stat-row tight">
-  <li><b>1 vs 4</b> tokens: <code>.getElementsByClassName</code>
-   vs <code>popovertarget</code></li>
-  <li><b>1.4× vs 2.6×</b> OCaml vs Python: final code vs total agent output</li>
-  <li><b>5×</b> output vs input token price, yet re-read input dominates agent cost</li>
- </ul>
- <p class="source">Token counts: own measurement, o200k_base tokenizer, hand-written
- equivalent snippets. Wu, Anderson &amp; Guha, arXiv:2607.22807; Bai et al.,
- arXiv:2604.22750; Anthropic pricing (Claude Sonnet 5.5).</p>
-</section>
-
-<section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/token-efficiency.md"
-   >analysis/token-efficiency.md</a>.</p>
- <p><strong>Claim.</strong> What makes a Web API expensive in tokens is
- ceremony (setup objects, callbacks, lifecycle boilerplate, glue code), not
- long identifiers. Recent platform additions that pave a common pattern
- (<code>classList</code>, <code>fetch</code>, <code>loading=lazy</code>,
- <code>AbortSignal.timeout()</code>, <code>Object.groupBy()</code>) cut the
- tokens for the same task by about 2–6×. But for an agent the bigger cost
- is unfamiliarity: lookups, failed attempts and fixes. That means a new,
- terser API can cost more in practice than an old, verbose one until
- models have trained on it.</p>
-
- <p><strong>Measurement method (table and first stat).</strong> I wrote a
- pair of functionally equivalent snippets for each task, in one consistent
- style (2-space indent, single quotes, no comments). I counted tokens with
- OpenAI's <code>o200k_base</code> (GPT-4o and later) and
- <code>cl100k_base</code> (GPT-4) encodings via <code>tiktoken</code> 0.14.0,
- and with the Qwen2.5-Coder-7B-Instruct tokenizer via Hugging Face
- <code>tokenizers</code>. Claude's tokenizer is not public. Qwen's vocabulary
- overlaps heavily with cl100k, so it is not an independent check. All three
- agreed within about 10% on every snippet, and the table uses o200k.
- Formatting choices move the counts by roughly ±10%. These are tokens to
- <em>write</em> the code, and the same tokens are paid each time the code is
- <em>read</em> back into context.</p>
-
- <p>All pairs measured, o200k tokens (older → newer, ratio):
- toggle class 46 → 7 (6.6×); lazy image (IntersectionObserver +
- <code>data-src</code>) 76 → 12 (6.3×); <code>parentNode.removeChild</code> →
- <code>remove()</code> 7 → 3 (2.3×); <code>Array.reduce</code> grouping →
- <code>Object.groupBy</code> 32 → 14 (2.3×); manual promise resolvers →
- <code>Promise.withResolvers()</code> 28 → 13 (2.2×); AbortController +
- setTimeout → <code>AbortSignal.timeout()</code> 38 → 18 (2.1×); XHR with
- status and error handling → fetch/await with try/catch 76 → 40 (1.9×);
- <code>JSON.parse(JSON.stringify())</code> → <code>structuredClone()</code>
- 9 → 7 (1.3×); repeated selectors → CSS nesting 48 → 50 (0.96×; with a
- longer <code>.product-card</code> selector, 53 → 51). The median across
- the 9 pairs is 2.2×. CSS nesting saves characters (150 → 138) but not
- tokens: a short, repeated selector is cheap, and the nesting adds
- indentation and braces.</p>
-
- <p>Counter component (a button showing “Clicked N times”, imports
- included): vanilla custom element with shadow DOM, constructor,
- <code>connectedCallback</code>, <code>render()</code> and
- <code>customElements.define</code> 123; Lit 88; React function component 61;
- Svelte 5 29. React and Svelte need a build step and React has no style
- encapsulation, so this is not like-for-like on features. It shows the
- ceremony gap between the platform's component model and what developers
- (and agents) reach for. A trap I hit while writing the Lit version: a
- standard class field (<code>count = 0</code>) silently shadows Lit's
- reactive accessor, so initialization has to go in the constructor. That is
- a robustness problem, not a token one.</p>
-
- <p>Libraries vs. platform: <code>$('.item').addClass('active')</code> 8 vs
- <code>document.querySelectorAll('.item').forEach(el =&gt;
- el.classList.add('active'))</code> 18; delegated click handler, jQuery 24 vs
- <code>addEventListener</code> + <code>closest()</code> 32. Building a link,
- <code>createElement</code> + properties + <code>append</code> 24 vs
- <code>innerHTML +=</code> template string 16. The cheapest version is the
- XSS-prone one, so token efficiency and robustness can pull in opposite
- directions.</p>
-
- <p><strong>Identifiers.</strong> In code context, cl100k encodes
- <code>.addEventListener</code>, <code>.getElementById</code> and the
- 23-character <code>.getElementsByClassName</code> each as a <em>single</em>
- token. o200k splits them at camelCase boundaries (3, 4 and 5 tokens). The
- 13-character, all-lowercase HTML attribute <code>popovertarget</code> is 4
- tokens in all three tokenizers (<code>pop|o|vert|arget</code>), and
- <code>.adoptedStyleSheets</code> is 5–6. Tokenizer vocabularies are learned
- from existing code, so old, popular names are cheap and new or
- unconventionally cased names are fragmented. Even so, identifiers are a
- small share of a snippet's tokens, and camelCase costs about one token
- per word. A long, descriptive, familiar name costs little.</p>
-
- <p><strong>Familiarity (second stat).</strong> Zixuan Wu, Carolyn Jane
- Anderson and Arjun Guha, “The Best Programming Language for Tokenmaxxing:
- An Investigation of Coding Agent Behavior Across Programming Languages”,
- <a href="https://arxiv.org/abs/2607.22807">arXiv:2607.22807</a> (July 2026,
- rev. Oct 2026). They gave the same problems to agents in Python, Java, Rust
- and OCaml. In their Table 19, pooled over the three open models (Gemma,
- Qwen, GLM), the median final solution is 190 tokens in Python vs 272 in
- OCaml (1.4×). Median total output is 2,548 vs 6,706 (2.6×). In the
- authors' words, “The extra cost is not representation.” The extra tokens
- come from compile errors and error recovery: about 41% of Gemma's OCaml
- tokens vs about 13% for Python. Caveats: the frontier models had smaller
- gaps (controlled OCaml/Python output ratios of 1.30× for GPT-5.5 and 1.28×
- for Sonnet), and this compares languages, not Web APIs. I use it as an
- analogy for an unfamiliar API.</p>
-
- <p><strong>Read vs write (third stat).</strong> Output tokens are generated
- serially and priced higher. On
- <a href="https://platform.claude.com/docs/en/about-claude/pricing">Anthropic's
- pricing page</a> (checked 27 Oct 2026), Claude Sonnet 5.5 is $2/MTok input,
- $0.10 cache hits and $10 output: output costs 5× uncached input and 100× a
- cached read. Opus 5.5 has the same ratios ($4 / $0.20 / $20). Even so,
- Longju Bai et al., “How Do AI Agents Spend Your Money? Analyzing and
- Predicting Token Consumption in Agentic Coding Tasks”,
- <a href="https://arxiv.org/abs/2604.22750">arXiv:2604.22750</a> (SWE-bench
- Verified, 8 models, OpenHands), find that “input tokens, not output tokens,
- dominate the overall cost in agentic coding”. Cache-read input is the
- largest category, and cost spikes come from actions that bring new content
- into context, such as viewing files and running tests. So verbose code is
- paid for once when written and again every turn it sits in context or is
- re-read. Anthropic's
- <a href="https://www.anthropic.com/engineering/writing-tools-for-agents">“Writing
- effective tools for AI agents”</a> (Sep 2025) makes the same point for tool
- output: a concise response format used 72 tokens vs 206 for a detailed one.
- It also found that meaningful names beat opaque IDs such as UUIDs.</p>
-
- <p><strong>Related.</strong> Martin Alderson,
- <a href="https://martinalderson.com/posts/which-programming-languages-are-most-token-efficient/">“Which
- programming languages are most token-efficient?”</a> (Jan 2026; informal,
- RosettaCode, GPT-4 tokenizer) found a 2.6× gap across 19 languages, with
- JavaScript the most verbose dynamic language. APL's terseness didn't help,
- because the tokenizer splits its rare glyphs into several tokens each.</p>
-
- <p><strong>Paving the cowpaths.</strong>
- <a href="https://www.w3.org/TR/html-design-principles/#pave-the-cowpaths">HTML
- Design Principles §2.4</a> (2007): “When a practice is already widespread among
- authors, consider adopting it.” Paving cowpaths helps agents because it makes
- what they already write correct. But as more web code is agent-written, HTTP
- Archive and use counters measure model priors as much as developer needs—and
- <a href="https://arxiv.org/abs/2406.10279">Spracklen et al.</a> (USENIX Security
- 2025) found 43% of hallucinated package names were repeated across all 10 queries.
- Should the platform pave APIs that agents consistently hallucinate, or does that
- reward staleness?</p>
-
- <p><strong>Question for the room.</strong> If unfamiliarity costs more than
- verbosity, should a new API aim to look like what agents already write
- (a paved cowpath) even when that isn't the cleanest design?</p>
-</section>
-
-  <!-- Analysis: analysis/robustness.md -->
-  <section class="slide" id="robustness">
-   <h2>Agents only fix what fails loudly</h2>
-   <div class=columns>
-    <section>
-     <h3>Silent failures persist</h3>
-     <ul class=stat-list>
-      <li><b>85%</b> of XSS-prone tasks left exploitable by AI-written code</li>
-      <li><b>61%</b> of GPT-4o calls to rare APIs invalid, vs. 6% to common ones</li>
-      <li><b>70–90%</b> deprecated-API use when surrounding code is old (9–18% if modern)</li>
-     </ul>
-    </section>
-    <section>
-     <h3>Loud failures get fixed</h3>
-     <ul class=stat-list>
-      <li><b>99.9%</b> of the same AI-written code passes syntax checks</li>
-      <li><b>94%</b> of LLM TypeScript compile errors are type errors; type-checked decoding cuts them 52–75%</li>
-      <li><b>+20%</b> issues solved when a linter rejects the agent's broken edits (15% → 18%)</li>
-     </ul>
-    </section>
-   </div>
-   <p class=next><strong>CSS drops <code>display: flexbox</code> silently.
-   How should an API that can't throw say so?</strong></p>
-   <p class="source">Sources: Veracode, <cite>2026 GenAI Code Security
-   Report</cite>; Jain et al., ICSE 2025 (CloudAPIBench); Wang et al., ICSE 2025;
-   Mündler et al., PLDI 2025; Yang et al., NeurIPS 2024 (SWE-agent).</p>
+  <section class="slide part topic" id="topic-agent-dx">
+   <h2>What is agent DX?</h2>
+   <p>What does agent DX mean? Token efficiency? Robustness/correctness? What else?</p>
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/robustness.md"
-   >analysis/robustness.md</a>.</p>
-   <p><strong>Claim.</strong> Today's models rarely make mistakes that
-   something detects and reports (syntax, types, lint): those get fixed in
-   the loop. What survives are mistakes nothing reports: insecure but
-   working code, plausible calls to APIs the model has rarely seen, and
-   legacy APIs that still work. The web platform is unusually full of the
-   latter: CSS and HTML recover silently by design, deprecated APIs are
-   almost never removed, and the unsafe API (<code>innerHTML</code>) is the
-   shortest one.</p>
+   <p>Discussion topic 2 of 7, verbatim from the session proposal. No research slide: open discussion.</p>
+  </section>
 
-   <p><a href="https://www.veracode.com/blog/2026-genai-code-security-report-ai-risk">Veracode
-   2026 GenAI Code Security Report</a> (28 Jul 2026;
-   <a href="https://www.veracode.com/wp-content/uploads/2026-GenAI-Report-Infographic.pdf">infographic</a>):
-   about 44% of AI code-generation tasks produced code with a risky
-   vulnerability; average security pass rate 56%, “barely changed from 55%
-   in the first report”. Syntax pass rate 99.9% (“Syntax is solved at 99.9%.
-   Security is not.”). Cross-site scripting (CWE-80) pass rate 15%, i.e.
-   85% failure; log injection (CWE-117) 12%; SQL injection 83%. Model size
-   makes no difference (large 53%, medium 51%, small 51%); best model
-   GPT-5.5 at 68%. Methodology (from the
-   <a href="https://www.veracode.com/press-release/ai-generated-code-poses-major-security-risks-in-nearly-half-of-all-development-tasks-veracode-research-reveals/">2025
-   edition</a>, 30 Jul 2025): 80 curated code-completion tasks in Java,
-   JavaScript, Python and C#, each completable securely or insecurely, run
-   against 100+ LLMs and checked with Veracode's static analysis. The 2025
-   numbers were 45% vulnerable and 86% XSS failure. Caveats: vendor report;
-   the XSS tasks are mostly server-side output encoding, not DOM
-   <code>innerHTML</code>; prompts don't ask for security. Worth noting in
-   discussion (my interpretation, not Veracode's): SQL injection, where the
-   idiomatic API (parameterized queries) is also the safe one, passes 83%;
-   XSS, where safety means remembering to encode, passes 15%. That is the
-   “pit of success” argument for safe-by-default APIs such as
-   <code>setHTML()</code> and Trusted Types.</p>
+  <section class="slide part topic" id="topic-principles">
+   <h2>Design principles</h2>
+   <p>Which existing design principles still hold for agents, and which actively hinder them?</p>
+  </section>
 
-   <p><a href="https://arxiv.org/abs/2407.09726">Jain et al., “On Mitigating
-   Code LLM Hallucinations with API Documentation”</a> (Amazon; ICSE 2025
-   SEIP). CloudAPIBench: 622 Python tasks against AWS and Azure SDKs, with
-   API frequency counted in The Stack v2 (low = ≤10 occurrences, high =
-   ≥100). GPT-4o (2024-05-13) made valid API invocations for 93.66% of
-   high-frequency APIs, 78.67% of medium and 38.58% of low-frequency ones
-   (so 6% vs. 61% invalid). Open models were far worse on rare APIs
-   (4–35% valid). Retrieving docs raised GPT-4o's low-frequency score to
-   47.94% but hurt high-frequency APIs when retrieval was imprecise.
-   Caveats: 2024 model, single-call completions, cloud SDKs rather than web
-   APIs. Relevance: every new web API starts out “low frequency”, which is
-   the session's familiarity-vs-quality problem.</p>
-
-   <p><a href="https://arxiv.org/abs/2406.09834">Wang et al., “LLMs Meet
-   Library Evolution: Evaluating Deprecated API Usage in LLM-based Code
-   Completion”</a> (ICSE 2025). 7 LLMs, 145 deprecated→replacement API
-   mappings in 8 Python libraries, 28,125 line-completion prompts taken
-   from real functions. When the surrounding function already used
-   outdated APIs, models picked the deprecated API in 70–90% of the
-   completions that used either the old or the new API; in up-to-date
-   functions, 9–18%; overall 25–38%. (Completions that called either
-   API were only 9–23% of all completions.) Caveats: 2024 models
-   (CodeLlama, StarCoder2, DeepSeek-Coder, GPT-3.5 etc.), Python, not
-   agents. Relevance: the web never removes APIs, so agents editing old
-   pages will keep extending <code>document.write</code>-era patterns
-   unless something tells them not to.</p>
-
-   <p><a href="https://arxiv.org/abs/2504.09246">Mündler, He, Wang, Sen,
-   Song, Vechev, “Type-Constrained Code Generation with Language
-   Models”</a> (PLDI 2025). In TypeScript generated by open-weight models
-   (2B–34B), on average 94% of compilation errors are type errors and only
-   6% syntax errors. Constraining decoding with the type system cut
-   compilation errors by 75.3% (HumanEval) and 52.1% (MBPP) for
-   synthesis, and raised functional correctness by 3.5–5.5% relative.
-   Caveats: small open models, benchmark-style problems, and constrained
-   decoding rather than an agent reading errors. GitHub's
-   <a href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/">Octoverse
-   2025 post</a> (TypeScript became GitHub's #1 language in August 2025)
-   quotes the same 94% figure: “Type systems reduce ambiguity and catch LLM
-   errors before production.”</p>
-
-   <p><a href="https://arxiv.org/abs/2405.15793">Yang, Jimenez et al.,
-   “SWE-agent: Agent-Computer Interfaces Enable Automated Software
-   Engineering”</a> (NeurIPS 2024). With GPT-4 Turbo on SWE-bench Lite, an
-   edit command that runs flake8 and rejects edits that introduce syntax
-   errors or undefined names resolved 18.0% of issues vs. 15.0% without
-   the check (+20% relative), and 10.3% with plain shell editing. The
-   authors note that commands which “lack immediate feedback” are “silent
-   operations potentially confusing for models to interpret”. 51.7% of
-   trajectories hit at least one rejected edit; agents usually recovered
-   from it (the chance of a successful edit fell from 90.5% to 57.2% after
-   one failure). Caveats: 2024 agent and model, Python.</p>
-
-   <p>Also relevant (not on the slide):</p>
-   <ul>
-    <li>Hallucinated packages (“slopsquatting”):
-    <a href="https://arxiv.org/abs/2406.10279">Spracklen et al.</a>
-    (USENIX Security 2025): 576,000 Python and JavaScript samples from 16
-    LLMs; at least 5.2% (commercial) and 21.7% (open-source) of referenced
-    packages didn't exist; 205,474 unique invented names. A
-    <a href="https://arxiv.org/abs/2605.17062">2026 replication</a>
-    (Churilov, single-author preprint) on Claude Sonnet 4.6, Claude Haiku
-    4.5, GPT-5.4-mini, Gemini 2.5 Pro and DeepSeek V3.2: 4.62–6.10%, with
-    127 names (18 on npm) invented identically by all five models.
-    Improving, but the error is still silent until install time.</li>
-    <li><a href="https://arxiv.org/abs/2304.05128">Chen et al., “Teaching
-    Large Language Models to Self-Debug”</a> (2023): with unit-test or
-    execution feedback, accuracy improved by up to 12%; without any
-    external feedback, only 2–3%.
-    <a href="https://arxiv.org/abs/2306.09896">Olausson et al.</a> (ICLR
-    2024) find self-repair is limited by the quality of the feedback.</li>
-    <li><a href="https://arxiv.org/abs/2608.23067">Yang &amp; Ding, “Signal
-    or Noise? A Benchmark Study of Agent Skills in Web Development”</a>
-    (Aug 2026 preprint): injecting 31 public web-dev “skills” into agent
-    prompts lowered Pass@2 by 1.3–4.2% and raised token cost 72–394%;
-    anti-pattern rules helped more than examples. Telling agents up front
-    is no substitute for the platform telling them at runtime.</li>
-    <li>Graceful error recovery vs. agent feedback:
-    <a href="https://www.w3.org/TR/html-design-principles/#handle-errors">HTML
-    Design Principles §4.3 Handle Errors</a> (2007; see also
-    <a href="https://www.w3.org/TR/html-design-principles/#degrade-gracefully">§2.2
-    Degrade Gracefully</a>) states: “Prefer graceful error recovery to hard
-    failure, so that users are not exposed to authoring errors.” Similarly, per
-    <a href="https://www.w3.org/TR/CSS2/syndata.html#parsing-errors">CSS 2.1
-    §4.2</a> (“User agents must ignore a declaration with an unknown property”),
-    an invalid declaration such as <code>display: flexbox</code> is silently
-    dropped. Chrome's
-    <a href="https://developer.chrome.com/blog/chrome-devtools-mcp">DevTools MCP
-    launch post</a> (Bynens &amp; Hablich, 23 Sep 2025) notes that without
-    browser inspection tools, coding agents “are not able to see what the code
-    they generate actually does when it runs in the browser. They're effectively
-    programming with a blindfold on.” DevTools' Styles pane marks dropped CSS
-    declarations, but nothing reaches the console. Possible levers to discuss:
-    console warnings for invalid declarations or deprecated APIs, a
-    reporting or lint channel agents can read, dictionaries instead of
-    positional arguments, precise WebIDL that maps to TypeScript types, and
-    safe defaults.</li>
-   </ul>
+  <section class=comment>
+   <p>Discussion topic 3 of 7. Question text verbatim from the session proposal.</p>
   </section>
 
   <!-- Analysis: analysis/design-principles.md -->
@@ -1702,6 +1412,370 @@
    suites—meaning coding agents actively resurrect “example-only” patterns into
    new production code unless removals emit loud, machine-actionable replacement
    errors.</p>
+  </section>
+
+  <section class="slide part topic" id="topic-tokens">
+   <h2>Token efficiency</h2>
+   <p>What makes a Web API token-efficient, both when writing code against it and when reading code that uses it?</p>
+  </section>
+
+  <section class=comment>
+   <p>Discussion topic 4 of 7. Question text verbatim from the session proposal.</p>
+  </section>
+
+  <!-- Analysis: analysis/token-efficiency.md -->
+  <section class="slide" id="token-efficiency">
+ <h2>Ceremony costs tokens. Long names don't.</h2>
+ <table class="striped tokens">
+  <thead>
+   <tr><th>Same task</th><th>Older pattern</th><th></th><th>Newer pattern</th><th></th></tr>
+  </thead>
+  <tbody>
+   <tr><td>Toggle a class</td><td><code>className</code> string ops</td><td class=n>46</td>
+    <td><code>classList.toggle()</code></td><td class=n>7</td></tr>
+   <tr><td>Lazy-load an image</td><td><code>IntersectionObserver</code></td><td class=n>76</td>
+    <td><code>loading=lazy</code></td><td class=n>12</td></tr>
+   <tr><td>Fetch JSON</td><td><code>XMLHttpRequest</code></td><td class=n>76</td>
+    <td><code>fetch</code> + <code>await</code></td><td class=n>40</td></tr>
+   <tr><td>Counter component</td><td>Custom element</td><td class=n>123</td>
+    <td>React / Svelte</td><td class=n>61 / 29</td></tr>
+   <tr><td>Scoped CSS rules</td><td>Repeated selectors</td><td class=n>48</td>
+    <td>CSS nesting</td><td class=n>50</td></tr>
+  </tbody>
+ </table>
+ <ul class="stat-row tight">
+  <li><b>1 vs 4</b> tokens: <code>.getElementsByClassName</code>
+   vs <code>popovertarget</code></li>
+  <li><b>1.4× vs 2.6×</b> OCaml vs Python: final code vs total agent output</li>
+  <li><b>5×</b> output vs input token price, yet re-read input dominates agent cost</li>
+ </ul>
+ <p class="source">Token counts: own measurement, o200k_base tokenizer, hand-written
+ equivalent snippets. Wu, Anderson &amp; Guha, arXiv:2607.22807; Bai et al.,
+ arXiv:2604.22750; Anthropic pricing (Claude Sonnet 5.5).</p>
+</section>
+
+<section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/token-efficiency.md"
+   >analysis/token-efficiency.md</a>.</p>
+ <p><strong>Claim.</strong> What makes a Web API expensive in tokens is
+ ceremony (setup objects, callbacks, lifecycle boilerplate, glue code), not
+ long identifiers. Recent platform additions that pave a common pattern
+ (<code>classList</code>, <code>fetch</code>, <code>loading=lazy</code>,
+ <code>AbortSignal.timeout()</code>, <code>Object.groupBy()</code>) cut the
+ tokens for the same task by about 2–6×. But for an agent the bigger cost
+ is unfamiliarity: lookups, failed attempts and fixes. That means a new,
+ terser API can cost more in practice than an old, verbose one until
+ models have trained on it.</p>
+
+ <p><strong>Measurement method (table and first stat).</strong> I wrote a
+ pair of functionally equivalent snippets for each task, in one consistent
+ style (2-space indent, single quotes, no comments). I counted tokens with
+ OpenAI's <code>o200k_base</code> (GPT-4o and later) and
+ <code>cl100k_base</code> (GPT-4) encodings via <code>tiktoken</code> 0.14.0,
+ and with the Qwen2.5-Coder-7B-Instruct tokenizer via Hugging Face
+ <code>tokenizers</code>. Claude's tokenizer is not public. Qwen's vocabulary
+ overlaps heavily with cl100k, so it is not an independent check. All three
+ agreed within about 10% on every snippet, and the table uses o200k.
+ Formatting choices move the counts by roughly ±10%. These are tokens to
+ <em>write</em> the code, and the same tokens are paid each time the code is
+ <em>read</em> back into context.</p>
+
+ <p>All pairs measured, o200k tokens (older → newer, ratio):
+ toggle class 46 → 7 (6.6×); lazy image (IntersectionObserver +
+ <code>data-src</code>) 76 → 12 (6.3×); <code>parentNode.removeChild</code> →
+ <code>remove()</code> 7 → 3 (2.3×); <code>Array.reduce</code> grouping →
+ <code>Object.groupBy</code> 32 → 14 (2.3×); manual promise resolvers →
+ <code>Promise.withResolvers()</code> 28 → 13 (2.2×); AbortController +
+ setTimeout → <code>AbortSignal.timeout()</code> 38 → 18 (2.1×); XHR with
+ status and error handling → fetch/await with try/catch 76 → 40 (1.9×);
+ <code>JSON.parse(JSON.stringify())</code> → <code>structuredClone()</code>
+ 9 → 7 (1.3×); repeated selectors → CSS nesting 48 → 50 (0.96×; with a
+ longer <code>.product-card</code> selector, 53 → 51). The median across
+ the 9 pairs is 2.2×. CSS nesting saves characters (150 → 138) but not
+ tokens: a short, repeated selector is cheap, and the nesting adds
+ indentation and braces.</p>
+
+ <p>Counter component (a button showing “Clicked N times”, imports
+ included): vanilla custom element with shadow DOM, constructor,
+ <code>connectedCallback</code>, <code>render()</code> and
+ <code>customElements.define</code> 123; Lit 88; React function component 61;
+ Svelte 5 29. React and Svelte need a build step and React has no style
+ encapsulation, so this is not like-for-like on features. It shows the
+ ceremony gap between the platform's component model and what developers
+ (and agents) reach for. A trap I hit while writing the Lit version: a
+ standard class field (<code>count = 0</code>) silently shadows Lit's
+ reactive accessor, so initialization has to go in the constructor. That is
+ a robustness problem, not a token one.</p>
+
+ <p>Libraries vs. platform: <code>$('.item').addClass('active')</code> 8 vs
+ <code>document.querySelectorAll('.item').forEach(el =&gt;
+ el.classList.add('active'))</code> 18; delegated click handler, jQuery 24 vs
+ <code>addEventListener</code> + <code>closest()</code> 32. Building a link,
+ <code>createElement</code> + properties + <code>append</code> 24 vs
+ <code>innerHTML +=</code> template string 16. The cheapest version is the
+ XSS-prone one, so token efficiency and robustness can pull in opposite
+ directions.</p>
+
+ <p><strong>Identifiers.</strong> In code context, cl100k encodes
+ <code>.addEventListener</code>, <code>.getElementById</code> and the
+ 23-character <code>.getElementsByClassName</code> each as a <em>single</em>
+ token. o200k splits them at camelCase boundaries (3, 4 and 5 tokens). The
+ 13-character, all-lowercase HTML attribute <code>popovertarget</code> is 4
+ tokens in all three tokenizers (<code>pop|o|vert|arget</code>), and
+ <code>.adoptedStyleSheets</code> is 5–6. Tokenizer vocabularies are learned
+ from existing code, so old, popular names are cheap and new or
+ unconventionally cased names are fragmented. Even so, identifiers are a
+ small share of a snippet's tokens, and camelCase costs about one token
+ per word. A long, descriptive, familiar name costs little.</p>
+
+ <p><strong>Familiarity (second stat).</strong> Zixuan Wu, Carolyn Jane
+ Anderson and Arjun Guha, “The Best Programming Language for Tokenmaxxing:
+ An Investigation of Coding Agent Behavior Across Programming Languages”,
+ <a href="https://arxiv.org/abs/2607.22807">arXiv:2607.22807</a> (July 2026,
+ rev. Oct 2026). They gave the same problems to agents in Python, Java, Rust
+ and OCaml. In their Table 19, pooled over the three open models (Gemma,
+ Qwen, GLM), the median final solution is 190 tokens in Python vs 272 in
+ OCaml (1.4×). Median total output is 2,548 vs 6,706 (2.6×). In the
+ authors' words, “The extra cost is not representation.” The extra tokens
+ come from compile errors and error recovery: about 41% of Gemma's OCaml
+ tokens vs about 13% for Python. Caveats: the frontier models had smaller
+ gaps (controlled OCaml/Python output ratios of 1.30× for GPT-5.5 and 1.28×
+ for Sonnet), and this compares languages, not Web APIs. I use it as an
+ analogy for an unfamiliar API.</p>
+
+ <p><strong>Read vs write (third stat).</strong> Output tokens are generated
+ serially and priced higher. On
+ <a href="https://platform.claude.com/docs/en/about-claude/pricing">Anthropic's
+ pricing page</a> (checked 27 Oct 2026), Claude Sonnet 5.5 is $2/MTok input,
+ $0.10 cache hits and $10 output: output costs 5× uncached input and 100× a
+ cached read. Opus 5.5 has the same ratios ($4 / $0.20 / $20). Even so,
+ Longju Bai et al., “How Do AI Agents Spend Your Money? Analyzing and
+ Predicting Token Consumption in Agentic Coding Tasks”,
+ <a href="https://arxiv.org/abs/2604.22750">arXiv:2604.22750</a> (SWE-bench
+ Verified, 8 models, OpenHands), find that “input tokens, not output tokens,
+ dominate the overall cost in agentic coding”. Cache-read input is the
+ largest category, and cost spikes come from actions that bring new content
+ into context, such as viewing files and running tests. So verbose code is
+ paid for once when written and again every turn it sits in context or is
+ re-read. Anthropic's
+ <a href="https://www.anthropic.com/engineering/writing-tools-for-agents">“Writing
+ effective tools for AI agents”</a> (Sep 2025) makes the same point for tool
+ output: a concise response format used 72 tokens vs 206 for a detailed one.
+ It also found that meaningful names beat opaque IDs such as UUIDs.</p>
+
+ <p><strong>Related.</strong> Martin Alderson,
+ <a href="https://martinalderson.com/posts/which-programming-languages-are-most-token-efficient/">“Which
+ programming languages are most token-efficient?”</a> (Jan 2026; informal,
+ RosettaCode, GPT-4 tokenizer) found a 2.6× gap across 19 languages, with
+ JavaScript the most verbose dynamic language. APL's terseness didn't help,
+ because the tokenizer splits its rare glyphs into several tokens each.</p>
+
+ <p><strong>Paving the cowpaths.</strong>
+ <a href="https://www.w3.org/TR/html-design-principles/#pave-the-cowpaths">HTML
+ Design Principles §2.4</a> (2007): “When a practice is already widespread among
+ authors, consider adopting it.” Paving cowpaths helps agents because it makes
+ what they already write correct. But as more web code is agent-written, HTTP
+ Archive and use counters measure model priors as much as developer needs—and
+ <a href="https://arxiv.org/abs/2406.10279">Spracklen et al.</a> (USENIX Security
+ 2025) found 43% of hallucinated package names were repeated across all 10 queries.
+ Should the platform pave APIs that agents consistently hallucinate, or does that
+ reward staleness?</p>
+
+ <p><strong>Question for the room.</strong> If unfamiliarity costs more than
+ verbosity, should a new API aim to look like what agents already write
+ (a paved cowpath) even when that isn't the cleanest design?</p>
+</section>
+
+  <section class="slide part topic" id="topic-robust">
+   <h2>Robustness</h2>
+   <p>What makes a Web API robust for agents, i.e. harder to misuse?</p>
+  </section>
+
+  <section class=comment>
+   <p>Discussion topic 5 of 7. Question text verbatim from the session proposal.</p>
+  </section>
+
+  <!-- Analysis: analysis/robustness.md -->
+  <section class="slide" id="robustness">
+   <h2>Agents only fix what fails loudly</h2>
+   <div class=columns>
+    <section>
+     <h3>Silent failures persist</h3>
+     <ul class=stat-list>
+      <li><b>85%</b> of XSS-prone tasks left exploitable by AI-written code</li>
+      <li><b>61%</b> of GPT-4o calls to rare APIs invalid, vs. 6% to common ones</li>
+      <li><b>70–90%</b> deprecated-API use when surrounding code is old (9–18% if modern)</li>
+     </ul>
+    </section>
+    <section>
+     <h3>Loud failures get fixed</h3>
+     <ul class=stat-list>
+      <li><b>99.9%</b> of the same AI-written code passes syntax checks</li>
+      <li><b>94%</b> of LLM TypeScript compile errors are type errors; type-checked decoding cuts them 52–75%</li>
+      <li><b>+20%</b> issues solved when a linter rejects the agent's broken edits (15% → 18%)</li>
+     </ul>
+    </section>
+   </div>
+   <p class=next><strong>CSS drops <code>display: flexbox</code> silently.
+   How should an API that can't throw say so?</strong></p>
+   <p class="source">Sources: Veracode, <cite>2026 GenAI Code Security
+   Report</cite>; Jain et al., ICSE 2025 (CloudAPIBench); Wang et al., ICSE 2025;
+   Mündler et al., PLDI 2025; Yang et al., NeurIPS 2024 (SWE-agent).</p>
+  </section>
+
+  <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/robustness.md"
+   >analysis/robustness.md</a>.</p>
+   <p><strong>Claim.</strong> Today's models rarely make mistakes that
+   something detects and reports (syntax, types, lint): those get fixed in
+   the loop. What survives are mistakes nothing reports: insecure but
+   working code, plausible calls to APIs the model has rarely seen, and
+   legacy APIs that still work. The web platform is unusually full of the
+   latter: CSS and HTML recover silently by design, deprecated APIs are
+   almost never removed, and the unsafe API (<code>innerHTML</code>) is the
+   shortest one.</p>
+
+   <p><a href="https://www.veracode.com/blog/2026-genai-code-security-report-ai-risk">Veracode
+   2026 GenAI Code Security Report</a> (28 Jul 2026;
+   <a href="https://www.veracode.com/wp-content/uploads/2026-GenAI-Report-Infographic.pdf">infographic</a>):
+   about 44% of AI code-generation tasks produced code with a risky
+   vulnerability; average security pass rate 56%, “barely changed from 55%
+   in the first report”. Syntax pass rate 99.9% (“Syntax is solved at 99.9%.
+   Security is not.”). Cross-site scripting (CWE-80) pass rate 15%, i.e.
+   85% failure; log injection (CWE-117) 12%; SQL injection 83%. Model size
+   makes no difference (large 53%, medium 51%, small 51%); best model
+   GPT-5.5 at 68%. Methodology (from the
+   <a href="https://www.veracode.com/press-release/ai-generated-code-poses-major-security-risks-in-nearly-half-of-all-development-tasks-veracode-research-reveals/">2025
+   edition</a>, 30 Jul 2025): 80 curated code-completion tasks in Java,
+   JavaScript, Python and C#, each completable securely or insecurely, run
+   against 100+ LLMs and checked with Veracode's static analysis. The 2025
+   numbers were 45% vulnerable and 86% XSS failure. Caveats: vendor report;
+   the XSS tasks are mostly server-side output encoding, not DOM
+   <code>innerHTML</code>; prompts don't ask for security. Worth noting in
+   discussion (my interpretation, not Veracode's): SQL injection, where the
+   idiomatic API (parameterized queries) is also the safe one, passes 83%;
+   XSS, where safety means remembering to encode, passes 15%. That is the
+   “pit of success” argument for safe-by-default APIs such as
+   <code>setHTML()</code> and Trusted Types.</p>
+
+   <p><a href="https://arxiv.org/abs/2407.09726">Jain et al., “On Mitigating
+   Code LLM Hallucinations with API Documentation”</a> (Amazon; ICSE 2025
+   SEIP). CloudAPIBench: 622 Python tasks against AWS and Azure SDKs, with
+   API frequency counted in The Stack v2 (low = ≤10 occurrences, high =
+   ≥100). GPT-4o (2024-05-13) made valid API invocations for 93.66% of
+   high-frequency APIs, 78.67% of medium and 38.58% of low-frequency ones
+   (so 6% vs. 61% invalid). Open models were far worse on rare APIs
+   (4–35% valid). Retrieving docs raised GPT-4o's low-frequency score to
+   47.94% but hurt high-frequency APIs when retrieval was imprecise.
+   Caveats: 2024 model, single-call completions, cloud SDKs rather than web
+   APIs. Relevance: every new web API starts out “low frequency”, which is
+   the session's familiarity-vs-quality problem.</p>
+
+   <p><a href="https://arxiv.org/abs/2406.09834">Wang et al., “LLMs Meet
+   Library Evolution: Evaluating Deprecated API Usage in LLM-based Code
+   Completion”</a> (ICSE 2025). 7 LLMs, 145 deprecated→replacement API
+   mappings in 8 Python libraries, 28,125 line-completion prompts taken
+   from real functions. When the surrounding function already used
+   outdated APIs, models picked the deprecated API in 70–90% of the
+   completions that used either the old or the new API; in up-to-date
+   functions, 9–18%; overall 25–38%. (Completions that called either
+   API were only 9–23% of all completions.) Caveats: 2024 models
+   (CodeLlama, StarCoder2, DeepSeek-Coder, GPT-3.5 etc.), Python, not
+   agents. Relevance: the web never removes APIs, so agents editing old
+   pages will keep extending <code>document.write</code>-era patterns
+   unless something tells them not to.</p>
+
+   <p><a href="https://arxiv.org/abs/2504.09246">Mündler, He, Wang, Sen,
+   Song, Vechev, “Type-Constrained Code Generation with Language
+   Models”</a> (PLDI 2025). In TypeScript generated by open-weight models
+   (2B–34B), on average 94% of compilation errors are type errors and only
+   6% syntax errors. Constraining decoding with the type system cut
+   compilation errors by 75.3% (HumanEval) and 52.1% (MBPP) for
+   synthesis, and raised functional correctness by 3.5–5.5% relative.
+   Caveats: small open models, benchmark-style problems, and constrained
+   decoding rather than an agent reading errors. GitHub's
+   <a href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/">Octoverse
+   2025 post</a> (TypeScript became GitHub's #1 language in August 2025)
+   quotes the same 94% figure: “Type systems reduce ambiguity and catch LLM
+   errors before production.”</p>
+
+   <p><a href="https://arxiv.org/abs/2405.15793">Yang, Jimenez et al.,
+   “SWE-agent: Agent-Computer Interfaces Enable Automated Software
+   Engineering”</a> (NeurIPS 2024). With GPT-4 Turbo on SWE-bench Lite, an
+   edit command that runs flake8 and rejects edits that introduce syntax
+   errors or undefined names resolved 18.0% of issues vs. 15.0% without
+   the check (+20% relative), and 10.3% with plain shell editing. The
+   authors note that commands which “lack immediate feedback” are “silent
+   operations potentially confusing for models to interpret”. 51.7% of
+   trajectories hit at least one rejected edit; agents usually recovered
+   from it (the chance of a successful edit fell from 90.5% to 57.2% after
+   one failure). Caveats: 2024 agent and model, Python.</p>
+
+   <p>Also relevant (not on the slide):</p>
+   <ul>
+    <li>Hallucinated packages (“slopsquatting”):
+    <a href="https://arxiv.org/abs/2406.10279">Spracklen et al.</a>
+    (USENIX Security 2025): 576,000 Python and JavaScript samples from 16
+    LLMs; at least 5.2% (commercial) and 21.7% (open-source) of referenced
+    packages didn't exist; 205,474 unique invented names. A
+    <a href="https://arxiv.org/abs/2605.17062">2026 replication</a>
+    (Churilov, single-author preprint) on Claude Sonnet 4.6, Claude Haiku
+    4.5, GPT-5.4-mini, Gemini 2.5 Pro and DeepSeek V3.2: 4.62–6.10%, with
+    127 names (18 on npm) invented identically by all five models.
+    Improving, but the error is still silent until install time.</li>
+    <li><a href="https://arxiv.org/abs/2304.05128">Chen et al., “Teaching
+    Large Language Models to Self-Debug”</a> (2023): with unit-test or
+    execution feedback, accuracy improved by up to 12%; without any
+    external feedback, only 2–3%.
+    <a href="https://arxiv.org/abs/2306.09896">Olausson et al.</a> (ICLR
+    2024) find self-repair is limited by the quality of the feedback.</li>
+    <li><a href="https://arxiv.org/abs/2608.23067">Yang &amp; Ding, “Signal
+    or Noise? A Benchmark Study of Agent Skills in Web Development”</a>
+    (Aug 2026 preprint): injecting 31 public web-dev “skills” into agent
+    prompts lowered Pass@2 by 1.3–4.2% and raised token cost 72–394%;
+    anti-pattern rules helped more than examples. Telling agents up front
+    is no substitute for the platform telling them at runtime.</li>
+    <li>Graceful error recovery vs. agent feedback:
+    <a href="https://www.w3.org/TR/html-design-principles/#handle-errors">HTML
+    Design Principles §4.3 Handle Errors</a> (2007; see also
+    <a href="https://www.w3.org/TR/html-design-principles/#degrade-gracefully">§2.2
+    Degrade Gracefully</a>) states: “Prefer graceful error recovery to hard
+    failure, so that users are not exposed to authoring errors.” Similarly, per
+    <a href="https://www.w3.org/TR/CSS2/syndata.html#parsing-errors">CSS 2.1
+    §4.2</a> (“User agents must ignore a declaration with an unknown property”),
+    an invalid declaration such as <code>display: flexbox</code> is silently
+    dropped. Chrome's
+    <a href="https://developer.chrome.com/blog/chrome-devtools-mcp">DevTools MCP
+    launch post</a> (Bynens &amp; Hablich, 23 Sep 2025) notes that without
+    browser inspection tools, coding agents “are not able to see what the code
+    they generate actually does when it runs in the browser. They're effectively
+    programming with a blindfold on.” DevTools' Styles pane marks dropped CSS
+    declarations, but nothing reaches the console. Possible levers to discuss:
+    console warnings for invalid declarations or deprecated APIs, a
+    reporting or lint channel agents can read, dictionaries instead of
+    positional arguments, precise WebIDL that maps to TypeScript types, and
+    safe defaults.</li>
+   </ul>
+  </section>
+
+  <section class="slide part topic" id="topic-conflicts">
+   <h2>Agent vs. human DX</h2>
+   <p>Where agent ergonomics and human DX conflict, how do we weigh them?</p>
+  </section>
+
+  <section class=comment>
+   <p>Discussion topic 6 of 7, verbatim from the session proposal. No research slide: open discussion.</p>
+  </section>
+
+  <section class="slide part topic" id="topic-evaluation">
+   <h2>Evaluation</h2>
+   <p class=long>An API’s token cost is not an intrinsic property. An agent implementing an unfamiliar API spends tokens on lookup, trial and error, and correction, so a design that would be more token-efficient at parity of familiarity measures as worse until training data catches up — which takes years. Any evaluation we run today privileges familiar over better. How do we separate the two, and how do we evaluate API designs, or design principles, given such a delayed feedback loop?</p>
+  </section>
+
+  <section class=comment>
+   <p>Discussion topic 7 of 7. Question text verbatim from the session proposal.</p>
   </section>
 
   <!-- Analysis: analysis/what-agents-write.md -->
