@@ -117,6 +117,17 @@
    #evaluation dl.bars dt.sub {font-size: 0.75em; opacity: 0.85}
    #evaluation .stat-row b {font-size: 1.3em}
    #evaluation p.next {margin: 0.5em 0 0}
+   /* --- field-notes slides (agent-sessions analysis) --- */
+   #flaky .stat-row, #mobile .stat-row {margin: 0 0 0.5em}
+   #unclear-errors .stat-list, #automation .stat-list {font-size: 0.75em; margin: 0}
+   #unclear-errors .stat-list li, #automation .stat-list li {margin-bottom: 0.45em}
+   #unclear-errors .stat-row {margin: 0 0 0.3em}
+   #cant-see h3 {margin-top: 0}
+   #cant-see .stat-list {font-size: 0.8em; margin: 0}
+   #cant-see .stat-list li {grid-template-columns: 3.6em 1fr; margin-bottom: 0.45em}
+   #cant-see .stat-list b {white-space: nowrap}
+   #flaky .next, #unclear-errors .next, #automation .next, #cant-see .next,
+   #mobile .next {margin: 0.3em 0 0; font-size: 0.9em}
   </style>
  </head>
  <body class="shower fade-in duration=60 hidemouse">
@@ -1550,6 +1561,313 @@
    familiar; report tokens and turns as well as pass rate; re-run the
    same eval as each model generation ships, to see whether the gap
    closes.</p>
+  </section>
+
+  <section class="slide part" id="field-notes">
+   <h2>Field notes from 329 agent sessions</h2>
+   <p>Two device-heavy web apps, built almost entirely by coding agents</p>
+  </section>
+
+  <section class=comment>
+   <p>First-hand evidence rather than published studies. Every session in
+   two hobby projects, Jul–Oct 2026, both built almost entirely by Claude
+   Code agents: <strong>zpcrweb</strong> (248 sessions; a qPCR instrument
+   app using WebUSB, File System Access, IndexedDB and canvas charts) and
+   <strong>meshcore-web</strong> (81 sessions; an installable PWA for LoRa
+   radios using Web Bluetooth, Web Serial, WebCrypto and IndexedDB).
+   Subagents read every transcript and logged 167 incidents. A second pass
+   counted 14 recurring patterns across the 311 sessions held locally.</p>
+   <p>Caveats up front: one developer, two apps, one agent product, three
+   months. Counts come from LLM-assisted pattern matching (medium
+   confidence for most). Token figures are lower bounds from transcript
+   text, not billed usage. Full method, data and caveats: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md"
+   >analysis/agent-sessions.md</a>; data in <a
+   href="data/agent-session-patterns.csv">agent-session-patterns.csv</a> and
+   <a href="data/agent-session-incidents.csv">agent-session-incidents.csv</a>.</p>
+  </section>
+
+  <!-- Analysis: analysis/agent-sessions.md -->
+  <section class="slide" id="flaky">
+   <h2>“It's a pre-existing flake”</h2>
+   <ul class=stat-row>
+    <li><b>70</b> of 311 sessions hit a flaky browser test</li>
+    <li><b>49</b> of them moved on without finding the cause</li>
+    <li><b>10</b> sessions waved off the same dialog race</li>
+    <li><b>~10 h</b> of agent time lost to flakes</li>
+   </ul>
+   <p class=takeaway>The usual cause: browser state with no observable
+   “done”, such as an IndexedDB commit, a render, a hash navigation or a
+   popover opening. Tests sleep, then flake.</p>
+   <blockquote class=note>“I said the Cq-filter test flakiness was
+   pre-existing. It wasn't — it was mine. The check I added yesterday left
+   its run in IndexedDB…”</blockquote>
+   <p class=next><strong>Should async platform state always expose a
+   completion signal agents can wait on?</strong></p>
+   <p class="source">Source: our own Claude Code sessions, Jul–Oct 2026
+   (see notes). Pattern P6 in agent-session-patterns.csv.</p>
+  </section>
+
+  <section class=comment>
+   <p>Analysis: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#1-its-a-pre-existing-flake-async-state-with-no-completion-signal-p6-p7"
+   >analysis/agent-sessions.md, example 1</a>.</p>
+   <p>83 episodes in 70 of 311 sessions (zpcrweb 42, meshcore-web 28);
+   tests surfaced 65. In 49 sessions the agent called the failure “flaky”,
+   “pre-existing” or “environmental” without a root cause; 19 found the
+   cause; 2 found the wrong one. The channel-details dialog race was
+   dismissed in 10 sessions, a hash deep-link race in 6. A dismissal cost
+   about 1 extra suite run and 2.5 min; a root-cause hunt about 7 runs, 34
+   tool calls and 14 min. Worst case: 51 min and 117 tool calls, then
+   declared “environmental” (session 01Jww63r). About 570 min (~10 h) in
+   total, or 845 min including one deliberate 4.6 h flake hunt the user
+   asked for.</p>
+   <p>Root causes, where found: <code>popstate</code> and
+   <code>hashchange</code> fire separately for one hash navigation; a
+   write-behind IndexedDB flush with nothing to await; a dialog read
+   before its async-loaded content rendered; a popover show racing mount.
+   A sub-case (9 episodes): IndexedDB is per-origin and persistent, so
+   state leaked between test pages. One leak added 26 s to every suite run
+   (<code>deleteDatabase</code> blocked by 25 open tabs). In another,
+   parallel test iframes deleted each other's databases.</p>
+   <p>Quote: session 0199FRBg, 29 Jul 2026. Caveat: many of these are app
+   or test-harness bugs, not platform flaws. The platform question is why
+   “wait until it's done” is so often impossible to express.</p>
+  </section>
+
+  <!-- Analysis: analysis/agent-sessions.md -->
+  <section class="slide" id="unclear-errors">
+   <h2>Vague errors breed unreliable hacks</h2>
+   <ul class=stat-list>
+    <li><b>4</b><span>sessions hit WebUSB's <code>A transfer error has
+    occurred</code>. The agent guessed “stalled endpoint” and added
+    retries; the eventual fix sorts errors by regex over the message.</span></li>
+    <li><b>1</b><span>Web Bluetooth <code>User cancelled the
+    requestDevice() chooser</code>, when nothing was advertising and
+    nobody cancelled.</span></li>
+    <li><b>3</b><span>wrong theories in a row about whether
+    <code>getDevices()</code> needs a flag. The wrong one went into the
+    README and test names.</span></li>
+   </ul>
+   <ul class=stat-row>
+    <li><b>7 of 13</b> opaque-error diagnoses wrong or never confirmed</li>
+    <li><b>~490</b> tool calls spent on them</li>
+   </ul>
+   <p class=next><strong>Should errors carry machine-readable causes, and
+   flag and permission state be queryable?</strong></p>
+   <p class="source">Source: our own Claude Code sessions, Jul–Oct 2026
+   (see notes). Patterns P1, P2 and P12.</p>
+  </section>
+
+  <section class=comment>
+   <p>Analysis: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md"
+   >analysis/agent-sessions.md</a>, examples 2, 4 and 5.</p>
+   <p><strong>WebUSB</strong> (014TW6Do → 01EAUs81 → 01Q29pfE, 1–8 Aug
+   2026). <code>transferIn</code> rejected with a generic
+   <code>NetworkError</code>. With no doc lookup, the agent decided Chrome
+   throws this for a stalled endpoint and retried 4 times. In WebUSB a
+   stall is reported as <code>status: 'stall'</code> and cleared with
+   <code>clearHalt()</code>, not thrown. The user kept hitting “transferIn
+   error: Cancelled”. The final fix (101 tool calls) classifies errors with
+   a regex over names and messages, because one exception type covers
+   unplug, stall and cancel. WebUSB accounts for 6 of the 13 opaque-error
+   episodes.</p>
+   <p><strong>Web Bluetooth chooser</strong> (01VoiDEJ, 16 Oct). The radio
+   was connected to the user's phone and not advertising, so the chooser
+   was empty, yet <code>requestDevice()</code> rejected with
+   <code>NotFoundError</code> “User cancelled…”. The agent built a CDP
+   trace before the user worked out the cause.</p>
+   <p><strong><code>getDevices()</code></strong> (01EojErv, then 016p7fHi,
+   17–18 Oct). The agent: “in Chrome that function only exists with the
+   persistent-permissions flag turned on.” The user: “I have not turned
+   on the flag but getDevices does exist.” Then two more wrong theories
+   about permission lifetime, one per user correction. A web search found
+   only 2020 sources from when it was behind a flag. About 110 tool calls
+   across 3 sessions.</p>
+   <p>Across the 13 opaque-error episodes, the first interpretation was
+   right in 5, plausible but unverified in 1, and wrong or never
+   root-caused in 7. Even the right ones about device errors needed a
+   human round-trip, because the message never names which context holds
+   the device.</p>
+  </section>
+
+  <!-- Analysis: analysis/agent-sessions.md -->
+  <section class="slide" id="automation">
+   <h2>Can't automate it? Fake it.</h2>
+   <ul class=stat-list>
+    <li><b>15</b><span>sessions hit an API that automation can't drive: the
+    WebUSB and Bluetooth choosers, the folder picker, permission lapse,
+    page visibility</span></li>
+    <li><b>450+</b><span>lines of permanent fakes: a recorded
+    <code>navigator.usb</code>, a mock Bluetooth radio, an OPFS stand-in
+    for the folder picker</span></li>
+    <li><b>11</b><span>episodes, ~2 h: saved folder permission silently lapses
+    on reload; the agent's headless probe never reloaded, so “confirmed”
+    it persists</span></li>
+    <li><b>6 s</b><span>sleep: typing via CDP grants user activation, so
+    <code>requestDevice()</code> opened a chooser and hung</span></li>
+   </ul>
+   <p class=next><strong>Fakes encoded wrong beliefs, so tests passed.
+   Should every gated API ship with a testing hook?</strong></p>
+   <p class="source">Source: our own Claude Code sessions, Jul–Oct 2026
+   (see notes). Patterns P3 and P4.</p>
+  </section>
+
+  <section class=comment>
+   <p>Analysis: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md"
+   >analysis/agent-sessions.md</a>, examples 6 and 7.</p>
+   <p>15 episodes in 15 sessions, all found by the agent. 9 built a fake or
+   monkeypatch, 2 used a timing or activation hack, 4 left device UI
+   unverified. Fakes: a 121-line fake <code>navigator.usb</code> that
+   replays recorded instrument responses, a ~300-line mock Bluetooth radio
+   plus a mock serial port, an OPFS stand-in for
+   <code>showDirectoryPicker</code>, a <code>NotAllowedError</code> stub, a
+   patched <code>document.visibilityState</code> (Chrome removed
+   <code>Emulation.setPageVisibilityState</code>), and a fake WebAuthn
+   authenticator. At least 6 later sessions reused them. Some encoded a
+   wrong permission model, so tests passed on false beliefs.</p>
+   <p>Agent, 017K1NZU: “The picker cannot be automated, so it is replaced.
+   CDP intercepts <code>showDirectoryPicker</code> … but there is no
+   command that can fulfil it with a directory.”</p>
+   <p><strong>File System Access permission lifecycle</strong> (11
+   episodes, 10 sessions, ~2–2.5 h). A saved directory handle comes back as
+   <code>prompt</code> after a reload, and <code>requestPermission</code>
+   needs a gesture, so <code>#file=</code> deep links silently gave up
+   (01G77vN7). Chrome's raw “The request is not allowed by the user agent
+   or the platform in the current context” reached the UI (019TeUoW). The
+   agent also assumed a re-grant covers one folder; Chrome re-grants them
+   all (65 min, 101 tool calls). The root of the confusion was the agent's
+   own earlier probe in one headless page with no reload, which saw
+   permission “still granted”.</p>
+   <p>Activation hang (0175YVYi, 16 Oct): typing via CDP counted as user
+   activation, so <code>requestDevice()</code> opened a chooser headless
+   Chrome never answers. The connect hung instead of rejecting; the fix
+   was a 6-second wait for the activation to expire.</p>
+  </section>
+
+  <!-- Analysis: analysis/agent-sessions.md -->
+  <section class="slide" id="cant-see">
+   <h2>Can't see it, can't use it: rebuild it</h2>
+   <div class=columns>
+    <section>
+     <h3>Layout is invisible</h3>
+     <ul class=stat-list>
+      <li><b>38</b> bouts of throwaway layout probes and screenshot loops
+      (~0.7M tokens)</li>
+      <li><b>24/24</b> CSS bugs found by the user, not the agent</li>
+      <li><b>11/14</b> of those had been “verified” by screenshot or
+      test</li>
+     </ul>
+    </section>
+    <section>
+     <h3>Gaps get reimplemented</h3>
+     <ul class=stat-list>
+      <li><b>300</b> lines of BigInt SHA, HMAC and Ed25519: WebCrypto is
+      async-only</li>
+      <li><b>728</b> lines of PNG rasterizer and pixel font, instead of the
+      browser</li>
+      <li><b>3</b> IndexedDB schema redesigns: no partial update</li>
+     </ul>
+    </section>
+   </div>
+   <p class=next><strong>Agents go to extreme lengths to route around the
+   platform. Which gaps should we close?</strong></p>
+   <p class="source">Source: our own Claude Code sessions, Jul–Oct 2026
+   (see notes). Patterns P8, P9 and P10.</p>
+  </section>
+
+  <section class=comment>
+   <p>Analysis: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md"
+   >analysis/agent-sessions.md</a>, examples 9 and 11–13.</p>
+   <p><strong>Layout.</strong> 38 episodes in 30 sessions of ad-hoc CDP
+   measurement scripts (often numbered: <code>zzmeasure</code>…<code>zzmeasure5</code>,
+   <code>dbgwide1..5</code>, <code>anim1..6</code>) and screenshot→tweak
+   loops: 71 probe calls and 121 screenshot reads. All 24 user-reported CSS
+   bugs were missed by the agent. Where we can tell (14 cases), 11 had
+   already been “verified”. Causes the screenshots didn't show:
+   border-collapse tie rules, <code>table-layout: auto</code> widening
+   columns with two-digit headers, <code>flex: 1</code> meaning a 0% basis,
+   sticky with no z-index, an auto track plus <code>aspect-ratio</code>,
+   and a fixed 599px breakpoint standing in for “content no longer fits”
+   (it overflowed at ~780px). One stand-out silent failure:
+   <code>min(1fr, 19px)</code> is invalid, so the whole
+   <code>grid-template-columns</code> was dropped and a 96-well grid
+   collapsed to one 281px column. Only 4 probe scripts revealed it. Agent,
+   017ep63t: “Measured rather than eyeballed, since ‘looks fine in a
+   screenshot’ is how this slipped through in the first place.”</p>
+   <p><strong>Extreme measures.</strong> When a platform API didn't fit,
+   agents often reimplemented the platform instead of adapting. A
+   deterministic device emulator needed synchronous hashing. The agent
+   measured “0 of 50 SHA-256 digests done” by <code>setTimeout(0)</code>
+   and wrote ~300 lines of SHA-256/512, HMAC, Ed25519 and X25519 in BigInt
+   (01PJZjFt). For a PNG chart export it wrote a software rasterizer, PNG
+   encoder and 5×7 pixel font, 728 lines over 78 tool calls. The user:
+   “much of the new 728 lines of code are because we refused to take a
+   dependency … that seems silly to reimplement ourselves” (01HvAN6f). It
+   was redone as a headless-Chrome screenshot. IndexedDB has no partial
+   update, so appending ~1 MB rewrote ~45 MB, which led to three schema
+   redesigns over two days (worst session 286 tool calls, ~2 h).</p>
+   <p>Across 15 such episodes: ~1,900 lines hand-written, ~800 later
+   deleted. Caveat: some of this is agent judgement (taking a dependency
+   was an option), not only missing primitives. In 3 cases the feature
+   existed (anchor positioning, <code>popover=hint</code>,
+   <code>overflow-anchor</code>) but the agent avoided it over
+   cross-browser worries in a Chromium-only app.</p>
+  </section>
+
+  <!-- Analysis: analysis/agent-sessions.md -->
+  <section class="slide" id="mobile">
+   <h2>Mobile: only the human can see it</h2>
+   <ul class=stat-row>
+    <li><b>4/4</b> mobile and installed-app bugs found by the user on a
+    real phone</li>
+    <li><b>0</b> sessions where the agent turned on touch or mobile
+    emulation</li>
+    <li><b>7 min</b> until the first fix was re-reported</li>
+   </ul>
+   <p class=takeaway>The cases: <code>100dvh</code> under Chrome's
+   collapsing URL bar, the on-screen keyboard shrinking the layout, missing
+   safe-area insets, and no maskable icon. With no portable signal for “the
+   keyboard is up”, the agent used “a text field has focus”.</p>
+   <blockquote class=note>“Typecheck is clean and all tests pass (1399 core,
+   262 web). I haven't tried it on an Android phone, so that's the thing to
+   check by hand.”</blockquote>
+   <p class=next><strong>How can agents verify behaviour that only exists on
+   a real device?</strong></p>
+   <p class="source">Source: our own Claude Code sessions, Oct 2026 (see
+   notes). Pattern P11.</p>
+  </section>
+
+  <section class=comment>
+   <p>Analysis: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#14-mobile-viewport-every-bug-found-by-the-user-on-a-real-phone-p11"
+   >analysis/agent-sessions.md, example 14</a>.</p>
+   <p>4 episodes in 3 meshcore-web sessions (the installed Android PWA);
+   none caught by a test or the agent. Session 017nb1V6, 18 Oct. User: “On
+   android there are issues with the viewport height … the main page
+   scrolls when it should not.” Round 1 replaced <code>100dvh</code> and
+   <code>calc()</code> guesses with <code>position: fixed; inset: 0</code>
+   (45 tool calls). The agent's added
+   <code>interactive-widget=resizes-content</code> then let the keyboard
+   shrink the layout, and the user re-reported it 7 minutes later (36 more
+   calls). Its in-browser measurements printed nothing, so it reported
+   numbers through deliberately failing tests. Never checked on a phone by
+   the agent.</p>
+   <p>Also: missing <code>viewport-fit=cover</code> and
+   <code>env(safe-area-inset-*)</code> left an unthemed bar in the installed
+   app (01T4UTCN). A manifest icon with only <code>purpose: any</code> was
+   shrunk inside a white shape on the Android home screen (01DNJdBz). In a
+   zpcrweb session the agent avoided <code>pointer: coarse</code> because it
+   “can't be tested in headless Chrome”. Across the whole corpus there are
+   0 uses of touch or mobile emulation (<code>setTouchEmulationEnabled</code>,
+   <code>hasTouch</code>, <code>isMobile</code>).</p>
+   <p>Open question: emulation exists but agents don't reach for it, and it
+   doesn't reproduce browser-chrome behaviour like the collapsing URL bar
+   or keyboard anyway. The VirtualKeyboard API is Chromium-only and
+   opt-in.</p>
   </section>
 
   <section class="slide final" id="end">

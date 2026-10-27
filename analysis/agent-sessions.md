@@ -1,7 +1,9 @@
 # Where coding agents struggle with Web APIs: evidence from real sessions
 
 *Research for the TPAC 2026 breakout "Agents are redefining DX. [How] should
-web standards adapt?". Compiled 27 October 2026. No slide uses it yet. It complements
+web standards adapt?". Compiled 27 October 2026. The slides that use it are the
+"Field notes" section of [`web/index.html`](../web/index.html):
+`#flaky`, `#unclear-errors`, `#automation`, `#cant-see` and `#mobile`. It complements
 [`robustness.md`](robustness.md) and [`token-efficiency.md`](token-efficiency.md)
 with first-hand data rather than published studies.*
 
