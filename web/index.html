@@ -23,6 +23,22 @@
      a.target = '_blank';
      a.relList.add('noopener');
    }, true);
+
+   // In the contents (non-slide-show) view, clicking a slide selects it:
+   // the URL hash is set to the slide's ID, which also gives it the
+   // template's green :target outline. Keep the scroll position so the
+   // page doesn't jump. Double click still opens the slide show there.
+   document.addEventListener('click', function (e) {
+     if (e.button !== 0 || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+     if (document.body.classList.contains('full')) return; // slide-show mode
+     if (e.target.closest('a, input, textarea, select, summary, option, button, embed, object')) return;
+     if (String(document.getSelection())) return; // user is selecting text
+     var slide = e.target.closest('.slide[id]');
+     if (!slide || location.hash === '#' + slide.id) return;
+     var x = window.scrollX, y = window.scrollY;
+     location.hash = slide.id;
+     window.scrollTo(x, y);
+   });
   </script>
   <style>
    /* Faster slide transitions: the template's fade-in takes 1s; shorten it.
