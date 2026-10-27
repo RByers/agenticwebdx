@@ -453,8 +453,11 @@
    web platform”. For scale, a pull of the
    <a href="https://chromestatus.com/api/v0/features">chromestatus.com
    API</a> on 27 Oct 2026 lists 1,894 entries “Enabled by default” vs.
-   198 “Removed”, and most removals are prefixed or Chrome-only
-   features (<code>-webkit-*</code>, NPAPI, Flash, AppCache). The
+   198 “Removed”, and few of those are removals of whole,
+   interoperable, standardized APIs: roughly 19 are prefixed features,
+   18 non-standard or legacy ones, 19 TLS or protocol changes, and
+   many of the rest remove single members or restrict a feature to
+   secure contexts (see analysis/volatility.md). The
    chromestatus status field is maintained by hand, so treat that ratio
    as rough. The asymmetry: with models living 1–2 years and APIs
    living decades, an API designed this year will be consumed mostly by
