@@ -43,6 +43,7 @@
    dl.bars dd span {position: absolute; top: 50%; translate: 0.4em -50%;
      left: calc(var(--v) * 1%); font-weight: 700; font-size: 0.85em}
    .slide blockquote.note {margin: 0 0 0.6em; font-style: italic}
+   .slide .takeaway {font-size: 0.9em; margin: 0.4em 0 1.6em}
   </style>
  </head>
  <body class="shower fade-in duration=60 hidemouse">
@@ -87,8 +88,8 @@
 
   <section class=comment>
    <p>Before asking how standards should adapt, establish that the
-   change is real and large. The rest of this section is data, most
-   of it public and reproducible.</p>
+   change is real and large. Three slides of public data; every
+   number links to its source.</p>
   </section>
 
   <section class="slide" id="stackoverflow">
@@ -133,8 +134,12 @@
     <li><b>23,799 → 69</b> <code>[javascript]</code> per month</li>
     <li><b>8,426 → 31</b> <code>[css]</code> per month</li>
    </ul>
-   <p class="source">Source: Stack Exchange API, one sample month per quarter
-   (<a href="data/stackoverflow-questions.csv">data</a>). Excludes deleted questions.</p>
+   <p class="source">Source: <a
+   href="https://api.stackexchange.com/2.3/questions?site=stackoverflow&amp;filter=total&amp;fromdate=1782864000&amp;todate=1785542400"
+   >Stack Exchange API</a>, one sample month per quarter
+   (<a href="data/stackoverflow-questions.csv">data</a>,
+   <a href="https://github.com/rbyers/agenticwebdx/blob/main/tools/so_fetch.py">script</a>).
+   Excludes deleted questions.</p>
   </section>
 
   <section class=comment>
@@ -142,7 +147,10 @@
    (<code>/2.3/questions?filter=total</code>), sampled every January,
    April, July and October. Raw numbers are in
    <a href="data/stackoverflow-questions.csv">data/stackoverflow-questions.csv</a>;
-   the script is <code>tools/so_fetch.py</code>.</p>
+   the script is <code>tools/so_fetch.py</code>. The source link on the
+   slide is the live query for July 2026 (1,175); change the tag or
+   dates to reproduce any other point. Re-verified against the API on
+   27 Oct 2026.</p>
    <p>The slow decline started around 2017 (the easy questions had
    been answered). ChatGPT (Nov 2022) turned it into a collapse, and
    coding agents (Claude Code, Copilot agent mode, Cursor agent; early
@@ -175,34 +183,43 @@
      agents get current docs and browser-compat data directly.</p>
     </section>
    </div>
-   <p class="source">Sources: Mintlify, <cite>2026 State of Knowledge Report</cite>;
-   tailwindlabs/tailwindcss.com#2388; MDN blog.</p>
+   <p class="source">Sources: Mintlify, <a
+   href="https://www.mintlify.com/state-of-knowledge/2026"><cite>2026
+   State of Knowledge Report</cite></a>; <a
+   href="https://github.com/tailwindlabs/tailwindcss.com/pull/2388#issuecomment-3717222957"
+   >tailwindlabs/tailwindcss.com#2388 (comment)</a>; <a
+   href="https://developer.mozilla.org/en-US/blog/introducing-mdn-mcp-server/"
+   >MDN blog</a>.</p>
   </section>
 
   <section class=comment>
    <p><a href="https://www.mintlify.com/state-of-knowledge/2026">Mintlify
    2026 State of Knowledge Report</a>: agent share of traffic on
    Mintlify-hosted docs grew from 20.8% (Feb 2026) to 66% (Aug 2026);
-   in August, 257M agent requests vs. 131M human page loads; 10.8M
+   in August, 257M agent requests vs. 131M human page loads; ~10.8M
    <code>/llms.txt</code> fetches and 2M+ MCP tool calls that month.
-   Caveat: human and agent traffic are measured differently (client-side
-   analytics vs. server-side requests), and Mintlify widened its agent
-   detection in June 2026. An earlier
+   Caveat (stated in the report): human and agent traffic are measured
+   differently (client-side analytics vs. server-side requests), so
+   the comparison is an estimate. An earlier
    <a href="https://www.mintlify.com/blog/state-of-ai">user-agent-only
-   snapshot (April 2026)</a> already had agents at 45.3% vs. browsers
-   at 45.8% of ~790M requests, with Claude Code alone at 25%.</p>
-   <p><a href="https://github.com/tailwindlabs/tailwindcss.com/pull/2388">Adam
-   Wathan, 7 Jan 2026</a>: “Traffic to our docs is down about 40% from
-   early 2023 despite Tailwind being more popular than ever… our revenue
-   is down close to 80%.”</p>
-   <p><a href="https://developer.mozilla.org/en-US/blog/introducing-mdn-mcp-server">MDN
-   MCP server, 15 June 2026</a>: “More and more AI tools are being
-   integrated into web development workflows, but they can surface
-   outdated web platform information…”</p>
+   snapshot (March 2026, published 3 Apr)</a> already had agents at
+   45.3% vs. browsers at 45.8% of ~790M requests, with Claude Code
+   alone at 25%.</p>
+   <p><a href="https://github.com/tailwindlabs/tailwindcss.com/pull/2388#issuecomment-3717222957">Adam
+   Wathan, 7 Jan 2026</a>, on a PR proposing LLM-friendly docs:
+   “Traffic to our docs is down about 40% from early 2023 despite
+   Tailwind being more popular than ever… our revenue is down close to
+   80%.” and “75% of the people on our engineering team lost their jobs
+   here yesterday.”</p>
+   <p><a href="https://developer.mozilla.org/en-US/blog/introducing-mdn-mcp-server/">Introducing
+   the MDN MCP server, 15 June 2026</a>: “More and more AI tools are
+   being integrated into web development workflows, but they can
+   surface outdated web platform information based on their training
+   data and knowledge cutoff.”</p>
   </section>
 
   <section class="slide" id="adoption">
-   <h2>Agents are now the default tool</h2>
+   <h2>Agents are the default tool for web code</h2>
    <div class=columns>
     <section>
      <h3>Developers using AI tools</h3>
@@ -214,81 +231,53 @@
      <p class=note>Stack Overflow Developer Survey, “currently using”.</p>
     </section>
     <section>
-     <h3>2026: agents take over</h3>
      <ul class=stat-list>
-      <li><b>66%</b> of AI users use coding agents or assistants</li>
-      <li><b>73%</b> of those use them daily</li>
-      <li><b>70%</b> ask an AI agent when looking for answers</li>
-      <li><b>24%</b> still use Stack Overflow for work answers</li>
+      <li><b>73%</b> of coding-agent users use them daily (2026)</li>
+      <li><b>70%</b> ask an AI agent when looking for answers (2026)</li>
+      <li><b>59%</b> of coding conversations with Claude are
+       JS/TS or HTML/CSS</li>
      </ul>
     </section>
    </div>
-   <p class="source">Sources: Stack Overflow Developer Surveys 2023–2026.</p>
+   <p class="next takeaway"><strong>Standards, docs and APIs were designed for a
+   human reading MDN. That is no longer the typical consumer.</strong></p>
+   <p class="source">Sources: Stack Overflow Developer Survey <a
+   href="https://survey.stackoverflow.co/2024/ai">2024</a>, <a
+   href="https://survey.stackoverflow.co/2025/ai">2025</a>, <a
+   href="https://stackoverflow.blog/2026/10/06/the-results-of-the-2026-developer-survey-are-here/"
+   >2026</a>; Anthropic, <a
+   href="https://www.anthropic.com/research/impact-software-development"
+   ><cite>AI's impact on software development</cite></a> (Apr 2025).</p>
   </section>
 
   <section class=comment>
    <p><a href="https://survey.stackoverflow.co/2024/ai">2024 survey</a>:
-   62% currently using AI tools, up from 44% in 2023.
+   61.8% currently using AI tools in their development process, up from
+   44% in 2023 (“62% vs. 44%”).
    <a href="https://survey.stackoverflow.co/2025/ai">2025 survey</a>:
    47.1% daily + 17.7% weekly + 13.7% monthly or less = 78.5% using;
    84% using or planning to; 31% already using AI agents.</p>
    <p><a href="https://stackoverflow.blog/2026/10/06/the-results-of-the-2026-developer-survey-are-here/">2026
-   survey</a> (published 6 Oct 2026): coding agents used by 66% of AI
-   users; 73% of AI coding assistant/agent users use them daily; top
-   agents are Claude Code (66%) and GitHub Copilot (59%). When looking
-   for answers, 83% use search and 70% an AI agent; Stack Overflow is
-   used by 24% for work answers, and people visit “less for simple
-   questions”.</p>
-   <p>The 2026 agent figures are a share of AI users, not of all
-   respondents, so they don't extend the bar chart directly.</p>
-  </section>
-
-  <section class="slide" id="web-first">
-   <h2>Web development is ground zero</h2>
-   <ul class=stat-list>
-    <li><b>59%</b> of coding conversations with Claude are in JS/TS (31%)
-     or HTML/CSS (28%); UI component work is the #1 task</li>
-    <li><b>79%</b> of Claude Code sessions are automation (agent does the
-     task) vs. 49% in the chat app</li>
-    <li><b>~4%</b> of all public GitHub commits were authored by Claude
-     Code by February 2026, up from ~0.7% in September 2025</li>
-    <li><b>29%</b> of JavaScript developers' code is AI-generated, up from 20% a year earlier</li>
-   </ul>
-   <p class="source">Sources: Anthropic, <cite>AI's impact on software
-   development</cite> (Apr 2025); SemiAnalysis (Feb 2026);
-   conffab.com commit count; State of JavaScript 2025.</p>
-  </section>
-
-  <section class=comment>
+   survey</a> (published 6 Oct 2026; full results at
+   <a href="https://survey.stackoverflow.co/2026/">survey.stackoverflow.co/2026</a>):
+   “73% of respondents who indicate using AI coding assistants/agents
+   use them daily”; 66% of AI users use coding agents; the agents of
+   choice are Claude Code (66%) and GitHub Copilot (59%). “83% still
+   ask a search engine for answers, but 70% hit up their AI” (16,664
+   respondents); Stack Overflow is a source of work-related answers for
+   24%. The 2026 report doesn't publish an overall “currently using”
+   share comparable to 2023–25, so the bar chart stops at 2025.</p>
    <p><a href="https://www.anthropic.com/research/impact-software-development">Anthropic
-   Economic Index, 28 Apr 2025</a>, 500K coding conversations:
-   JavaScript/TypeScript 31% and HTML/CSS 28% of queries;
-   “UI/UX Component Development” 12% and “Web &amp; Mobile App
-   Development” 8% of tasks. Claude Code 79% automation vs. 49% on
-   Claude.ai. This data predates the 2025–26 agent boom.</p>
-   <p><a href="https://newsletter.semianalysis.com/p/claude-code-is-the-inflection-point">SemiAnalysis,
-   5 Feb 2026</a>: ~4% of public GitHub commits authored by Claude Code.
-   An <a href="https://conffab.com/?p=10304">independent count</a>
-   found ~0.7% in late Sept 2025 and 4.5% by mid-March 2026. These only
-   count commits that carry an attribution trailer, so they are a floor
-   and cover one agent.</p>
-   <p><a href="https://2025.stateofjs.com/en-US/usage/">State of
-   JavaScript 2025</a>: share of code that is AI-generated rose from
-   20% to 29% year over year (median answer 25%).</p>
-  </section>
-
-  <section class="slide" id="so-what">
-   <h2>The primary reader of the web platform is changing</h2>
-   <ul>
-    <li>Developers have stopped asking each other: new Stack Overflow questions are down 99%</li>
-    <li>Agents read docs twice as often as humans do (Mintlify, Aug 2026)</li>
-    <li>Coding agents are mainstream, and web code is where they work most</li>
-   </ul>
-   <p class=next><strong>Standards, docs and APIs were designed for a
-   human reading MDN. That is no longer the typical consumer.</strong></p>
-  </section>
-
-  <section class=comment>
+   Economic Index, 28 Apr 2025</a>, 500K coding conversations sampled
+   6–13 April 2025: JavaScript/TypeScript 31% and HTML/CSS 28% of
+   queries; “UI/UX Component Development” 12% and “Web &amp; Mobile App
+   Development” 8% of tasks. Also: 79% of Claude Code sessions are
+   automation (the agent does the task) vs. 49% on Claude.ai. This
+   predates the 2025–26 agent boom.</p>
+   <p>Backup, not on the slide: <a
+   href="https://2025.stateofjs.com/en-US/usage/">State of JavaScript
+   2025</a>, “What proportion of the code you produce is
+   AI-generated?”: 29%, up from 20% the previous year (median 25%).</p>
    <p>Bridge to the discussion: if the typical “developer” reading a
    spec, an MDN page or an error message is now an agent, which of our
    design principles still hold, and which pull in the opposite
