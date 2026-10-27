@@ -1,0 +1,5 @@
+.product-card { padding: 1rem; }
+.product-card h2 { margin: 0; }
+.product-card p { color: gray; }
+.product-card:hover { outline: 1px solid; }
+.product-card .actions button { font: inherit; }

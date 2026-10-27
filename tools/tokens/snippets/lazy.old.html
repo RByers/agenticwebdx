@@ -1,0 +1,11 @@
+<img data-src="photo.jpg" alt="">
+<script>
+  new IntersectionObserver((entries, observer) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.src = entry.target.dataset.src;
+        observer.unobserve(entry.target);
+      }
+    }
+  }).observe(document.querySelector('img[data-src]'));
+</script>

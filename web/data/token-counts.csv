@@ -1,0 +1,31 @@
+task,group,variant,role,file,o200k_base,cl100k_base,qwen2.5_coder,chars
+Toggle a class,platform-pair,className string ops,old,toggle.old.js,46,43,43,172
+Toggle a class,platform-pair,classList.toggle(),new,toggle.new.js,7,6,6,28
+Lazy-load an image,platform-pair,IntersectionObserver + data-src,old,lazy.old.html,76,76,76,337
+Lazy-load an image,platform-pair,loading=lazy,new,lazy.new.html,12,12,12,43
+Remove an element,platform-pair,parentNode.removeChild(),old,remove.old.js,7,5,5,30
+Remove an element,platform-pair,remove(),new,remove.new.js,3,3,3,12
+Group an array,platform-pair,Array.reduce,old,groupby.old.js,32,32,32,113
+Group an array,platform-pair,Object.groupBy(),new,groupby.new.js,14,14,14,56
+Promise with external resolvers,platform-pair,new Promise + captured resolvers,old,resolvers.old.js,28,28,28,101
+Promise with external resolvers,platform-pair,Promise.withResolvers(),new,resolvers.new.js,13,14,14,61
+Fetch with timeout,platform-pair,AbortController + setTimeout,old,timeout.old.js,38,37,39,181
+Fetch with timeout,platform-pair,AbortSignal.timeout(),new,timeout.new.js,18,18,20,68
+Fetch JSON,platform-pair,XMLHttpRequest,old,fetch.old.js,76,73,77,275
+Fetch JSON,platform-pair,fetch + await (try/catch),new,fetch.new.js,40,39,39,138
+Deep clone,platform-pair,JSON.parse(JSON.stringify()),old,clone.old.js,9,9,9,46
+Deep clone,platform-pair,structuredClone(),new,clone.new.js,7,7,7,35
+Scoped CSS rules (.card),platform-pair,Repeated selectors,old,css.old.css,48,48,48,150
+Scoped CSS rules (.card),platform-pair,CSS nesting,new,css.new.css,50,50,50,138
+Scoped CSS rules (.product-card),variant,Repeated selectors,old,css2.old.css,53,53,53,190
+Scoped CSS rules (.product-card),variant,CSS nesting,new,css2.new.css,51,51,51,146
+Counter component,component,Vanilla custom element,alt,counter.vanilla.js,123,118,118,524
+Counter component,component,Lit,alt,counter.lit.js,88,88,88,350
+Counter component,component,React,alt,counter.react.jsx,61,58,58,217
+Counter component,component,Svelte 5,alt,counter.svelte,29,29,29,107
+Add class to all matches,library,Platform (querySelectorAll + classList),alt,addclass.platform.js,18,14,14,77
+Add class to all matches,library,jQuery,alt,addclass.jquery.js,8,7,7,30
+Delegated click handler,library,Platform (addEventListener + closest),alt,delegate.platform.js,32,30,30,144
+Delegated click handler,library,jQuery,alt,delegate.jquery.js,24,24,24,86
+Append a link,safety,DOM (createElement + append),alt,link.dom.js,24,22,22,91
+Append a link,safety,innerHTML += template (XSS-prone),alt,link.innerhtml.js,16,15,15,50
