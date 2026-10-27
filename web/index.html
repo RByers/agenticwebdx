@@ -168,6 +168,16 @@
    margin-bottom: 0.32em}
    .principle-slide .stat-list b {font-size: 1.08em; white-space: nowrap}
    .principle-slide .next {margin: 0.25em 0 0; font-size: 0.85em}
+   #principle-third-party-tools .lede {font-size: 0.76em; margin: 0 0 0.3em}
+   #principle-third-party-tools pre.clash code {color: inherit; background: none}
+   #principle-third-party-tools pre.clash {font-size: 0.62em; margin: 0 0 0.3em;
+   padding: 0.4em 0.6em; background: var(--table-striped-bg); border-radius: 4px;
+   line-height: 1.35; white-space: pre}
+   #principle-third-party-tools h3 code {text-transform: none}
+   .clash-list {list-style: none; padding: 0; margin: 0; font-size: 0.7em}
+   .clash-list li {display: grid; grid-template-columns: 3.6em 1fr; gap: 0.5em;
+   align-items: baseline; line-height: 1.25; margin-bottom: 0.25em}
+   .clash-list b {text-align: right; color: var(--figcaption-fg)}
    /* --- evaluation slide --- */
    #evaluation dl.bars {margin-bottom: 0.4em; gap: 0.25em 0.6em}
    #evaluation dl.bars dd {height: 1.1em}
@@ -566,47 +576,52 @@
   <!-- Analysis: analysis/design-principles.md, design-principles/02-15-third-party-tools.md -->
   <section class="slide principle-slide" id="principle-third-party-tools">
    <h2>Usability over third-party tools <small>(TAG §2.15)</small></h2>
+   <p class=lede>§2.15: avoiding clashes with tool syntax is “rarely an acceptable
+   tradeoff” if it hurts native usability. Clash = <strong>same syntax, different
+   meaning</strong> — and models learned the tool's meaning first.</p>
    <div class=columns>
     <section>
-     <h3>What §2.15 says</h3>
-     <ul class=stat-list>
-      <li><b>Outlive</b> <span>“Web platform features last a lot longer than most
-       third-party tools” that prototype them</span></li>
-      <li><b>Override</b> <span>avoiding tool clashes is “rarely an acceptable
-       tradeoff” if it hurts native syntax</span></li>
-      <li><b>Rare</b> <span><code>Array.includes()</code> (PrototypeJS) and Grid
-       <code>[line-name]</code> (Sass) treated as exceptions</span></li>
+     <h3>Nesting <code>&amp;</code>: CSS vs. Sass</h3>
+     <pre class=clash><code>.card {
+  &amp;__title { font-weight: bold }
+}</code></pre>
+     <ul class=clash-list>
+      <li><b>Sass</b> <span>pastes text: builds <code>.card__title</code> (BEM idiom)</span></li>
+      <li><b>CSS</b> <span><code>&amp;</code> is a selector, not text: the rule is
+       invalid and silently dropped</span></li>
+      <li><b>Agent</b> <span>writes the Sass idiom in plain <code>.css</code>: no
+       error, styles never apply</span></li>
      </ul>
     </section>
     <section>
-     <h3>Why it fails for agents</h3>
-     <ul class=stat-list>
-      <li><b>Weights</b> <span>popular tools (Sass, Babel/TS, React, Tailwind)
-       are permanently baked into model priors</span></li>
-      <li><b>Clashes</b> <span>CSS Nesting <code>&amp;</code> vs Sass
-       <code>&amp;__child</code>; Stage 3 vs legacy TS
-       <code>@decorator</code></span></li>
-      <li><b>+20%</b> <span>issues solved when linters/compilers gate edits —
-       breaking tools breaks the agent loop</span></li>
+     <h3><code>@decorator</code>: TC39 vs. TS</h3>
+     <pre class=clash><code>// legacy TS (experimentalDecorators)
+function log(target, key, descriptor) {…}
+// TC39 standard
+function log(value, context) {…}</code></pre>
+     <ul class=clash-list>
+      <li><b>Same</b> <span><code>@log</code> at the call site; incompatible function
+       signatures and semantics</span></li>
+      <li><b>Agent</b> <span>mixes the two (legacy TS/Angular dominates
+       training data); breaks at compile or run time</span></li>
      </ul>
     </section>
    </div>
-   <p class=next><strong>Under §2.15, coding agents are “third-party tools” —
-   yet they write the code.</strong></p>
+   <p class=next><strong>A human reads the migration note once; an agent fights
+   its training priors every time.</strong></p>
    <p class="source">Sources: W3C TAG <a
-   href="https://w3ctag.github.io/design-principles/#third-party-tools">§2.15</a>
-   &amp; <a href="https://w3ctag.github.io/design-principles/#priority-of-constituencies"
-   >§1.1</a>; Yang et al., NeurIPS 2024 (SWE-agent); Amplifying (2026).</p>
+   href="https://w3ctag.github.io/design-principles/#third-party-tools">§2.15</a>;
+   <a href="https://drafts.csswg.org/css-nesting/">CSS Nesting</a>;
+   <a href="https://github.com/tc39/proposal-decorators">TC39 Decorators</a>.</p>
   </section>
 
   <section class=comment>
-   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/02-15-third-party-tools.md">design-principles/02-15-third-party-tools.md</a>, <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-01-priority-of-constituencies.md">design-principles/01-01-priority-of-constituencies.md</a></p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/02-15-third-party-tools.md">design-principles/02-15-third-party-tools.md</a></p>
    <ul>
-    <li>§2.15: favour native syntax over tools because tools come and go</li>
-    <li>Tools don't go away: they're fossilized in model weights</li>
-    <li>Same sigil, different meaning confuses models: Sass vs. native <code>&amp;</code>, TS vs. TC39 decorators</li>
-    <li>Tools (tsc, ESLint, bundlers) are the agent's feedback loop; if they reject native syntax, the agent strips it</li>
-    <li>Ask: are agents “authors” or “third-party tools” in the priority of constituencies?</li>
+    <li>§2.15 tells spec authors to break tools rather than compromise native syntax, on the assumption tools are short-lived</li>
+    <li>For agents, popular tools never go away: they're fossilized in model weights</li>
+    <li>Nesting: Sass treats <code>&amp;</code> as string concatenation, so <code>&amp;__title</code> → <code>.card__title</code>. Native CSS treats <code>&amp;</code> as the parent selector, so <code>&amp;__title</code> is invalid and dropped. Agents write the Sass form into vanilla CSS and nothing tells them it failed</li>
+    <li>Decorators: legacy TS/Babel decorators get <code>(target, key, descriptor)</code>; standard decorators get <code>(value, context)</code> and return a replacement. Same <code>@</code> syntax, so models blend the two</li>
    </ul>
   </section>
 
