@@ -162,16 +162,6 @@
    margin-bottom: 0.32em}
    .principle-slide .stat-list b {font-size: 1.08em; white-space: nowrap}
    .principle-slide .next {margin: 0.25em 0 0; font-size: 0.85em}
-   #principle-third-party-tools .lede {font-size: 0.76em; margin: 0 0 0.3em}
-   #principle-third-party-tools pre.clash code {color: inherit; background: none}
-   #principle-third-party-tools pre.clash {font-size: 0.62em; margin: 0 0 0.3em;
-   padding: 0.4em 0.6em; background: var(--table-striped-bg); border-radius: 4px;
-   line-height: 1.35; white-space: pre; color: inherit}
-   #principle-third-party-tools h3 code {text-transform: none}
-   .clash-list {list-style: none; padding: 0; margin: 0; font-size: 0.7em}
-   .clash-list li {display: grid; grid-template-columns: 3.6em 1fr; gap: 0.5em;
-   align-items: baseline; line-height: 1.25; margin-bottom: 0.25em}
-   .clash-list b {text-align: right; color: var(--figcaption-fg)}
    /* --- evaluation slide --- */
    #evaluation dl.bars {margin-bottom: 0.4em; gap: 0.25em 0.6em}
    #evaluation dl.bars dd {height: 1.1em}
@@ -595,57 +585,6 @@
     <li>Forgiving CSS/HTML turns a one-turn fix into a silent bug</li>
     <li>Compact syntax (SVG paths) is cheaper in tokens (8 vs. 16); no Brotli in a context window</li>
     <li>Nuance: unlabeled flags in microsyntaxes (SVG arcs) do cause errors</li>
-   </ul>
-  </section>
-
-  <!-- Analysis: analysis/design-principles.md, design-principles/02-15-third-party-tools.md -->
-  <section class="slide principle-slide" id="principle-third-party-tools">
-   <h2>Usability over third-party tools <small>(TAG §2.15)</small></h2>
-   <p class=lede>§2.15: avoiding clashes with tool syntax is “rarely an acceptable
-   tradeoff” if it hurts native usability. Clash = <strong>same syntax, different
-   meaning</strong> — and models learned the tool's meaning first.</p>
-   <div class=columns>
-    <section>
-     <h3>Nesting <code>&amp;</code>: CSS vs. Sass</h3>
-     <pre class=clash><code>.card {
-  &amp;__title { font-weight: bold }
-}</code></pre>
-     <ul class=clash-list>
-      <li><b>Sass</b> <span>pastes text: builds <code>.card__title</code> (BEM idiom)</span></li>
-      <li><b>CSS</b> <span><code>&amp;</code> is a selector, not text: the rule is
-       invalid and silently dropped</span></li>
-     </ul>
-    </section>
-    <section>
-     <h3><code>@decorator</code>: TC39 vs. TS</h3>
-     <pre class=clash><code>// legacy TS (experimentalDecorators)
-function log(target, key, descriptor) {…}
-// TC39 standard
-function log(value, context) {…}</code></pre>
-     <ul class=clash-list>
-      <li><b>Same</b> <span><code>@log</code> at the call site; incompatible function
-       signatures and semantics</span></li>
-     </ul>
-    </section>
-   </div>
-   <p class=next><strong>A human reads the migration note once. Does an agent
-   fall back to the tool's meaning every time?</strong></p>
-   <p class="source">Sources: W3C TAG <a
-   href="https://w3ctag.github.io/design-principles/#third-party-tools">§2.15</a>;
-   <a href="https://drafts.csswg.org/css-nesting/">CSS Nesting</a>;
-   <a href="https://sass-lang.com/documentation/style-rules/parent-selector/">Sass</a>;
-   <a href="https://github.com/tc39/proposal-decorators">TC39 Decorators</a>;
-   <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">TS
-   decorators</a>.</p>
-  </section>
-
-  <section class=comment>
-   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/02-15-third-party-tools.md">design-principles/02-15-third-party-tools.md</a></p>
-   <ul>
-    <li>§2.15 tells spec authors to break tools rather than compromise native syntax, on the assumption tools are short-lived</li>
-    <li>Hypothesis (unmeasured): for agents, popular tools never go away: they're fossilized in model weights</li>
-    <li>Nesting: Sass treats <code>&amp;</code> as string concatenation, so <code>&amp;__title</code> → <code>.card__title</code>. Native CSS treats <code>&amp;</code> as the parent selector, so <code>&amp;__title</code> is invalid and dropped. An agent that writes the Sass form into vanilla CSS gets no error</li>
-    <li>Decorators: legacy TS/Babel decorators get <code>(target, key, descriptor)</code>; standard decorators get <code>(value, context)</code> and return a replacement. Same <code>@</code> syntax for both</li>
    </ul>
   </section>
 
