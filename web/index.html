@@ -44,7 +44,11 @@
      padding: 0.6em 1em; border-radius: 0.5em; font-size: 1.05em;
      line-height: 1.35; text-wrap: balance;
      background: hsl(0 0% 100% / 0.88); color: hsl(211 100% 17%)}
-   .slide.part.topic p.long {font-size: 0.85em}
+   .slide.part.topic ul {margin: 2.2rem auto 0; max-width: 32rem;
+     padding: 0.6em 1em 0.6em 2em; border-radius: 0.5em; font-size: 1.05em;
+     line-height: 1.35; text-align: left;
+     background: hsl(0 0% 100% / 0.88); color: hsl(211 100% 17%)}
+   .slide.part.topic ul li {margin: 0.2em 0}
 
    /* Charts and stats for the data slides */
    .chart-figure {margin: 0}
@@ -582,12 +586,11 @@
 
   <section class="slide part topic" id="topic-agents">
    <h2>Should we design for agents?</h2>
-   <p>Should we take agent consumers into account at all? The counterarguments are that agents are not uniform — what is efficient for one model generation may not be for the next — and the landscape is still volatile, whereas Web APIs are permanent.</p>
   </section>
 
   <section class=comment>
    <ul>
-    <li>Topic 1 of 7, verbatim from the proposal</li>
+    <li>Topic 1 of 7. Proposal text: “Should we take agent consumers into account at all? The counterarguments are that agents are not uniform — what is efficient for one model generation may not be for the next — and the landscape is still volatile, whereas Web APIs are permanent.”</li>
    </ul>
   </section>
 
@@ -641,24 +644,31 @@
 
   <section class="slide part topic" id="topic-agent-dx">
    <h2>What is agent DX?</h2>
-   <p>What does agent DX mean? Token efficiency? Robustness/correctness? What else?</p>
+   <ul>
+    <li>What does agent DX mean?
+    <li>Token efficiency? Robustness / correctness?
+    <li>What else?
+   </ul>
   </section>
 
   <section class=comment>
    <ul>
-    <li>Topic 2 of 7, verbatim from the proposal</li>
+    <li>Topic 2 of 7. Proposal text: “What does agent DX mean? Token efficiency? Robustness/correctness? What else?”</li>
     <li>No research slide: open discussion</li>
    </ul>
   </section>
 
   <section class="slide part topic" id="topic-principles">
    <h2>Design principles</h2>
-   <p>Which existing design principles still hold for agents, and which actively hinder them?</p>
+   <ul>
+    <li>Which existing principles still hold for agents?
+    <li>Which actively hinder them?
+   </ul>
   </section>
 
   <section class=comment>
    <ul>
-    <li>Topic 3 of 7, verbatim from the proposal</li>
+    <li>Topic 3 of 7. Proposal text: “Which existing design principles still hold for agents, and which actively hinder them?”</li>
    </ul>
   </section>
 
@@ -857,12 +867,16 @@
 
   <section class="slide part topic" id="topic-tokens">
    <h2>Token efficiency</h2>
-   <p>What makes a Web API token-efficient, both when writing code against it and when reading code that uses it?</p>
+   <ul>
+    <li>What makes a Web API token-efficient?
+    <li>For writing code against it
+    <li>For reading code that uses it
+   </ul>
   </section>
 
   <section class=comment>
    <ul>
-    <li>Topic 4 of 7, verbatim from the proposal</li>
+    <li>Topic 4 of 7. Proposal text: “What makes a Web API token-efficient, both when writing code against it and when reading code that uses it?”</li>
    </ul>
   </section>
 
@@ -913,12 +927,15 @@
 
   <section class="slide part topic" id="topic-robust">
    <h2>Robustness</h2>
-   <p>What makes a Web API robust for agents, i.e. harder to misuse?</p>
+   <ul>
+    <li>What makes a Web API robust for agents?
+    <li>i.e. harder to misuse
+   </ul>
   </section>
 
   <section class=comment>
    <ul>
-    <li>Topic 5 of 7, verbatim from the proposal</li>
+    <li>Topic 5 of 7. Proposal text: “What makes a Web API robust for agents, i.e. harder to misuse?”</li>
    </ul>
   </section>
 
@@ -966,24 +983,32 @@
 
   <section class="slide part topic" id="topic-conflicts">
    <h2>Agent vs. human DX</h2>
-   <p>Where agent ergonomics and human DX conflict, how do we weigh them?</p>
+   <ul>
+    <li>Where do agent and human DX conflict?
+    <li>How do we weigh them?
+   </ul>
   </section>
 
   <section class=comment>
    <ul>
-    <li>Topic 6 of 7, verbatim from the proposal</li>
+    <li>Topic 6 of 7. Proposal text: “Where agent ergonomics and human DX conflict, how do we weigh them?”</li>
     <li>No research slide: open discussion</li>
    </ul>
   </section>
 
   <section class="slide part topic" id="topic-evaluation">
    <h2>Evaluation</h2>
-   <p class=long>An API’s token cost is not an intrinsic property. An agent implementing an unfamiliar API spends tokens on lookup, trial and error, and correction, so a design that would be more token-efficient at parity of familiarity measures as worse until training data catches up — which takes years. Any evaluation we run today privileges familiar over better. How do we separate the two, and how do we evaluate API designs, or design principles, given such a delayed feedback loop?</p>
+   <ul>
+    <li>Unfamiliar APIs cost extra tokens (lookup, trial and error)
+    <li>Better designs score worse until training data catches up
+    <li>How do we separate familiar from better?
+    <li>How do we evaluate with such a delayed feedback loop?
+   </ul>
   </section>
 
   <section class=comment>
    <ul>
-    <li>Topic 7 of 7, verbatim from the proposal</li>
+    <li>Topic 7 of 7. Proposal text: “An API’s token cost is not an intrinsic property. An agent implementing an unfamiliar API spends tokens on lookup, trial and error, and correction, so a design that would be more token-efficient at parity of familiarity measures as worse until training data catches up — which takes years. Any evaluation we run today privileges familiar over better. How do we separate the two, and how do we evaluate API designs, or design principles, given such a delayed feedback loop?”</li>
    </ul>
   </section>
 
