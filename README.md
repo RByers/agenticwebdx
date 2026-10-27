@@ -25,6 +25,8 @@ Questions this session will explore:
 
 **Goal:** Provoke discussion. The session will have roughly 15 minutes of presented content, interspersed with group discussion topics. Throughout, we want to bring accurate and useful data to bear on the points under discussion, make progress on the questions above, and identify people interested in exploring this further.
 
+**Tone:** Be humble. We don't have the answers, and the presentation shouldn't pretend to. Acknowledge uncertainty openly: say where the data is thin, conflicting or a lower bound, and where trends could plausibly stall or reverse. Frame slides as questions and evidence for the room to weigh, not conclusions to accept. Prefer "what do we think?" to "here's what's true".
+
 ## Repository layout
 
 - `web/` – everything published to GitHub Pages
