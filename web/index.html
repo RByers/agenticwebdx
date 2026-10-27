@@ -11,6 +11,7 @@
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="stylesheet" href="Templates/slides.css">
   <script src="Templates/b6plus.js"></script>
+  <script src="slide-fit.js"></script>
   <script>
    // Open links in a new tab so following one never navigates away from the
    // deck. Set at click time (capture phase) so it covers every link, including
@@ -30,6 +31,9 @@
      body.fade-in .slide.visited {animation-duration: 0.3s}
      body.fade-in .slide.active {animation-duration: 0.3s}
    }
+
+   /* Set by slide-fit.js on slides whose content doesn't fit */
+   .slide.overflowing {outline: 0.3em dashed red; outline-offset: -0.3em}
 
    /* Discussion-topic section slides: title in the part header's box,
       the session question underneath on a card over the illustration */
@@ -511,7 +515,7 @@
 
   <!-- Analysis: analysis/the-shift.md -->
   <section class="slide" id="code-share">
-   <h2>Over half of web code is AI-written—except CSS</h2>
+   <h2>AI writes over half of web code—not CSS</h2>
    <div class=columns>
     <section>
      <h3>AI share of web devs’ code</h3>
@@ -529,14 +533,14 @@
     <section>
      <h3>Across repos &amp; languages</h3>
      <ul class=stat-list>
-      <li><b>2%→28%</b> of enterprise PRs include coding-agent commits,
+      <li><b>2%→28%</b> of enterprise PRs with agent commits,
        Jan → Sep 2026</li>
-      <li><b>29%–75%</b> of new code is AI-written: 29% enterprise median,
-       75% at Google</li>
-      <li><b>3×</b> lines added per agent commit vs. human; HTML &amp; TS/JS
-       lead AI share while SCSS trails</li>
-      <li><b>42%</b> of plain-CSS authors write 0% of their CSS with AI,
-       vs. 8% of shadcn/ui users</li>
+      <li><b>29%–75%</b> of new code is AI-written (enterprise median →
+       Google)</li>
+      <li><b>3×</b> lines per agent commit vs. human; HTML leads in
+       AI share, SCSS lags</li>
+      <li><b>42%</b> of plain-CSS authors use no AI for CSS, vs. 8% with
+       shadcn/ui</li>
      </ul>
     </section>
    </div>
