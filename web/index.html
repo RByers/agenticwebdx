@@ -11,6 +11,18 @@
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="stylesheet" href="Templates/slides.css">
   <script src="Templates/b6plus.js"></script>
+  <script>
+   // Open links in a new tab so following one never navigates away from the
+   // deck. Set at click time (capture phase) so it covers every link, including
+   // ones added later, without needing target=_blank on each <a>.
+   // In-page fragment links (#...) are left alone.
+   document.addEventListener('click', function (e) {
+     var a = e.target.closest && e.target.closest('a[href]');
+     if (!a || a.hasAttribute('target') || a.getAttribute('href').charAt(0) === '#') return;
+     a.target = '_blank';
+     a.relList.add('noopener');
+   }, true);
+  </script>
   <style>
    /* Faster slide transitions: the template's fade-in takes 1s; shorten it.
       Same reduced-motion guard as the template, so this never adds motion. */

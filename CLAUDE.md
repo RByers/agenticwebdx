@@ -17,6 +17,7 @@ This repo holds the slides for a W3C TPAC 2026 breakout session (see README.md).
 - The deck is `web/index.html`. It uses the b6+ framework from the TPAC 2026 template.
 - `web/Templates/` contains the unmodified TPAC 2026 template files. Don't edit them; put custom styles in the deck itself. `web/Templates/Overview.html` is the template's example deck and user manual: consult it for available slide classes and layouts (cover, part, final, two-column, etc.).
 - Put any images or other assets for the slides in `web/` (or a subdirectory such as `web/images/`), not in `web/Templates/`.
+- Links in the deck open in a new tab via a click handler in the `<head>` of `web/index.html`, so new links need no `target` attribute. Don't remove that script.
 
 ## Research and analysis notes
 
