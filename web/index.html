@@ -266,12 +266,12 @@
   </section>
 
   <section class=comment>
-   <p>The Web Platform's design principles implicitly assume a human
-   developer as the primary API consumer. As a growing share of web
-   code is written by agents, these assumptions stop holding
-   uniformly, and some pull in opposite directions.</p>
-   <p>Goal: make progress on the session's questions and identify
-   people interested in exploring this further.</p>
+   <ul>
+    <li>Design principles assume a human is the API consumer; more and more web code is written by agents</li>
+    <li>Some assumptions stop holding; some pull in opposite directions</li>
+    <li>Goal: make progress on the questions, find people to continue the work</li>
+    <li>Tone: we don't have answers; bring data, ask the room</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/the-shift.md -->
@@ -281,12 +281,11 @@
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md"
-   >analysis/the-shift.md</a>.</p>
-   <p>Before asking how standards should adapt, establish that the
-   change is real and large, and be honest about how far it has got.
-   Five slides of public data; every number links to its source.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md">analysis/the-shift.md</a></p>
+   <ul>
+    <li>First: is the change real, and how far has it got?</li>
+    <li>Five slides of public data; every number links to its source</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/the-shift.md -->
@@ -347,25 +346,14 @@
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md"
-   >analysis/the-shift.md</a>.</p>
-   <p>Counts come straight from the public Stack Exchange API
-   (<code>/2.3/questions?filter=total</code>), sampled every January,
-   April, July and October. Raw numbers are in
-   <a href="data/stackoverflow-questions.csv">data/stackoverflow-questions.csv</a>;
-   the script is <code>tools/so_fetch.py</code>. The source link on the
-   slide is the live query for July 2026 (1,175); change the tag or
-   dates to reproduce any other point. Re-verified against the API on
-   27 Oct 2026.</p>
-   <p>The slow decline started around 2017 (the easy questions had
-   been answered). ChatGPT (Nov 2022) turned it into a collapse, and
-   coding agents (Claude Code, Copilot agent mode, Cursor agent; early
-   2025) finished it: July 2026 had about 1,200 new questions, fewer
-   than in the site's first month of public beta in 2008.</p>
-   <p>Web-platform tags fell even harder than the site overall:
-   <code>[javascript]</code> is down 99.7% from its July 2015 peak,
-   <code>[css]</code> 99.6% from January 2014.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md">analysis/the-shift.md</a></p>
+   <ul>
+    <li>Slow decline from ~2017 (easy questions already answered)</li>
+    <li>ChatGPT (Nov 2022) → collapse; coding agents (early 2025) finished it</li>
+    <li>Jul 2026: ~1,200 new questions, fewer than the 2008 public beta's first month</li>
+    <li><code>[javascript]</code> −99.7% from peak, <code>[css]</code> −99.6%</li>
+    <li>Data: <a href="data/stackoverflow-questions.csv">stackoverflow-questions.csv</a> (Stack Exchange API, <code>tools/so_fetch.py</code>)</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/the-shift.md -->
@@ -407,47 +395,14 @@
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md"
-   >analysis/the-shift.md</a>.</p>
-   <p><a href="https://www.mintlify.com/state-of-knowledge/2026">Mintlify
-   2026 State of Knowledge Report</a>: agent share of traffic on
-   Mintlify-hosted docs grew from 20.8% (Feb 2026) to 66% (Aug 2026);
-   in August, 257M agent requests vs. 131M human page loads. The report
-   gives absolute counts only for August; the Feb bars are derived from
-   its stated growth since February (human readership 1.2×, agent 9.3×),
-   i.e. ≈109M human and ≈28M agent, which matches the published 20.8%
-   Feb share to within rounding. So on Mintlify human readership did not
-   fall: it grew a little while agent traffic grew ninefold. ~10.8M
-   <code>/llms.txt</code> fetches and 2M+ MCP tool calls that month.
-   Why Mintlify matters: it is the largest docs host publishing
-   agent-traffic numbers. It says it hosts docs for 20,000+ companies
-   and reaches 50M+ people a month (300M+ visitors in the past year).
-   Named customers include web-facing APIs and frameworks (Laravel,
-   PlanetScale, Resend, Notion, Okta, Zapier, HubSpot, Coinbase,
-   1Password) and AI platforms (Anthropic, Perplexity, Replit,
-   Lovable). It does not host web-platform reference docs (MDN,
-   web.dev) or the big front-end frameworks, and it skews towards AI
-   and dev-tool companies whose readers are heavy agent users, so treat
-   66% as an upper-end signal, not the web-wide figure.
-   Caveat (stated in the report): human and agent traffic are measured
-   differently (client-side analytics vs. server-side requests), so
-   the comparison is an estimate. An earlier
-   <a href="https://www.mintlify.com/blog/state-of-ai">user-agent-only
-   snapshot (March 2026, published 3 Apr)</a> already had agents at
-   45.3% vs. browsers at 45.8% of ~790M requests, with Claude Code
-   alone at 25%.</p>
-   <p><a href="https://github.com/tailwindlabs/tailwindcss.com/pull/2388#issuecomment-3717222957">Adam
-   Wathan, 7 Jan 2026</a>, on a PR proposing LLM-friendly docs:
-   “Traffic to our docs is down about 40% from early 2023 despite
-   Tailwind being more popular than ever… our revenue is down close to
-   80%.” and “75% of the people on our engineering team lost their jobs
-   here yesterday.”</p>
-   <p><a href="https://developer.mozilla.org/en-US/blog/introducing-mdn-mcp-server/">Introducing
-   the MDN MCP server, 15 June 2026</a>: “More and more AI tools are
-   being integrated into web development workflows, but they can
-   surface outdated web platform information based on their training
-   data and knowledge cutoff.”</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md">analysis/the-shift.md</a></p>
+   <ul>
+    <li>Mintlify (largest docs host publishing this): agents 21% → 66% of traffic, Feb → Aug 2026</li>
+    <li>Human readership didn't fall (1.2×); agent traffic grew 9×</li>
+    <li>Caveat: skews to AI/dev-tool companies, so an upper-end signal; humans and agents measured differently</li>
+    <li>Tailwind: docs traffic −40% since 2023, revenue −80%, 75% of engineers laid off</li>
+    <li>MDN launched an MCP server (Jun 2026) because models surface outdated platform info</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/the-shift.md -->
@@ -481,32 +436,13 @@
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md"
-   >analysis/the-shift.md</a>.</p>
-   <p><a href="https://survey.stackoverflow.co/2024/ai">2024 survey</a>:
-   61.8% currently using AI tools in their development process, up from
-   44% in 2023 (“62% vs. 44%”).
-   <a href="https://survey.stackoverflow.co/2025/ai">2025 survey</a>:
-   47.1% daily + 17.7% weekly + 13.7% monthly or less = 78.5% using;
-   84% using or planning to; 31% already using AI agents.</p>
-   <p><a href="https://stackoverflow.blog/2026/10/06/the-results-of-the-2026-developer-survey-are-here/">2026
-   survey</a> (published 6 Oct 2026; full results at
-   <a href="https://survey.stackoverflow.co/2026/">survey.stackoverflow.co/2026</a>):
-   “73% of respondents who indicate using AI coding assistants/agents
-   use them daily”; 66% of AI users use coding agents; the agents of
-   choice are Claude Code (66%) and GitHub Copilot (59%). “83% still
-   ask a search engine for answers, but 70% hit up their AI” (16,664
-   respondents); Stack Overflow is a source of work-related answers for
-   24%. The 2026 report doesn't publish an overall “currently using”
-   share comparable to 2023–25, so the bar chart stops at 2025.</p>
-   <p><a href="https://www.anthropic.com/research/impact-software-development">Anthropic
-   Economic Index, 28 Apr 2025</a>, 500K coding conversations sampled
-   6–13 April 2025: JavaScript/TypeScript 31% and HTML/CSS 28% of
-   queries; “UI/UX Component Development” 12% and “Web &amp; Mobile App
-   Development” 8% of tasks. Also: 79% of Claude Code sessions are
-   automation (the agent does the task) vs. 49% on Claude.ai. This
-   predates the 2025–26 agent boom.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md">analysis/the-shift.md</a></p>
+   <ul>
+    <li>Stack Overflow survey: 44% (2023) → 62% → 78.5% (2025) using AI tools</li>
+    <li>2026: 73% of users use AI daily; 66% use coding agents (Claude Code 66%, Copilot 59%)</li>
+    <li>2026 doesn't publish a comparable “currently using” figure, so the chart stops at 2025</li>
+    <li>Anthropic Economic Index (Apr 2025): JS/TS 31%, HTML/CSS 28% of coding queries</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/the-shift.md -->
@@ -556,152 +492,17 @@
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md"
-   >analysis/the-shift.md</a>.</p>
-   <p><strong>Point of the slide.</strong> No single instrument can tell
-   you the exact fraction of newly written CSS, JS and HTML on the web
-   that comes from LLMs: commit trailers miss ~70% of AI-assisted
-   commits (see the next slide), and AST neural classifiers only exist
-   for standalone Python functions. Combining the two sources we
-   <em>do</em> have—large-scale web-developer surveys and
-   enterprise/repo telemetry—shows a sharp inflection between late 2024
-   and mid-2026, plus a striking split between JavaScript/component
-   markup and vanilla CSS.</p>
-
-   <h4>Left column: Devographics surveys (2024 → 2026)</h4>
-   <p>Every survey below asks the same 9-bucket question (0%, 12.5%, 25%,
-   37.5%, 50%, 62.5%, 75%, 87.5%, 100%): <em>“What proportion of the code
-   you produce is AI-generated? (Including code copy-pasted from ChatGPT
-   or other chatbots, or code co-written using AI tools.)”</em> Raw
-   bucket distributions and framework cross-tabulations were queried
-   directly from the public GraphQL API
-   (<code>https://api.devographics.com/graphql</code>) on 27 Oct 2026:</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md">analysis/the-shift.md</a></p>
    <ul>
-    <li><strong>2024 (all code): 20.4% mean, 12.5% median</strong>
-    (<a href="https://2024.stateofjs.com/en-US/usage/#ai_generated_code_balance">State
-    of JS 2024</a>, Nov–Dec 2024, n=11,371): 19.9% report 0%; only 12.1%
-    report ≥50% AI-generated (3.0% at ≥75%).</li>
-    <li><strong>2025 (all code): 28.7% mean, 25% median</strong>
-    (<a href="https://2025.stateofjs.com/en-US/usage/#ai_generated_code_balance">State
-    of JS 2025</a>, Sep–Nov 2025, n=10,770): 10.5% report 0%; 23.7%
-    report ≥50% (7.8% at ≥75%). Earlier in 2025,
-    <a href="https://2025.stateofai.dev/en-US/usage/#ai_generated_code_balance">State
-    of Web Dev AI 2025</a> (Feb–Mar 2025, n=3,566) found nearly identical
-    numbers: 28.2% mean, 25% median, 23.0% at ≥50%.</li>
-    <li><strong>2026 (all code): 54.3%–56.1% mean, 62.5% median</strong>
-    across both broad 2026 surveys:
-    <a href="https://2026.stateofai.dev/en-US/usage/#ai_generated_code_balance">State
-    of Web Dev AI 2026</a> (Apr–May 2026, n=6,420: 54.3% mean, 62.5%
-    median, 62.3% at ≥50%, 44.3% at ≥75%, 8.3% at 0%) and
-    <a href="https://2026.stateofdevs.com/en-US/ai/#ai_generated_code_balance">State
-    of Devs 2026</a> (Jul–Sep 2026, n=4,846: 56.1% mean, 62.5% median,
-    64.4% at ≥50%, 48.7% at ≥75%, 9.4% at 0%). Preliminary
-    <code>state_of_html</code> 2026 data in the API (Oct 2026, n=1,445)
-    is at 49.9% mean, 50% median (56.4% at ≥50%).</li>
-    <li><strong>2026 CSS only: 28.3% mean, 12.5% median</strong>
-    (<a href="https://2026.stateofcss.com/en-US/usage/#css_ai_generated_code_balance">State
-    of CSS 2026</a>, May–Jun 2026, n=3,732), asking specifically:
-    <em>“What proportion of the CSS code you produce is
-    AI-generated?”</em> More than a quarter of respondents (26.3%) write
-    0% of their CSS with AI, 51.5% write ≤12.5%, and only 27.9% write
-    ≥50% (15.1% at ≥75%).</li>
-    <li><strong>Why CSS splits by framework</strong> (GraphQL query on
-    <code>state_of_css</code> 2026 faceting
-    <code>css_ai_generated_code_balance</code> by
-    <code>other_tools__css_frameworks</code>): respondents using
-    <strong>shadcn/ui</strong> (n=766) average <strong>45.5%</strong>
-    AI-generated CSS (50.1% at ≥50%; only 8.4% at 0%);
-    <strong>Tailwind CSS</strong> users (n=1,792) average
-    <strong>37.2%</strong> (39.4% at ≥50%; 15.0% at 0%); developers using
-    <strong>no CSS framework</strong> (<code>na</code>, n=1,019) average
-    just <strong>16.6%</strong> (only 13.3% at ≥50%, and
-    <strong>42.3%</strong> write 0% with AI); <strong>Open Props</strong>
-    users (n=102) average <strong>11.8%</strong> (0% at ≥50%). The survey
-    commentary notes respondents repeatedly citing that “AI isn’t great
-    at CSS just yet” (e.g. complex Grid layouts), whereas utility classes
-    co-locate styling in component markup where LLMs excel.</li>
+    <li>No single instrument measures this; combine surveys and telemetry</li>
+    <li>Devographics (same question every year): mean AI share 20% (2024) → 29% (2025) → ~55% (2026)</li>
+    <li>CSS is the exception: 28% mean, 26% write none of their CSS with AI</li>
+    <li>CSS splits by framework: shadcn/ui 46%, Tailwind 37%, no framework 17% (42% write 0%)</li>
+    <li>Survey comment: “AI isn't great at CSS just yet”; utility classes live in markup where models do well</li>
+    <li>Enterprise (Jellyfish, 100M PRs): agents in 2% → 28% of PRs, Jan → Sep 2026; Google: 75% of new code</li>
+    <li>Commit trailers miss ~70% of AI-assisted commits, hence no git-based number</li>
+    <li>Caveat: self-reported, engaged respondents</li>
    </ul>
-   <p>Caveats on Devographics: self-reported perception, not line-level
-   git blame; voluntary survey respondents skew toward engaged web
-   developers (and <code>state_of_ai</code> skews toward AI users, though
-   <code>state_of_devs</code> and <code>state_of_html</code> confirm the
-   ~50–56% mean). Even so, because the exact same question was asked
-   across all six waves, the 2024→2026 jump (median 12.5% → 62.5%) and
-   the 2× gap between all code and CSS are internally consistent.</p>
-
-   <h4>Right column: Enterprise PRs, repo diffs &amp; language breakdowns</h4>
-   <p><strong>2% → 28% of enterprise PRs, and company-wide code share.</strong>
-   <a href="https://jellyfish.co/ai-engineering-trends/">Jellyfish’s
-   Oct 2026 AI Engineering Trends benchmark</a> across 1,300+ companies
-   (276K developers, 100M PRs; <a
-   href="https://www.rdworldonline.com/jellyfish-claude-code-bills-hit-252-a-month-per-developer-as-software-factories-automate-code-production-among-early-adopters/">R&amp;D
-   World coverage</a>) reports that coding agents opened or committed to
-   <strong>27.7%</strong> of all PRs in September 2026 (up from ~2% in
-   January 2026), with a median of <strong>29%</strong> of code written
-   by AI. In <a href="https://www.sonarsource.com/state-of-code-developer-survey-report.pdf">Sonar’s
-   2026 State of Code Developer Survey</a> (Oct 2025 fieldwork, n=1,149,
-   published Jan 2026—bridging Devographics’ late-2025 and mid-2026 waves),
-   developers estimate <strong>42%</strong> of their committed code is
-   AI-generated or AI-assisted, up from <strong>6%</strong> in 2023. At
-   Google, Sundar Pichai reported at
-   <a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">Cloud
-   Next ’26 (22 Apr 2026)</a> that <strong>75%</strong> of all new code
-   is now AI-generated and approved by engineers, up from
-   <strong>50%</strong> in Fall 2025 and <strong>&gt;25%</strong> in
-   October 2024.</p>
-
-   <p><strong>3× lines per commit &amp; language breakdown (HTML/TS/JS vs. CSS).</strong>
-   In <a href="https://arxiv.org/abs/2601.18341">Robbes et al., “Agentic
-   Much? Adoption of Coding Agents on GitHub” (arXiv:2601.18341v2, Apr
-   2026)</a>, across 128,018 active GitHub projects (22.2%–28.7% adopting
-   coding agents by Feb 2026), agent-assisted commits add <strong>3×
-   more lines</strong> than human commits (median 31 vs. 11 lines added);
-   among adopting repos, <strong>HTML</strong> has one of the highest
-   median AI commit shares (~8 percentage points above the overall source
-   median of 7.8%), <strong>JavaScript</strong> sits near the median, and
-   <strong>SCSS</strong> and <strong>Svelte</strong> lag below average. In
-   their hand-audited sample of 790 Claude Code commits, TypeScript (213)
-   and JavaScript (73) together outnumbered Python (102) nearly 3:1.
-   Similarly, in <a href="https://2026.stateofai.dev/en-US/usage/#ai_generated_code_type">State
-   of Web Dev AI 2026</a> (<code>ai_generated_code_type</code>),
-   respondents use AI to generate helper functions (<strong>75.1%</strong>),
-   frontend components (<strong>70.6%</strong>, up from 57.0% in 2025),
-   tests (<strong>70.3%</strong>, up from 50.4%), core application logic
-   (<strong>59.4%</strong>, up from 42.9%), scripting (<strong>55.7%</strong>)
-   and CSS code last among web code categories (<strong>55.1%</strong>, up
-   from 39.0%), while the average fraction of AI-generated code rewritten
-   before committing (<code>ai_generated_code_refactoring</code>) fell
-   from <strong>61.0%</strong> in 2025 to <strong>46.7%</strong> in 2026.</p>
-
-   <p><strong>Why commit trailers undercount, and why there is no AST
-   neural-classifier number for CSS/HTML/JS.</strong>
-   <a href="https://arxiv.org/abs/2512.00867">Kraishan (arXiv:2512.00867,
-   Dec 2025)</a> audited 1,879 AI-assisted commits across 47 repos and
-   found only <strong>29.5%</strong> carry explicit disclosure (80.5% for
-   Claude Code CLI defaults vs. 9.0% for Copilot; inline IDE completions
-   add no trailer). <a href="https://arxiv.org/abs/2606.24429">Khosravani
-   &amp; Mockus (arXiv:2606.24429, Jun 2026)</a> audited 180M+ repos in
-   World of Code through April 2026 and showed single-signal bot detection
-   misses 96.7% of agent activity (~30× undercount), while agent config
-   files grew from zero in early 2025 to 888,177 <code>CLAUDE.md</code>,
-   211,166 <code>copilot-instructions.md</code> and 134,810
-   <code>AGENTS.md</code> blobs. Meanwhile,
-   <a href="https://arxiv.org/abs/2506.08945">Daniotti, Wachs, Feng &amp;
-   Neffke (<em>Science</em>, Feb 2026; arXiv:2506.08945)</a> trained a
-   neural classifier on AST-extracted standalone Python functions across
-   30M+ GitHub commits and found AI-generated share of newly written US
-   Python functions rose from <strong>5% (2022) → 29% (late 2024)</strong>.
-   No equivalent classifier exists for CSS, HTML or JS because declarative
-   CSS rules, utility-class strings and JSX templates lack standalone
-   function ASTs and are heavily normalized by Prettier/Tailwind. To
-   measure AI code share at the line level regardless of language, repos
-   are starting to adopt <a href="https://usegitai.com/"><code>git-ai</code></a>
-   (an open-source Git extension storing line-level AI authorship in
-   <code>refs/notes/ai</code> across rebases and squash-merges), IDE
-   telemetry (GitHub Copilot Metrics API, VS Code’s experimental
-   <code>git.addAICoAuthor</code>), and diff-churn analyzers such as
-   GitClear.</p>
   </section>
 
   <!-- Analysis: analysis/the-shift.md -->
@@ -752,38 +553,14 @@
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md"
-   >analysis/the-shift.md</a>.</p>
-   <p><a href="https://botcommits.dev/">botcommits.dev</a> (data
-   updated 18 Aug 2026; <a href="https://botcommits.dev/data.json">data.json</a>,
-   <a href="https://github.com/edgardomunoznajar/github_explosion">code
-   and raw queries</a>) counts public commits carrying an AI attribution
-   (Claude Code's <code>Co-Authored-By</code> trailer, bot authors for
-   Copilot coding agent, Jules, Devin, etc.) and divides by monthly
-   GH Archive push events. The six tracked tools went from ~2% of push
-   events in Dec 2025 to 15.1% in Apr 2026, then 16.0%, 18.6% and 17.8%
-   in May–Jul. Claude Code is ~99% of the attributed commits
-   (19.8M in Jul 2026).</p>
-   <p>This tells a more cautious story than the docs and survey data.
-   Month-on-month growth in Claude Code commits fell from +89% (March)
-   to +14% (July); the March forecast of exponential growth predicted
-   ~98M commits for July versus ~20M actual. Logistic and Gompertz fits
-   now beat the exponential, with an inflection around April 2026 and a
-   ceiling of roughly 22–30M Claude commits per month (wider across
-   fit configurations).</p>
-   <p>Caveats, from the site: it measures attribution markers, not AI
-   use. Cursor and Copilot inline completions add no marker; squash
-   merges collapse many agent commits into one; GitHub reports 81.5% of
-   contributions happen in private repos. The commits-per-push ratio is
-   uncertain (≈1:1 from Octoverse totals, ≈3:1 implied by other
-   estimates), so the 17.8% of pushes reads as roughly 6–18% of
-   commits. A plateau in attributed commits could also be a change in
-   attribution behaviour rather than usage.</p>
-   <p>Bridge to the discussion: if the typical “developer” reading a
-   spec, an MDN page or an error message is increasingly an agent,
-   which of our design principles still hold, and which pull in the
-   opposite direction?</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md">analysis/the-shift.md</a></p>
+   <ul>
+    <li>botcommits.dev: AI-attributed commits ~2% (Dec 2025) → ~18% of public pushes (Jul 2026)</li>
+    <li>Claude Code ≈ 99% of attributed commits</li>
+    <li>Growth slowed: +89%/month (Mar) → +14% (Jul); logistic fit beats exponential</li>
+    <li>Caveat: counts attribution markers, not use; plateau could be attribution behaviour</li>
+    <li>Bridge: if the “developer” is increasingly an agent, which principles still hold?</li>
+   </ul>
   </section>
 
   <section class="slide part" id="topics">
@@ -792,10 +569,11 @@
   </section>
 
   <section class=comment>
-   <p>Each of the following slides was drafted by a research agent
-   for one of the questions in the session proposal. They bring data
-   to the question and end with a prompt for the room. The speaker
-   notes after each slide carry the sources and caveats.</p>
+   <ul>
+    <li>One slide per question from the session proposal</li>
+    <li>Research slides bring data and end with a prompt for the room</li>
+    <li>Each slide's notes link to its full analysis</li>
+   </ul>
   </section>
 
   <section class="slide part topic" id="topic-agents">
@@ -804,7 +582,9 @@
   </section>
 
   <section class=comment>
-   <p>Discussion topic 1 of 7. Question text verbatim from the session proposal.</p>
+   <ul>
+    <li>Topic 1 of 7, verbatim from the proposal</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/volatility.md -->
@@ -843,149 +623,16 @@
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/volatility.md"
-   >analysis/volatility.md</a>.</p>
-   <p><strong>The skeptic's case</strong>: models are not uniform and turn
-   over every year, so optimizing a permanent Web API for this year's
-   agent is optimizing for a consumer that will be retired long before
-   the API is. The data supports the premise (left column) but suggests
-   some agent properties are as stable as the web itself (right
-   column), and that the cheap-tokens argument does not hold at the
-   frontier.</p>
-
-   <h4>Moves in months</h4>
-   <p><strong>≥10×/year for the same capability.</strong>
-   <a href="https://a16z.com/llmflation-llm-inference-cost/">a16z,
-   “Welcome to LLMflation” (Guido Appenzeller, 12 Nov 2024)</a>:
-   “For an LLM of equivalent performance, the cost is decreasing by 10x
-   every year.” At MMLU 42: GPT‑3 at $60/M tokens (Nov 2021) vs.
-   Llama 3.2 3B at $0.06/M (late 2024), ~1,000× in three years; at
-   MMLU 83 (GPT‑4 class), ~62× since March 2023.
-   <a href="https://epoch.ai/data-insights/llm-inference-price-trends">Epoch
-   AI, “LLM inference prices have fallen rapidly but unequally across
-   tasks” (12 Mar 2025)</a>: 9× to 900× per year depending on the
-   benchmark threshold; GPT‑4's GPQA (PhD science) level fell 40×/year.
-   Caveats: both rely on benchmarks that may be contaminated; Epoch notes
-   the fastest drops were the most recent and may not persist.
-   Related: <a href="https://epoch.ai/data-insights/context-windows">Epoch
-   AI (25 Jun 2025)</a>: the longest context windows grew ~30×/year
-   since mid‑2023 (GPT‑4 8K in 2023 → Gemini 2.5 Pro 1M, Llama 4
-   Scout 10M in 2025).</p>
-
-   <p><strong>79% → 0%.</strong>
-   <a href="https://amplifying.ai/research/claude-code-picks">Amplifying.ai,
-   “What Claude Code actually chooses” (Edwin Ong &amp; Alex Vikati,
-   Feb 2026)</a>: 2,430 open-ended prompts on real repos that never name
-   a tool, across Sonnet 4.5, Opus 4.5 and Opus 4.6. Prisma was 79% of
-   Sonnet 4.5's JS ORM picks and 0% of Opus 4.6's (Drizzle 100%,
-   n=29); Celery 100% → 0% and Redis 93% → 29% for Python. Sonnet 4.5
-   shipped 29 Sep 2025, Opus 4.6 on 5 Feb 2026. “Custom/DIY” was the
-   top pick in 12 of 20 categories, and
-   <a href="https://amplifying.ai/research/how-ai-coding-agents-choose-your-stack">a
-   companion write-up</a> reports that rephrasing the same requirement
-   gave the same pick only ~76% of the time. Caveats: one
-   vendor's models, one harness, small per-category n. This is the
-   non-uniformity point: two consecutive generations from the same
-   vendor disagree on defaults. I found no comparable published study
-   across vendors (Claude vs. GPT vs. Gemini) for front-end choices.</p>
-
-   <p><strong>1 year.</strong>
-   <a href="https://platform.claude.com/docs/en/about-claude/model-deprecations">Anthropic
-   model deprecations page</a>: <code>claude-opus-4-1-20250805</code>
-   retired 5 Aug 2026; Claude Sonnet 4 and Opus 4 (May 2025) retired
-   15 Jun 2026; Claude 3 Opus (Mar 2024) retired 5 Jan 2026; Claude 3
-   Haiku (Mar 2024) retired 20 Apr 2026. Retired models lived roughly
-   12–25 months on the first-party API. Partner clouds keep some longer.</p>
-
-   <h4>Holds across generations</h4>
-   <p><strong>24 years.</strong> Mutation events were specified in
-   <a href="https://www.w3.org/TR/DOM-Level-2-Events/">DOM Level 2
-   Events (W3C Recommendation, 13 Nov 2000)</a>, deprecated in 2011,
-   replaced by MutationObserver in 2012, and
-   <a href="https://developer.chrome.com/blog/mutation-events-deprecation">removed
-   from Chrome 127 (stable 23 Jul 2024)</a>: 13 years from deprecation
-   to removal. Other examples still required by the specs today:
-   <code>document.all</code> (IE4 era, special-cased as
-   <code>[[IsHTMLDDA]]</code> in ECMAScript),
-   <a href="https://html.spec.whatwg.org/multipage/obsolete.html#the-marquee-element">“The
-   marquee element must implement the HTMLMarqueeElement interface”</a>,
-   and sync XHR, which the <a href="https://xhr.spec.whatwg.org/">XHR
-   Standard</a> still says is “in the process of being removed from the
-   web platform”. For scale, a pull of the
-   <a href="https://chromestatus.com/api/v0/features">chromestatus.com
-   API</a> on 27 Oct 2026 lists 1,894 entries “Enabled by default” vs.
-   198 “Removed”, and few of those are removals of whole,
-   interoperable, standardized APIs: roughly 19 are prefixed features,
-   18 non-standard or legacy ones, 19 TLS or protocol changes, and
-   many of the rest remove single members or restrict a feature to
-   secure contexts (see analysis/volatility.md). The
-   chromestatus status field is maintained by hand, so treat that ratio
-   as rough. The asymmetry: with models living 1–2 years and APIs
-   living decades, an API designed this year will be consumed mostly by
-   models that don't exist yet.</p>
-
-   <p><strong>$60 → $50.</strong> Cheap tokens are cheap only for
-   yesterday's capability. GPT‑4 launched at $0.03/1K prompt and
-   $0.06/1K completion tokens, i.e. $30/$60 per M (8K context;
-   <a href="https://techcrunch.com/2023/03/14/openai-releases-gpt-4-ai-that-it-claims-is-state-of-the-art/">TechCrunch,
-   14 Mar 2023</a>). Anthropic's current top tier, Claude Fable 5.1
-   (Sep 2026), is $10/$50 per M
-   (<a href="https://platform.claude.com/docs/en/about-claude/pricing">Anthropic
-   pricing</a>). Input dropped 3×, output barely moved. a16z makes the
-   same point: o1 launched at the same $60/M output price as GPT‑3.
-   Meanwhile usage per request grows:
-   <a href="https://openrouter.ai/state-of-ai">OpenRouter/a16z
-   “State of AI” (Dec 2025)</a>: average prompt tokens per request rose
-   ~4× (≈1.5K → 6K+) and programming went from ~11% to over 50% of
-   token volume during 2025. Caveats: different vendors; cache hits
-   are much cheaper ($0.25/M on Fable 5.1); mid-tier models (Opus 5.5
-   $4/$20, Sonnet 5.5 $2/$10) are far cheaper. So token efficiency still
-   matters for whoever is paying for frontier agents, and context
-   window budget is a constraint at any price.</p>
-
-   <p><strong>~5%.</strong>
-   <a href="https://arxiv.org/abs/2605.17062">Churilov, “The Range
-   Shrinks, the Threat Remains: Re-evaluating LLM Package Hallucinations
-   on the 2026 Frontier-Model Cohort” (arXiv, May 2026, rev. Aug
-   2026)</a>: across 199,845 Python and JavaScript prompts, Claude
-   Sonnet 4.6, Claude Haiku 4.5, GPT‑5.4‑mini, Gemini 2.5 Pro and
-   DeepSeek V3.2 hallucinated packages at 4.62%–6.10%, vs. 5.2%
-   (commercial) to 21.7% (open-source) in
-   <a href="https://arxiv.org/abs/2406.10279">Spracklen et al., USENIX
-   Security 2025</a> (2024 models). 127 hallucinated names were shared by
-   all five models. Caveat: single-author preprint, not peer reviewed.
-   Related: <a href="https://arxiv.org/abs/2503.17181">Twist et al.,
-   “LLMs Love Python” (2025)</a>: across 8 models, popular libraries
-   (e.g. NumPy) were used unnecessarily in up to 48% of cases, and
-   <a href="https://arxiv.org/abs/2406.09834">Wang et al. (ICSE
-   2025)</a>: all 7 LLMs tested used deprecated APIs, attributed to
-   training data. Familiarity bias and training lag are structural, not
-   generation-specific.</p>
-
-   <p><strong>53% → 100%.</strong>
-   <a href="https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals">Vercel,
-   “AGENTS.md outperforms skills in our agent evals” (Jude Gao,
-   27 Jan 2026)</a>: on Next.js 16 APIs “not in current model training
-   data” (<code>'use cache'</code>, <code>cacheLife()</code>,
-   <code>connection()</code>, async <code>cookies()</code>…), no docs
-   53%; a docs skill 53% (never invoked in 56% of cases) or 79% with
-   explicit instructions; an 8KB docs index in AGENTS.md 100%.
-   Caveats: one vendor's own eval on a narrow API set. Relevant to the
-   “optimize docs and specs for machines, not APIs” option: every model
-   has a training cutoff, and docs in context remove most of the
-   penalty for a new API. That holds across generations. See the
-   Mintlify numbers on the docs slide (10.8M <code>/llms.txt</code>
-   fetches and 2M+ MCP calls in August 2026) and MDN's MCP server.
-   I found no public data on what fraction of agent sessions include a
-   docs lookup.</p>
-
-   <p><strong>Discussion prompt</strong>: if the consumer changes every
-   year, should agent DX only shape properties that held for every
-   generation so far, and leave token-level tuning to models and docs?
-   Candidates the room could test (not shown by the data above):
-   explicit errors, consistency, fewer footguns, familiar shapes,
-   machine-readable docs.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/volatility.md">analysis/volatility.md</a></p>
+   <ul>
+    <li>Skeptic's case: models turn over yearly, APIs last decades</li>
+    <li>Left (moves in months): same capability gets ≥10× cheaper/year; Claude Code's ORM pick went Prisma 79% → 0% between consecutive models; models retired after ~1–2 years</li>
+    <li>Right (holds across generations): APIs live 24+ years (mutation events), so a new API is used mostly by models that don't exist yet</li>
+    <li>Frontier tokens aren't cheap: GPT-4 $60/M output (2023) vs. Fable 5.1 $50/M today</li>
+    <li>Package hallucination still ~5% across 2026 models: familiarity bias is structural</li>
+    <li>Docs in context fix most of the new-API penalty (Vercel: 53% → 100%)</li>
+    <li>Ask: should agent DX shape only properties that held across every generation?</li>
+   </ul>
   </section>
 
   <section class="slide part topic" id="topic-agent-dx">
@@ -994,7 +641,10 @@
   </section>
 
   <section class=comment>
-   <p>Discussion topic 2 of 7, verbatim from the session proposal. No research slide: open discussion.</p>
+   <ul>
+    <li>Topic 2 of 7, verbatim from the proposal</li>
+    <li>No research slide: open discussion</li>
+   </ul>
   </section>
 
   <section class="slide part topic" id="topic-principles">
@@ -1003,7 +653,9 @@
   </section>
 
   <section class=comment>
-   <p>Discussion topic 3 of 7. Question text verbatim from the session proposal.</p>
+   <ul>
+    <li>Topic 3 of 7, verbatim from the proposal</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/design-principles.md -->
@@ -1047,99 +699,15 @@
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/design-principles.md"
-   >analysis/design-principles.md</a>; isolated per-principle evaluations: <a
-   href="https://github.com/rbyers/agenticwebdx/tree/main/design-principles"
-   ><code>design-principles/</code></a>.</p>
-   <p><strong>103-principle audit.</strong> The W3C TAG's
-   <a href="https://w3ctag.github.io/design-principles/">Web Platform Design
-   Principles</a> has 103 numbered sections (§1.1–§12.6) and never mentions AI,
-   LLMs or language models; every “agent” in it is a user agent. We evaluated
-   each of the 103 principles in isolation for coding agents (full write-ups in
-   <a href="https://github.com/rbyers/agenticwebdx/tree/main/design-principles"
-   ><code>design-principles/</code></a>): <strong>45</strong> clearly apply to
-   and help coding agents, <strong>48</strong> are neutral (end-user privacy,
-   security, hardware safety, or internal spec mechanics that apply regardless
-   of who writes the site), and <strong>10</strong> have human-centric
-   assumptions or prescriptions that don't apply to—or actively pull against—agent-written
-   code. A search of
-   <a href="https://github.com/w3ctag/design-principles/issues">w3ctag/design-principles
-   issues</a> (27 Oct 2026) found no issue about coding agents as API consumers;
-   <a href="https://github.com/w3ctag/design-principles/issues/551">#551</a> is
-   about browser-hosted ML models, and
-   <a href="https://github.com/w3ctag/design-principles/issues/455">#455</a>
-   (Lea Verou, open) asks that heuristics or “magic” always come with explicit
-   overrides.</p>
-
-   <p><strong>Supporting evidence that human and agent ergonomics mostly
-   align.</strong> Anthropic,
-   <a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing
-   effective tools for agents</a> (11 Sep 2025): “the tools that are most
-   ‘ergonomic’ for agents also end up being surprisingly intuitive to grasp as
-   humans.” OpenAI's
-   <a href="https://developers.openai.com/api/docs/guides/function-calling">function-calling
-   best practices</a>: “Pass the intern test: Can an intern/human correctly use
-   the function given nothing but what you gave the model?”</p>
-
-   <h3>The 3 best examples of TAG rules that apply to agents</h3>
-
-   <p><strong>1. Be consistent (<a
-   href="https://w3ctag.github.io/design-principles/#consistency">§2.4</a>, <a
-   href="https://w3ctag.github.io/design-principles/#naming-consistency">§12.5</a>,
-   <a href="https://w3ctag.github.io/design-principles/#html-idl-must-by-synced">§3.5</a>,
-   <a href="https://w3ctag.github.io/design-principles/#aborting">§6.12</a>, <a
-   href="https://w3ctag.github.io/design-principles/#milliseconds">§8.3</a>).</strong>
-   For humans, consistency reduces cognitive load; for LLMs, consistency
-   <em>is</em> the prediction mechanism. Models generate code from statistical
-   precedent across training corpora. On rare or post-cutoff APIs, where
-   <a href="https://arxiv.org/abs/2407.09726">Jain et al. (ICSE 2025)</a> found
-   GPT-4o fails 61% of the time vs. 6% on common APIs, an agent reconstructs
-   the call from platform-wide idioms: <code>EventTarget</code>,
-   <code>{ signal }</code> for cancellation (§6.12), millisecond time units
-   (§8.3), and 1:1 HTML↔IDL attribute reflection (§3.5). When §3.5 is violated
-   (<code>for</code>/<code>htmlFor</code>, <code>input.value</code> vs.
-   <code>defaultValue</code>, or <code>popovertarget</code> vs.
-   <code>popoverTargetElement</code>), setting a mismatched JS property silently
-   creates an inert expando property with no runtime error and leaves serialized
-   DOM snapshots out of sync.</p>
-
-   <p><strong>2. Accept optional and/or primitive arguments through dictionaries
-   (<a href="https://w3ctag.github.io/design-principles/#prefer-dictionaries">§6.5</a>)
-   &amp; use strings for constants and enums (<a
-   href="https://w3ctag.github.io/design-principles/#string-constants">§6.13</a>).</strong>
-   <em>Measurement (o200k_base):</em> the TAG's own example
-   <code>new Event("example", { bubbles: true, cancelable: false })</code> is 15
-   tokens vs. 9 for <code>new Event("example", true, false)</code> (1.67×);
-   <code>window.scrollBy({ left: 50, top: 0 })</code> is 14 vs. 9 (1.56×).
-   The extra tokens buy self-describing call sites in context, eliminate the
-   “Boolean trap” (<code>element.scrollIntoView(false)</code>) and positional
-   coordinate transpositions, and let agents add options incrementally without
-   counting <code>undefined</code> placeholders. Caveat: WebIDL silently ignores
-   unknown dictionary keys at runtime, so a hallucinated key name
-   (<code>cancellable</code> with two <code>l</code>s) is caught by TypeScript's
-   <code>lib.dom.d.ts</code> but silent in plain JS.</p>
-
-   <p><strong>3. Ensure features are developer-friendly (<a
-   href="https://w3ctag.github.io/design-principles/#debuggability">§10.7</a>)
-   &amp; use common words (<a
-   href="https://w3ctag.github.io/design-principles/#naming-common-words">§12.1</a>).</strong>
-   §10.7 requires specific, localizing developer error messages and highlights
-   <strong>Web Animations</strong> as a model for specifying debuggability of
-   declarative features. Because Web Animations defined programmatic JS
-   introspection (<code>el.getAnimations()</code>,
-   <code>effect.getComputedTiming()</code>), a coding agent in a headless
-   Playwright test can inspect and debug animations without taking pixel
-   screenshots—unlike declarative CSS features that fail silently with no DOM/CSSOM
-   introspection. Meanwhile, §12.1 (“Value readability over brevity. Avoid
-   abbreviations…”) aligns directly with BPE tokenization: common English words
-   tokenize cleanly (<code>requestAnimationFrame</code> → 3 tokens,
-   <code>structuredClone</code> → 2) and have a single spelling, whereas
-   abbreviations shatter into fragments (<code>RTCDTMFSender</code> →
-   <code>RT·CD·TM·FS·ender</code>, 5 tokens) and invite guessing
-   (<code>cfg</code> vs. <code>config</code>). See also <a
-   href="https://arxiv.org/abs/2307.12488">Wang et al. (JSEA 2024)</a> and
-   Anthropic (Sep 2025) on meaningful names vs. cryptic identifiers.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/design-principles.md">analysis/design-principles.md</a>; per-principle files in <a href="https://github.com/rbyers/agenticwebdx/tree/main/design-principles"><code>design-principles/</code></a></p>
+   <ul>
+    <li>Evaluated all 103 TAG principles one at a time: 45 help agents, 48 neutral, 10 pull against</li>
+    <li>The TAG doc never mentions AI; no TAG issue on coding agents as consumers</li>
+    <li>Anthropic, OpenAI: tools ergonomic for agents are also intuitive for humans</li>
+    <li>Consistency: for models it <em>is</em> the prediction mechanism (rare APIs: 61% invalid calls vs. 6% common)</li>
+    <li>Dictionaries and string enums: ~1.6× tokens, but self-describing calls, no boolean trap</li>
+    <li>Debuggability and common words: introspectable APIs let agents check without screenshots; abbreviations tokenize badly</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/design-principles.md, design-principles/02-07-text-formats.md -->
@@ -1178,59 +746,15 @@
   </section>
 
   <section class=comment>
-   <p>Isolated evaluations: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/02-07-text-formats.md"
-   >design-principles/02-07-text-formats.md</a>, <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/11-01-requirements-on-authors-and-implementers.md"
-   >design-principles/11-01-requirements-on-authors-and-implementers.md</a>.</p>
-   <p><strong>Why <a
-   href="https://w3ctag.github.io/design-principles/#text-formats">TAG §2.7</a>
-   is a prime example of a human-era guideline that misfires for agents.</strong>
-   §2.7 is the only section in the TAG Design Principles whose title explicitly
-   names its target audience (“for humans”), and it closes with a pre-LLM
-   dichotomy: “If your format is intended to be used only by machines, a binary
-   format is likely to be more efficient, in addition to discouraging people
-   from authoring or editing content directly.” Coding agents break that split:
-   they are machines whose native interface is text tokens.</p>
-
-   <p><strong>1. Strict syntax (JSON) vs. manual-edit flexibility.</strong>
-   §2.7 singles out JSON as a negative example because “there is: no commenting
-   capability, objects and arrays cannot have trailing commas, and quotes are
-   mandatory for object keys. This makes JSON prone to syntactic errors as a
-   result of manual edits.” For an LLM coding agent, manual punctuation typos
-   are a solved problem (99.9% syntax pass rate in Veracode 2026; grammar- and
-   schema-constrained decoding guarantees 100% valid JSON in tool calls and
-   structured outputs). Conversely, “syntactic flexibility—such as in whitespace,
-   quoting, or delimiters” creates multiple equivalent surface forms and parser
-   edge cases.</p>
-
-   <p><strong>2. Silent error containment (CSS &amp; HTML) vs. agent verification
-   loops.</strong> §2.7 praises CSS because “Typos in CSS properties only cause
-   that property to be ignored. Errors in properties rarely cause an entire rule
-   to be lost.” Similarly, <a
-   href="https://w3ctag.github.io/design-principles/#requirements-on-authors-and-implementers"
-   >TAG §11.1</a> (“Identify the audience of each requirement in your
-   specification”) explains that the web's forgiving “supported language” is
-   wider than the strict “conforming language” so that “authors have a shallower
-   learning curve.” For a human beginner in a plain text editor, rendering
-   <em>something</em> despite a typo is helpful. For an autonomous coding agent,
-   silent error absorption converts a trivial one-turn fix into a silent bug
-   that passes console and DOM checks without warning.</p>
-
-   <p><strong>3. Compactness vs. readability (SVG paths and HTML
-   microsyntaxes).</strong> §2.7 criticizes SVG path syntax
-   (<code>d="M10 10 L20 20"</code>) because “while the importance of size
-   efficiency has declined over time, the cost to human readability has remained
-   the same” (see also <a
-   href="https://w3ctag.github.io/design-principles/#html-lists">TAG §3.2</a> on
-   <code>srcset</code> vs. child elements). Over the network, gzip/Brotli
-   neutralizes verbosity; inside an LLM context window, there is no Brotli.
-   <code>M10 10 L20 20</code> is 8 tokens in <code>o200k_base</code> vs. 16 for
-   <code>moveTo(10, 10) lineTo(20, 20)</code>, paid every turn the file is read.
-   Nuance worth noting: unlabeled boolean flags inside compact microsyntaxes
-   (such as SVG arc flags <code>A rx ry rot large-arc sweep x y</code>) <em>do</em>
-   cause agent hallucinations, whereas single-letter command tokens with clear
-   coordinate pairs are both compact and accurate.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/02-07-text-formats.md">design-principles/02-07-text-formats.md</a>, <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/11-01-requirements-on-authors-and-implementers.md">design-principles/11-01-requirements-on-authors-and-implementers.md</a></p>
+   <ul>
+    <li>Only principle titled “for humans”; assumes machines would use binary</li>
+    <li>Agents are machines whose native interface is text</li>
+    <li>JSON strictness was a human pain; for agents syntax is solved (99.9%) and strictness helps</li>
+    <li>Forgiving CSS/HTML turns a one-turn fix into a silent bug</li>
+    <li>Compact syntax (SVG paths) is cheaper in tokens (8 vs. 16); no Brotli in a context window</li>
+    <li>Nuance: unlabeled flags in microsyntaxes (SVG arcs) do cause errors</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/design-principles.md, design-principles/02-15-third-party-tools.md -->
@@ -1270,53 +794,14 @@
   </section>
 
   <section class=comment>
-   <p>Isolated evaluations: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/02-15-third-party-tools.md"
-   >design-principles/02-15-third-party-tools.md</a>, <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-01-priority-of-constituencies.md"
-   >design-principles/01-01-priority-of-constituencies.md</a>.</p>
-   <p><strong>Why <a
-   href="https://w3ctag.github.io/design-principles/#third-party-tools">TAG §2.15</a>
-   pulls against agent-written code.</strong> §2.15 notes that “third-party tools
-   are often used to prototype new web platform features” and concludes that when
-   an upcoming standard's optimal syntax conflicts with a tool, spec authors
-   should usually prioritize native usability and let the tool adapt, because
-   “web platform features last a lot longer than most third-party tools.” In an
-   LLM world, that premise fails in three ways:</p>
-
-   <p><strong>1. Third-party tools do not disappear—they fossilize in model
-   weights.</strong> When millions of repositories use Sass, TypeScript, Babel,
-   JSX or Tailwind to prototype or fill gaps in the platform, their syntax and
-   semantics become permanent statistical priors in pre-training corpora. If the
-   web platform later standardizes the <em>same</em> sigil with subtly different
-   semantics for “optimal native usability,” models suffer persistent prior
-   interference. Examples: (a) native CSS Nesting adopted <code>&amp;</code> from
-   Sass, but Sass allows BEM string concatenation (<code>.card { &amp;__title
-   { … } }</code>) whereas native CSS Nesting treats <code>&amp;</code> as a
-   live selector where suffix concatenation is invalid and silently ignored;
-   (b) TC39 Stage 3 standard <code>@decorator</code> syntax shares the exact
-   token of legacy TypeScript/Babel <code>experimentalDecorators</code> (used by
-   Angular, NestJS, MobX, TypeORM for a decade) with incompatible argument
-   signatures and descriptor semantics; (c) CSS Color 4
-   <code>rgb(r g b / a)</code> and CSS <code>min()</code>/<code>max()</code>
-   collided with Sass's own function parser, causing years of build failures.</p>
-
-   <p><strong>2. Third-party tools are the agent's sensory feedback loop.</strong>
-   Autonomous coding agents rely on <code>tsc</code>, ESLint, Biome, PostCSS,
-   and bundlers to verify whether an edit is valid (<a
-   href="https://arxiv.org/abs/2405.15793">SWE-agent</a> showed +20% issues
-   resolved when a linter rejects broken edits). When a new native syntax breaks
-   the project's parser, typechecker or preprocessor, the agent receives an
-   immediate build error, treats it as ground truth, and strips out the native
-   feature in favor of legacy or tool-specific code.</p>
-
-   <p><strong>3. Where do coding agents sit in the Priority of Constituencies
-   (<a href="https://w3ctag.github.io/design-principles/#priority-of-constituencies"
-   >TAG §1.1</a>)?</strong> §1.1 puts users first, then authors, then
-   implementors, then spec writers. Are coding agents “authors,” or are they
-   “third-party tools” under §2.15? If standards treat agents as transient
-   third-party tools whose needs come last, specs optimize for a human typing
-   from memory while ignoring the consumer that now drives 66% of docs traffic.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/02-15-third-party-tools.md">design-principles/02-15-third-party-tools.md</a>, <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-01-priority-of-constituencies.md">design-principles/01-01-priority-of-constituencies.md</a></p>
+   <ul>
+    <li>§2.15: favour native syntax over tools because tools come and go</li>
+    <li>Tools don't go away: they're fossilized in model weights</li>
+    <li>Same sigil, different meaning confuses models: Sass vs. native <code>&amp;</code>, TS vs. TC39 decorators</li>
+    <li>Tools (tsc, ESLint, bundlers) are the agent's feedback loop; if they reject native syntax, the agent strips it</li>
+    <li>Ask: are agents “authors” or “third-party tools” in the priority of constituencies?</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/design-principles.md, design-principles/01-09-leave-the-web-better.md -->
@@ -1357,61 +842,13 @@
   </section>
 
   <section class=comment>
-   <p>Isolated evaluations: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-09-leave-the-web-better.md"
-   >design-principles/01-09-leave-the-web-better.md</a>, <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-08-removing-features.md"
-   >design-principles/01-08-removing-features.md</a>.</p>
-   <p><strong>Why <a
-   href="https://w3ctag.github.io/design-principles/#leave-the-web-better">TAG §1.9</a>
-   (paired with <a
-   href="https://w3ctag.github.io/design-principles/#removing-features">§1.8</a>)
-   creates traps for coding agents.</strong> §1.9 is the TAG's explicit override
-   to <a href="https://w3ctag.github.io/design-principles/#consistency">§2.4
-   (“Be consistent”)</a>: when an existing Web API pattern is flawed, §1.9 tells
-   spec authors <em>not</em> to follow it in new APIs, and not to extend flawed
-   features without addressing their defects. Meanwhile, <a
-   href="https://w3ctag.github.io/design-principles/#removing-features">§1.8</a>
-   ensures the old API is almost never removed. For humans reading MDN for a new
-   API, a cleaner design is welcome. For statistical models trained on the whole
-   platform at once, combining §1.9 with §1.8 produces three failure modes:</p>
-
-   <p><strong>1. Near-miss consistency traps across sibling APIs.</strong>
-   When a new API fixes a quirk locally while keeping the same naming family or
-   type, LLMs blend priors across the boundary. Example 1 (<a
-   href="https://w3ctag.github.io/design-principles/#events-vs-observers">TAG
-   §7.10</a>): <code>MutationObserver</code> and <code>ResizeObserver</code> pass
-   options to <code>observer.observe(target, options)</code>, whereas
-   <code>IntersectionObserver</code> takes options in <code>new
-   IntersectionObserver(cb, options)</code> (§7.10 explicitly permits both). When
-   an agent writes <code>io.observe(el, { threshold: 0.5 })</code>, WebIDL
-   silently ignores the extra argument and runs with the default threshold of 0.
-   Example 2 (<a href="https://w3ctag.github.io/design-principles/#live-vs-static"
-   >TAG §6.3</a>): <code>el.childNodes</code> returns a live
-   <code>NodeList</code>, while <code>el.querySelectorAll()</code> fixed the
-   liveness footgun by returning a static <code>NodeList</code>—under the exact
-   same interface name, erasing any TypeScript signal.</p>
-
-   <p><strong>2. Training-data gravity defeats unextended legacy APIs.</strong>
-   §1.9 discourages adding small capabilities to defective legacy APIs
-   (<code>Date</code>, <code>localStorage</code>, <code>XMLHttpRequest</code>,
-   <code>innerHTML</code>), favoring clean-sheet replacements
-   (<code>Temporal</code>, <code>IndexedDB</code>/<code>CookieStore</code>,
-   <code>fetch</code>, <code>setHTML</code>). Because the legacy APIs remain
-   working forever (§1.8) and dominate pre-training corpora, <a
-   href="https://arxiv.org/abs/2406.09834">Wang et al. (ICSE 2025)</a> found LLMs
-   choose deprecated APIs in 25–38% of completions overall and 70–90% when the
-   surrounding code already uses older APIs.</p>
-
-   <p><strong>3. The “only in test cases or examples” blind spot in <a
-   href="https://w3ctag.github.io/design-principles/#removing-features">TAG
-   §1.8</a>.</strong> §1.8 states that breaking a feature is acceptable when
-   usage “appears only in test cases or examples.” Browser UseCounters and HTTP
-   Archive measure live production traffic, but LLMs train directly on
-   documentation examples, tutorials, Stack Overflow answers, and test
-   suites—meaning coding agents actively resurrect “example-only” patterns into
-   new production code unless removals emit loud, machine-actionable replacement
-   errors.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-09-leave-the-web-better.md">design-principles/01-09-leave-the-web-better.md</a>, <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-08-removing-features.md">design-principles/01-08-removing-features.md</a></p>
+   <ul>
+    <li>§1.9: don't copy flawed patterns; §1.8: old APIs almost never removed</li>
+    <li>Near-miss siblings: <code>io.observe(el, {threshold})</code> silently ignored; live vs. static <code>NodeList</code></li>
+    <li>Legacy APIs dominate training data: deprecated API chosen 70–90% when surrounding code is old</li>
+    <li>“Only in examples” usage is what models train on, so they resurrect it</li>
+   </ul>
   </section>
 
   <section class="slide part topic" id="topic-tokens">
@@ -1420,7 +857,9 @@
   </section>
 
   <section class=comment>
-   <p>Discussion topic 4 of 7. Question text verbatim from the session proposal.</p>
+   <ul>
+    <li>Topic 4 of 7, verbatim from the proposal</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/token-efficiency.md -->
@@ -1454,138 +893,19 @@
  arXiv:2604.22750; Anthropic pricing (Claude Sonnet 5.5).</p>
 </section>
 
-<section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/token-efficiency.md"
-   >analysis/token-efficiency.md</a>.</p>
- <p><strong>Claim.</strong> What makes a Web API expensive in tokens is
- ceremony (setup objects, callbacks, lifecycle boilerplate, glue code), not
- long identifiers. Recent platform additions that pave a common pattern
- (<code>classList</code>, <code>fetch</code>, <code>loading=lazy</code>,
- <code>AbortSignal.timeout()</code>, <code>Object.groupBy()</code>) cut the
- tokens for the same task by about 2–6×. But for an agent the bigger cost
- is unfamiliarity: lookups, failed attempts and fixes. That means a new,
- terser API can cost more in practice than an old, verbose one until
- models have trained on it.</p>
-
- <p><strong>Measurement method (table and first stat).</strong> I wrote a
- pair of functionally equivalent snippets for each task, in one consistent
- style (2-space indent, single quotes, no comments). I counted tokens with
- OpenAI's <code>o200k_base</code> (GPT-4o and later) and
- <code>cl100k_base</code> (GPT-4) encodings via <code>tiktoken</code> 0.14.0,
- and with the Qwen2.5-Coder-7B-Instruct tokenizer via Hugging Face
- <code>tokenizers</code>. Claude's tokenizer is not public. Qwen's vocabulary
- overlaps heavily with cl100k, so it is not an independent check. All three
- agreed within about 10% on every snippet, and the table uses o200k.
- Formatting choices move the counts by roughly ±10%. These are tokens to
- <em>write</em> the code, and the same tokens are paid each time the code is
- <em>read</em> back into context.</p>
-
- <p>All pairs measured, o200k tokens (older → newer, ratio):
- toggle class 46 → 7 (6.6×); lazy image (IntersectionObserver +
- <code>data-src</code>) 76 → 12 (6.3×); <code>parentNode.removeChild</code> →
- <code>remove()</code> 7 → 3 (2.3×); <code>Array.reduce</code> grouping →
- <code>Object.groupBy</code> 32 → 14 (2.3×); manual promise resolvers →
- <code>Promise.withResolvers()</code> 28 → 13 (2.2×); AbortController +
- setTimeout → <code>AbortSignal.timeout()</code> 38 → 18 (2.1×); XHR with
- status and error handling → fetch/await with try/catch 76 → 40 (1.9×);
- <code>JSON.parse(JSON.stringify())</code> → <code>structuredClone()</code>
- 9 → 7 (1.3×); repeated selectors → CSS nesting 48 → 50 (0.96×; with a
- longer <code>.product-card</code> selector, 53 → 51). The median across
- the 9 pairs is 2.2×. CSS nesting saves characters (150 → 138) but not
- tokens: a short, repeated selector is cheap, and the nesting adds
- indentation and braces.</p>
-
- <p>Counter component (a button showing “Clicked N times”, imports
- included): vanilla custom element with shadow DOM, constructor,
- <code>connectedCallback</code>, <code>render()</code> and
- <code>customElements.define</code> 123; Lit 88; React function component 61;
- Svelte 5 29. React and Svelte need a build step and React has no style
- encapsulation, so this is not like-for-like on features. It shows the
- ceremony gap between the platform's component model and what developers
- (and agents) reach for. A trap I hit while writing the Lit version: a
- standard class field (<code>count = 0</code>) silently shadows Lit's
- reactive accessor, so initialization has to go in the constructor. That is
- a robustness problem, not a token one.</p>
-
- <p>Libraries vs. platform: <code>$('.item').addClass('active')</code> 8 vs
- <code>document.querySelectorAll('.item').forEach(el =&gt;
- el.classList.add('active'))</code> 18; delegated click handler, jQuery 24 vs
- <code>addEventListener</code> + <code>closest()</code> 32. Building a link,
- <code>createElement</code> + properties + <code>append</code> 24 vs
- <code>innerHTML +=</code> template string 16. The cheapest version is the
- XSS-prone one, so token efficiency and robustness can pull in opposite
- directions.</p>
-
- <p><strong>Identifiers.</strong> In code context, cl100k encodes
- <code>.addEventListener</code>, <code>.getElementById</code> and the
- 23-character <code>.getElementsByClassName</code> each as a <em>single</em>
- token. o200k splits them at camelCase boundaries (3, 4 and 5 tokens). The
- 13-character, all-lowercase HTML attribute <code>popovertarget</code> is 4
- tokens in all three tokenizers (<code>pop|o|vert|arget</code>), and
- <code>.adoptedStyleSheets</code> is 5–6. Tokenizer vocabularies are learned
- from existing code, so old, popular names are cheap and new or
- unconventionally cased names are fragmented. Even so, identifiers are a
- small share of a snippet's tokens, and camelCase costs about one token
- per word. A long, descriptive, familiar name costs little.</p>
-
- <p><strong>Familiarity (second stat).</strong> Zixuan Wu, Carolyn Jane
- Anderson and Arjun Guha, “The Best Programming Language for Tokenmaxxing:
- An Investigation of Coding Agent Behavior Across Programming Languages”,
- <a href="https://arxiv.org/abs/2607.22807">arXiv:2607.22807</a> (July 2026,
- rev. Oct 2026). They gave the same problems to agents in Python, Java, Rust
- and OCaml. In their Table 19, pooled over the three open models (Gemma,
- Qwen, GLM), the median final solution is 190 tokens in Python vs 272 in
- OCaml (1.4×). Median total output is 2,548 vs 6,706 (2.6×). In the
- authors' words, “The extra cost is not representation.” The extra tokens
- come from compile errors and error recovery: about 41% of Gemma's OCaml
- tokens vs about 13% for Python. Caveats: the frontier models had smaller
- gaps (controlled OCaml/Python output ratios of 1.30× for GPT-5.5 and 1.28×
- for Sonnet), and this compares languages, not Web APIs. I use it as an
- analogy for an unfamiliar API.</p>
-
- <p><strong>Read vs write (third stat).</strong> Output tokens are generated
- serially and priced higher. On
- <a href="https://platform.claude.com/docs/en/about-claude/pricing">Anthropic's
- pricing page</a> (checked 27 Oct 2026), Claude Sonnet 5.5 is $2/MTok input,
- $0.10 cache hits and $10 output: output costs 5× uncached input and 100× a
- cached read. Opus 5.5 has the same ratios ($4 / $0.20 / $20). Even so,
- Longju Bai et al., “How Do AI Agents Spend Your Money? Analyzing and
- Predicting Token Consumption in Agentic Coding Tasks”,
- <a href="https://arxiv.org/abs/2604.22750">arXiv:2604.22750</a> (SWE-bench
- Verified, 8 models, OpenHands), find that “input tokens, not output tokens,
- dominate the overall cost in agentic coding”. Cache-read input is the
- largest category, and cost spikes come from actions that bring new content
- into context, such as viewing files and running tests. So verbose code is
- paid for once when written and again every turn it sits in context or is
- re-read. Anthropic's
- <a href="https://www.anthropic.com/engineering/writing-tools-for-agents">“Writing
- effective tools for AI agents”</a> (Sep 2025) makes the same point for tool
- output: a concise response format used 72 tokens vs 206 for a detailed one.
- It also found that meaningful names beat opaque IDs such as UUIDs.</p>
-
- <p><strong>Related.</strong> Martin Alderson,
- <a href="https://martinalderson.com/posts/which-programming-languages-are-most-token-efficient/">“Which
- programming languages are most token-efficient?”</a> (Jan 2026; informal,
- RosettaCode, GPT-4 tokenizer) found a 2.6× gap across 19 languages, with
- JavaScript the most verbose dynamic language. APL's terseness didn't help,
- because the tokenizer splits its rare glyphs into several tokens each.</p>
-
- <p><strong>Paving the cowpaths.</strong>
- <a href="https://www.w3.org/TR/html-design-principles/#pave-the-cowpaths">HTML
- Design Principles §2.4</a> (2007): “When a practice is already widespread among
- authors, consider adopting it.” Paving cowpaths helps agents because it makes
- what they already write correct. But as more web code is agent-written, HTTP
- Archive and use counters measure model priors as much as developer needs—and
- <a href="https://arxiv.org/abs/2406.10279">Spracklen et al.</a> (USENIX Security
- 2025) found 43% of hallucinated package names were repeated across all 10 queries.
- Should the platform pave APIs that agents consistently hallucinate, or does that
- reward staleness?</p>
-
- <p><strong>Question for the room.</strong> If unfamiliarity costs more than
- verbosity, should a new API aim to look like what agents already write
- (a paved cowpath) even when that isn't the cleanest design?</p>
-</section>
+  <section class=comment>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/token-efficiency.md">analysis/token-efficiency.md</a></p>
+   <ul>
+    <li>Ceremony costs tokens, not long names</li>
+    <li>Newer APIs that pave a pattern cut tokens ~2–6× (median 2.2× over 9 pairs; o200k tokenizer)</li>
+    <li>Web component counter: vanilla 123 tokens, Lit 88, React 61, Svelte 29</li>
+    <li>Cheapest is sometimes the unsafe one (<code>innerHTML +=</code>)</li>
+    <li>Familiar names are cheap: tokenizers learned from existing code</li>
+    <li>Unfamiliarity costs more: OCaml vs. Python 2.6× total output, mostly error recovery</li>
+    <li>Input (re-reading code) dominates agent cost, so verbose code is paid every turn</li>
+    <li>Ask: should new APIs look like what agents already write, even if not the cleanest?</li>
+   </ul>
+  </section>
 
   <section class="slide part topic" id="topic-robust">
    <h2>Robustness</h2>
@@ -1593,7 +913,9 @@
   </section>
 
   <section class=comment>
-   <p>Discussion topic 5 of 7. Question text verbatim from the session proposal.</p>
+   <ul>
+    <li>Topic 5 of 7, verbatim from the proposal</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/robustness.md -->
@@ -1625,138 +947,16 @@
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/robustness.md"
-   >analysis/robustness.md</a>.</p>
-   <p><strong>Claim.</strong> Today's models rarely make mistakes that
-   something detects and reports (syntax, types, lint): those get fixed in
-   the loop. What survives are mistakes nothing reports: insecure but
-   working code, plausible calls to APIs the model has rarely seen, and
-   legacy APIs that still work. The web platform is unusually full of the
-   latter: CSS and HTML recover silently by design, deprecated APIs are
-   almost never removed, and the unsafe API (<code>innerHTML</code>) is the
-   shortest one.</p>
-
-   <p><a href="https://www.veracode.com/blog/2026-genai-code-security-report-ai-risk">Veracode
-   2026 GenAI Code Security Report</a> (28 Jul 2026;
-   <a href="https://www.veracode.com/wp-content/uploads/2026-GenAI-Report-Infographic.pdf">infographic</a>):
-   about 44% of AI code-generation tasks produced code with a risky
-   vulnerability; average security pass rate 56%, “barely changed from 55%
-   in the first report”. Syntax pass rate 99.9% (“Syntax is solved at 99.9%.
-   Security is not.”). Cross-site scripting (CWE-80) pass rate 15%, i.e.
-   85% failure; log injection (CWE-117) 12%; SQL injection 83%. Model size
-   makes no difference (large 53%, medium 51%, small 51%); best model
-   GPT-5.5 at 68%. Methodology (from the
-   <a href="https://www.veracode.com/press-release/ai-generated-code-poses-major-security-risks-in-nearly-half-of-all-development-tasks-veracode-research-reveals/">2025
-   edition</a>, 30 Jul 2025): 80 curated code-completion tasks in Java,
-   JavaScript, Python and C#, each completable securely or insecurely, run
-   against 100+ LLMs and checked with Veracode's static analysis. The 2025
-   numbers were 45% vulnerable and 86% XSS failure. Caveats: vendor report;
-   the XSS tasks are mostly server-side output encoding, not DOM
-   <code>innerHTML</code>; prompts don't ask for security. Worth noting in
-   discussion (my interpretation, not Veracode's): SQL injection, where the
-   idiomatic API (parameterized queries) is also the safe one, passes 83%;
-   XSS, where safety means remembering to encode, passes 15%. That is the
-   “pit of success” argument for safe-by-default APIs such as
-   <code>setHTML()</code> and Trusted Types.</p>
-
-   <p><a href="https://arxiv.org/abs/2407.09726">Jain et al., “On Mitigating
-   Code LLM Hallucinations with API Documentation”</a> (Amazon; ICSE 2025
-   SEIP). CloudAPIBench: 622 Python tasks against AWS and Azure SDKs, with
-   API frequency counted in The Stack v2 (low = ≤10 occurrences, high =
-   ≥100). GPT-4o (2024-05-13) made valid API invocations for 93.66% of
-   high-frequency APIs, 78.67% of medium and 38.58% of low-frequency ones
-   (so 6% vs. 61% invalid). Open models were far worse on rare APIs
-   (4–35% valid). Retrieving docs raised GPT-4o's low-frequency score to
-   47.94% but hurt high-frequency APIs when retrieval was imprecise.
-   Caveats: 2024 model, single-call completions, cloud SDKs rather than web
-   APIs. Relevance: every new web API starts out “low frequency”, which is
-   the session's familiarity-vs-quality problem.</p>
-
-   <p><a href="https://arxiv.org/abs/2406.09834">Wang et al., “LLMs Meet
-   Library Evolution: Evaluating Deprecated API Usage in LLM-based Code
-   Completion”</a> (ICSE 2025). 7 LLMs, 145 deprecated→replacement API
-   mappings in 8 Python libraries, 28,125 line-completion prompts taken
-   from real functions. When the surrounding function already used
-   outdated APIs, models picked the deprecated API in 70–90% of the
-   completions that used either the old or the new API; in up-to-date
-   functions, 9–18%; overall 25–38%. (Completions that called either
-   API were only 9–23% of all completions.) Caveats: 2024 models
-   (CodeLlama, StarCoder2, DeepSeek-Coder, GPT-3.5 etc.), Python, not
-   agents. Relevance: the web never removes APIs, so agents editing old
-   pages will keep extending <code>document.write</code>-era patterns
-   unless something tells them not to.</p>
-
-   <p><a href="https://arxiv.org/abs/2504.09246">Mündler, He, Wang, Sen,
-   Song, Vechev, “Type-Constrained Code Generation with Language
-   Models”</a> (PLDI 2025). In TypeScript generated by open-weight models
-   (2B–34B), on average 94% of compilation errors are type errors and only
-   6% syntax errors. Constraining decoding with the type system cut
-   compilation errors by 75.3% (HumanEval) and 52.1% (MBPP) for
-   synthesis, and raised functional correctness by 3.5–5.5% relative.
-   Caveats: small open models, benchmark-style problems, and constrained
-   decoding rather than an agent reading errors. GitHub's
-   <a href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/">Octoverse
-   2025 post</a> (TypeScript became GitHub's #1 language in August 2025)
-   quotes the same 94% figure: “Type systems reduce ambiguity and catch LLM
-   errors before production.”</p>
-
-   <p><a href="https://arxiv.org/abs/2405.15793">Yang, Jimenez et al.,
-   “SWE-agent: Agent-Computer Interfaces Enable Automated Software
-   Engineering”</a> (NeurIPS 2024). With GPT-4 Turbo on SWE-bench Lite, an
-   edit command that runs flake8 and rejects edits that introduce syntax
-   errors or undefined names resolved 18.0% of issues vs. 15.0% without
-   the check (+20% relative), and 10.3% with plain shell editing. The
-   authors note that commands which “lack immediate feedback” are “silent
-   operations potentially confusing for models to interpret”. 51.7% of
-   trajectories hit at least one rejected edit; agents usually recovered
-   from it (the chance of a successful edit fell from 90.5% to 57.2% after
-   one failure). Caveats: 2024 agent and model, Python.</p>
-
-   <p>Also relevant (not on the slide):</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/robustness.md">analysis/robustness.md</a></p>
    <ul>
-    <li>Hallucinated packages (“slopsquatting”):
-    <a href="https://arxiv.org/abs/2406.10279">Spracklen et al.</a>
-    (USENIX Security 2025): 576,000 Python and JavaScript samples from 16
-    LLMs; at least 5.2% (commercial) and 21.7% (open-source) of referenced
-    packages didn't exist; 205,474 unique invented names. A
-    <a href="https://arxiv.org/abs/2605.17062">2026 replication</a>
-    (Churilov, single-author preprint) on Claude Sonnet 4.6, Claude Haiku
-    4.5, GPT-5.4-mini, Gemini 2.5 Pro and DeepSeek V3.2: 4.62–6.10%, with
-    127 names (18 on npm) invented identically by all five models.
-    Improving, but the error is still silent until install time.</li>
-    <li><a href="https://arxiv.org/abs/2304.05128">Chen et al., “Teaching
-    Large Language Models to Self-Debug”</a> (2023): with unit-test or
-    execution feedback, accuracy improved by up to 12%; without any
-    external feedback, only 2–3%.
-    <a href="https://arxiv.org/abs/2306.09896">Olausson et al.</a> (ICLR
-    2024) find self-repair is limited by the quality of the feedback.</li>
-    <li><a href="https://arxiv.org/abs/2608.23067">Yang &amp; Ding, “Signal
-    or Noise? A Benchmark Study of Agent Skills in Web Development”</a>
-    (Aug 2026 preprint): injecting 31 public web-dev “skills” into agent
-    prompts lowered Pass@2 by 1.3–4.2% and raised token cost 72–394%;
-    anti-pattern rules helped more than examples. Telling agents up front
-    is no substitute for the platform telling them at runtime.</li>
-    <li>Graceful error recovery vs. agent feedback:
-    <a href="https://www.w3.org/TR/html-design-principles/#handle-errors">HTML
-    Design Principles §4.3 Handle Errors</a> (2007; see also
-    <a href="https://www.w3.org/TR/html-design-principles/#degrade-gracefully">§2.2
-    Degrade Gracefully</a>) states: “Prefer graceful error recovery to hard
-    failure, so that users are not exposed to authoring errors.” Similarly, per
-    <a href="https://www.w3.org/TR/CSS2/syndata.html#parsing-errors">CSS 2.1
-    §4.2</a> (“User agents must ignore a declaration with an unknown property”),
-    an invalid declaration such as <code>display: flexbox</code> is silently
-    dropped. Chrome's
-    <a href="https://developer.chrome.com/blog/chrome-devtools-mcp">DevTools MCP
-    launch post</a> (Bynens &amp; Hablich, 23 Sep 2025) notes that without
-    browser inspection tools, coding agents “are not able to see what the code
-    they generate actually does when it runs in the browser. They're effectively
-    programming with a blindfold on.” DevTools' Styles pane marks dropped CSS
-    declarations, but nothing reaches the console. Possible levers to discuss:
-    console warnings for invalid declarations or deprecated APIs, a
-    reporting or lint channel agents can read, dictionaries instead of
-    positional arguments, precise WebIDL that maps to TypeScript types, and
-    safe defaults.</li>
+    <li>Mistakes that get reported (syntax, types, lint) get fixed in the loop</li>
+    <li>What survives: insecure but working code, plausible calls to rare APIs, legacy APIs</li>
+    <li>Veracode: syntax 99.9% pass, security 56%, XSS 15%, SQL injection 83%</li>
+    <li>Interpretation: SQLi's idiomatic API is also safe; XSS needs remembering → case for <code>setHTML()</code>, Trusted Types</li>
+    <li>Rare APIs: GPT-4o 61% invalid calls vs. 6% for common ones</li>
+    <li>Types catch errors: 94% of TS compile errors are type errors; lint feedback +20% issues resolved</li>
+    <li>Web is full of silent failures: CSS drops bad declarations, nothing reaches the console</li>
+    <li>Levers: console warnings, readable reporting channel, dictionaries, precise WebIDL, safe defaults</li>
    </ul>
   </section>
 
@@ -1766,7 +966,10 @@
   </section>
 
   <section class=comment>
-   <p>Discussion topic 6 of 7, verbatim from the session proposal. No research slide: open discussion.</p>
+   <ul>
+    <li>Topic 6 of 7, verbatim from the proposal</li>
+    <li>No research slide: open discussion</li>
+   </ul>
   </section>
 
   <section class="slide part topic" id="topic-evaluation">
@@ -1775,7 +978,9 @@
   </section>
 
   <section class=comment>
-   <p>Discussion topic 7 of 7. Question text verbatim from the session proposal.</p>
+   <ul>
+    <li>Topic 7 of 7, verbatim from the proposal</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/what-agents-write.md -->
@@ -1810,169 +1015,17 @@
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/what-agents-write.md"
-   >analysis/what-agents-write.md</a>.</p>
-   <p><strong>Claim.</strong> When agents build for the web they converge
-   on one framework-shaped stack (React + Tailwind + shadcn/ui + lucide
-   icons), and this is now visible in registry-wide numbers. Whether they
-   also under-use newer native features is <em>plausible but
-   unmeasured</em>: there is no public audit of agent output for
-   <code>&lt;dialog&gt;</code>, popover, <code>:has()</code>, container
-   queries, nesting, View Transitions, anchor positioning, etc. The only
-   number is Chrome's own eval. The gap is itself a finding.</p>
-
-   <p><strong>Claude Code picks.</strong>
-   <a href="https://amplifying.ai/research/claude-code-picks">Edwin Ong
-   &amp; Alex Vikati (Amplifying), “What Claude Code Actually Chooses”,
-   Feb 2026</a>: Claude Code v2.1.39 on 4 real repos × 3 runs × 3 models
-   (Sonnet 4.5, Opus 4.5, Opus 4.6) × 20 tool categories, open-ended
-   prompts that never name a tool; 2,430 responses, 2,073 with parseable
-   picks. UI components: shadcn/ui 90.1% (64/71). Styling: Tailwind 68.4%
-   (52/76). State: Zustand 64.8% (57/88), Redux 0 primary picks.
-   JS frontend deployment: Vercel 100% (86/86). “Custom/DIY” is the most
-   common single label (12 of 20 categories). Caveats: one agent, small n
-   per category, the page does not break down the non-Tailwind styling
-   picks (e.g. plain CSS vs. CSS Modules) and it measures libraries, not
-   native features. Counterpoint worth raising: “Newer models tend to
-   pick newer tools” (JS ORM: Prisma 79% on Sonnet 4.5 → 0% on Opus 4.6;
-   Drizzle 21% → 100%), so lock-in to the familiar is not absolute; the
-   question is whether native platform features get the same lift.</p>
-
-   <p><strong>App builders.</strong>
-   <a href="https://v0.app/docs/faqs">v0 FAQ</a>: “v0 uses Next.js,
-   React, TypeScript, Tailwind CSS, and shadcn/ui” (it says it also
-   “supports popular frontend frameworks and UI libraries”).
-   <a href="https://docs.lovable.dev/introduction/faq">Lovable FAQ</a>:
-   “Lovable does not offer a choice of framework or database.” New
-   Lovable apps since 13 May 2026 use TanStack Start (SSR); before that,
-   React + Vite + React Router, client-rendered
-   (<a href="https://lovable.dev/blog/building-apps-using-tanstack-start">Lovable
-   blog, 1 Jun 2026</a>). That switch is the “framework is the platform”
-   point in miniature: one vendor decision changed the rendering model of
-   every new app overnight, with no user opt-in. Similarly shadcn/ui made
-   Base UI the default primitive layer instead of Radix for new projects
-   (<a href="https://ui.shadcn.com/docs/changelog/2026-07-base-ui-default">changelog,
-   July 2026</a>). Anthropic's own
-   <a href="https://github.com/anthropics/skills/blob/main/skills/web-artifacts-builder/SKILL.md">web-artifacts-builder
-   skill</a> specifies “React 18 + TypeScript + Vite + Parcel + Tailwind
-   CSS + shadcn/ui”. Scale: “100,000 new projects are built on Lovable
-   every single day” (<a href="https://lovable.dev/blog/one-year-of-lovable">Lovable,
-   18 Nov 2025</a>, vendor claim). Later totals (50–60M projects, ~1M/week)
-   appear only in secondary sources.</p>
-
-   <p><strong>npm downloads</strong> (monthly totals, September 2024 vs.
-   September 2026, from
-   <code>https://api.npmjs.org/downloads/point/2026-09-01:2026-09-30/&lt;pkg&gt;</code>,
-   fetched 27 Oct 2026):
-   <code>shadcn</code> CLI 0.78M → 41.1M (53×; <code>shadcn</code> +
-   <code>shadcn-ui</code> combined, because the CLI was renamed from
-   <code>shadcn-ui</code> to <code>shadcn</code> in July 2024; the new name
-   alone is 0.42M → 40.4M, 96×, which overstates the growth);
-   <code>lucide-react</code> 6.9M → 426M (61×);
-   <code>class-variance-authority</code> 7.8M → 266M (34×);
-   <code>tailwind-merge</code> 14.8M → 345M (23×);
-   <code>@radix-ui/react-dialog</code> 14.9M → 297M (20×);
-   <code>tailwindcss</code> 44M → 529M (12×);
-   <code>@floating-ui/dom</code> 51M → 409M (8×);
-   <code>next</code> 30.8M → 243M (7.9×);
-   <code>react</code> 107M → 731M (6.8×);
-   <code>express</code> 135M → 561M (4.1×);
-   <code>lodash</code> 218M → 697M (3.2×);
-   <code>lit</code> 8.2M → 30M (3.7×);
-   <code>svelte</code> 5.6M → 24M (4.3×);
-   <code>vue</code> 22.7M → 66M (2.9×);
-   <code>@angular/core</code> 14.6M → 25M (1.7×);
-   <code>jquery</code> 48.8M → 66M (1.4×).
-   React's share of react+vue+svelte+angular downloads went from 71% to
-   86%. Bars on the slide are drawn to a linear scale (61× = 80% width). Raw monthly data: <a href="data/npm-downloads.csv">data/npm-downloads.csv</a>; the script is <code>tools/npm_downloads.py</code>.</p>
-   <p>Caveats on npm: downloads are not apps or users. All of npm
-   inflated sharply over 2025–26 (lodash and express, which no one chooses
-   for UI, grew 3–4×; there is a step up across every package around
-   Feb–Mar 2026), most likely because agents and app builders spin up
-   huge numbers of fresh projects and CI installs. That inflation is part
-   of the story, which is why lodash is shown as the baseline. Packages
-   that ship together with shadcn/ui (<code>lucide-react</code>,
-   <code>class-variance-authority</code>, <code>tailwind-merge</code>,
-   Radix) grew 20–60×, far ahead of the baseline. Two of them are JS
-   stand-ins for things the platform now has: Radix Dialog vs.
-   <code>&lt;dialog&gt;</code>/popover, and Floating UI vs. anchor
-   positioning. It shows what gets installed, not whether native features
-   were used alongside.</p>
-
-   <p><strong>Native features.</strong>
-   <a href="https://developer.chrome.com/docs/modern-web-guidance/get-started">Chrome,
-   Modern Web Guidance</a> (announced ~20 May 2026; page updated 30 Jun
-   2026): “AI coding agents tend to default to older, outdated solutions
-   to modern web development problems” and “AI models historically haven't
-   been aware of—or have incorrect information about—the latest web
-   platform features.” Its evals (Playwright-based, unguided control vs.
-   guided) show “on average… a 37 percentage point improvement in
-   adherence to modern best practices”. Caveats: vendor's own eval, no
-   baseline or per-feature numbers published, no methodology writeup. The
-   <a href="https://github.com/GoogleChrome/modern-web-guidance">repo</a>
-   covers 232 features / 186 use cases. Related tooling that exists
-   specifically to fix this: the
-   <a href="https://developer.mozilla.org/en-US/blog/introducing-mdn-mcp-server">MDN
-   MCP server</a> (June 2026) and community Baseline MCP servers built on
-   the web-features data. I found no published audit of agent output for
-   specific native features, and no crawl (HTTP Archive / Web Almanac)
-   that splits AI-built sites from the rest.</p>
-
-   <p><strong>Why it happens (the feedback loop).</strong>
-   <a href="https://arxiv.org/abs/2503.17181">Twist et al., “A Study of
-   LLMs' Preferences for Libraries and Programming Languages”</a> (arXiv
-   2503.17181, v4 Jun 2026, 8 LLMs): models “overuse widely adopted
-   libraries such as NumPy”, unnecessarily in up to 45% of cases; Python
-   is chosen in 58% of high-performance project setups where it is not
-   suitable, and Rust is never used. The authors warn this creates
-   discoverability problems for newer projects.
-   <a href="https://github.blog/news-insights/octoverse/how-ai-is-reshaping-developer-choice-and-octoverse-data-proves-it/">GitHub
-   (A. Griffiths, 19 Feb 2026)</a> on “convenience loops”: TypeScript
-   became the most-used language on GitHub in Aug 2025 (+66% YoY);
-   “Reduced friction becomes a preference—and preferences at scale can
-   shift ecosystems.”</p>
-
-   <p><strong>Homogenization.</strong>
-   <a href="https://claude.com/blog/improving-frontend-design-through-skills">Anthropic,
-   “Improving frontend design through Skills” (12 Nov 2025)</a> names it
-   “distributional convergence”: without guidance a model will “conform to
-   Inter fonts, purple gradients on white backgrounds, and minimal
-   animations”, because “models predict tokens based on statistical
-   patterns in training data.” Adam Wathan's Aug 2025 tongue-in-cheek
-   apology for Tailwind UI's <code>bg-indigo-500</code> buttons being why
-   AI UIs are purple is widely reported, but I did not reach the original
-   post. Counterpoint from the
-   <a href="https://almanac.httparchive.org/en/2025/generative-ai">Web
-   Almanac 2025 Generative AI chapter</a> (Jan 2026, crawls to Oct 2025):
-   indigo-500 rose from 0.03% to 0.54% of all pages (Q3 2022 → Q4 2025),
-   but within Tailwind pages the “AI colors” stayed at ~2% with no surge,
-   so the rise “may be less a result of AI ‘choosing’ purple and more a
-   reflection of the general rise in Tailwind’s popularity.”
-   Homogenization at the stack level is clearer in the data than at the
-   visual level.</p>
-
-   <p><strong>Extensible Web Manifesto vs. agent defaults.</strong> The
-   <a href="https://github.com/extensibleweb/manifesto">Extensible Web
-   Manifesto</a> (2013; see also <a
-   href="https://w3ctag.github.io/design-principles/#high-level-low-level">TAG
-   §2.2</a>) argued that browsers should “provide new low-level capabilities” so
-   library authors can iterate on developer-friendly high-level APIs that
-   standards later adopt. That model assumes glue code is expensive for humans, so
-   it is written once in a shared library. Coding agents make bespoke glue cheap
-   per project (with no shared bug fixes) or lock into whichever library already
-   dominates training weights, while high-level declarative features
-   (<code>popover</code>, <code>&lt;dialog&gt;</code>, customizable
-   <code>&lt;select&gt;</code>) keep accessibility in the browser once models
-   know them.</p>
-
-   <p><strong>Discussion.</strong> Two readings: (1) freeze: new platform
-   features never reach agents' defaults, so they never get the usage that
-   would put them in training data; (2) the framework is the platform: a
-   handful of defaults (v0, Lovable, shadcn/ui, Tailwind) decide what
-   millions of apps use and can change overnight, so the fastest route to
-   adoption of a native feature may be getting it into those defaults.
-   Does that change who standards work should be designed for?</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/what-agents-write.md">analysis/what-agents-write.md</a>; data: <a href="data/npm-downloads.csv">npm-downloads.csv</a></p>
+   <ul>
+    <li>Agents converge on React + Tailwind + shadcn/ui + lucide</li>
+    <li>Claude Code picks: shadcn/ui 90%, Tailwind 68%; v0 and Lovable offer no framework choice</li>
+    <li>npm Sep 2024 → Sep 2026: lucide 61×, shadcn 53×, Tailwind 12×, React 6.8× vs. lodash baseline 3.2×</li>
+    <li>All of npm inflated (agents spin up projects), hence the baseline</li>
+    <li>Radix Dialog and Floating UI are JS stand-ins for <code>&lt;dialog&gt;</code>/popover and anchor positioning</li>
+    <li>Native feature under-use: plausible but unmeasured; only Chrome's own eval (+37 pts with guidance)</li>
+    <li>Counterpoint: newer models do pick newer tools (Prisma → Drizzle)</li>
+    <li>Ask: freeze, or “the framework is the platform” (get native features into the defaults)?</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/evaluation.md -->
@@ -1998,150 +1051,17 @@
   </section>
 
   <section class=comment>
-   <p>Full analysis, data and open threads: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/evaluation.md"
-   >analysis/evaluation.md</a>.</p>
-   <p><strong>Point of the slide:</strong> an API’s measured cost to an
-   agent mixes two things, how good the design is and how much of it
-   the model has seen. Every study below finds the second one is large,
-   so any evaluation we run today on a new design (or a new design
-   principle) is biased toward what is already in the training data.
-   The question for the room: if every measurement we can run today
-   rewards what models have already seen, and training data takes years
-   to catch up, how do we evaluate a design (or a design principle) that
-   is better but new?</p>
-
-   <p><a href="https://arxiv.org/abs/2503.16922">Liang et al.,
-   <cite>RustEvo²: An Evolving Benchmark for API Evolution in LLM-based
-   Rust Code Generation</cite>, arXiv 2503.16922, March 2025</a>. 588 real
-   Rust API changes turned into coding tasks. Table 3: tasks on APIs from
-   Rust 1.71–1.73 (before every tested model’s cutoff, 204 tasks) vs.
-   Rust 1.81–1.84 (after, 220 tasks), averaged over DeepSeek-v3,
-   Gemini 2.0 Flash, Gemini 1.5 Pro, Llama 3.1 70B and o1-mini. Pass@1
-   without API info: 56.1% before vs. 32.5% after. With the API’s
-   information in the prompt: 70.9% vs. 41.4%. Separately (Table 4,
-   a different 5-model set including Claude 3.7 Sonnet and GPT-4o),
-   RAG raised post-cutoff tasks from 34.9% to 48.4% (+13.5 points).
-   Caveats: the before and after task sets use different APIs, so task
-   difficulty is not controlled; models are early-2025 vintage.
-   Still, note that docs in the prompt help the familiar APIs more
-   (+14.8 points) than the unfamiliar ones (+8.9).</p>
-
-   <p><a href="https://arxiv.org/abs/2607.22807">Wu, Anderson &amp;
-   Guha, <cite>The Best Programming Language for Tokenmaxxing</cite>,
-   arXiv 2607.22807, July 2026</a>. Five models (Claude Sonnet 4.6,
-   GPT-5.5, GLM-5.2, Qwen3.6, Gemma 4) on the same 100 LiveCodeBench
-   problems in Python, Java, Rust and OCaml, with a mixed-effects model
-   controlling for problem difficulty. OCaml costs 1.28× (Sonnet),
-   1.30× (GPT-5.5), 1.44× (Gemma), 1.54× (GLM) and 1.69× (Qwen) the
-   output tokens of Python, significant for every model. The final
-   OCaml solutions are about the same size as Java and Rust ones
-   (median 272 vs. 276 and 303 tokens); the extra tokens go to
-   non-compiling attempts, debugging and reverting, and agents
-   “sidestep unfamiliar target languages by prototyping in Python”.
-   Pass rates barely move for frontier models, so the familiarity
-   penalty shows up as cost, not as failure. Caveat: languages, not
-   APIs, and the link to training-data volume is the authors’
-   hypothesis (The Stack v2 has ~200 GB of Python/Java, 12 GB of Rust,
-   less OCaml), not something they test.</p>
-
-   <p><a href="https://arxiv.org/abs/2406.09834">Wang et al.,
-   <cite>LLMs Meet Library Evolution: Evaluating Deprecated API Usage
-   in LLM-based Code Completion</cite>, ICSE 2025</a>. 145
-   deprecated→replacement API pairs in 8 Python libraries, 28,125
-   completion prompts, 7 models. Among completions that use either
-   API, 25–38% use the deprecated one (GPT-3.5: 37.4%); 70–90% when
-   the surrounding code is outdated, 9–18% when it is up to date.
-   Caveat: small 2023-era models plus GPT-3.5; Python, not web
-   APIs. The web parallel would be XHR vs. <code>fetch()</code> or
-   <code>float</code> layouts vs. grid, but I found no equivalent
-   measurement for web platform APIs.</p>
-
-   <p><a href="https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals">Vercel,
-   <cite>AGENTS.md outperforms skills in our agent evals</cite>, 27 Jan
-   2026</a>. Eval suite of Next.js 16 APIs “that aren’t in current
-   model training data” (<code>'use cache'</code>,
-   <code>connection()</code>, <code>forbidden()</code>…). Pass rate:
-   53% with no docs; 53% with a docs skill the agent could invoke (it
-   did not, in 56% of cases); 79% when told to use the skill; 100%
-   with an 8 KB compressed docs index in AGENTS.md. Caveats: vendor
-   eval, model not named, small suite revised during the study.</p>
-
-   <p><strong>Other evidence, for discussion:</strong></p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/evaluation.md">analysis/evaluation.md</a></p>
    <ul>
-    <li><a href="https://arxiv.org/abs/2503.17181">Twist et al., ACL
-    Findings 2026</a>: LLMs overuse popular libraries such as NumPy,
-    “in up to 45% of cases” where they are not needed; they
-    “prioritise familiarity and popularity over suitability”.</li>
-    <li><a href="https://arxiv.org/abs/2407.09726">Jain et al., 2024
-    (CloudAPIBench)</a>: GPT-4o makes valid calls to low-frequency APIs
-    only 38.58% of the time; documentation retrieval raises that to
-    47.94%, but naive retrieval hurts high-frequency APIs by up to 39
-    points. Docs are not free for familiar APIs.</li>
-    <li><a href="https://arxiv.org/abs/2507.12367">GitChameleon 2.0
-    (NeurIPS 2025)</a>: on version-specific Python problems, frontier
-    models (GPT-4.1, Claude 3.7 Sonnet, Gemini 2.5 Pro, o1) solve only
-    48–51%; RAG adds up to ~10 points.</li>
-    <li><a href="https://developer.mozilla.org/en-US/blog/introducing-mdn-mcp-server">MDN
-    MCP server, June 2026</a>: informally, Claude Code (Opus 4.7)
-    without the MCP got browser support right for only 1 of 4 features
-    new in Firefox 151.</li>
-    <li>Chrome’s <a href="https://github.com/GoogleChrome/modern-web-guidance-src">Modern
-    Web Guidance</a> (I/O 2026) runs evals to “prune
-    lowest-common-denominator content that models already know”, i.e. it
-    already measures familiarity. Its <a
-    href="https://developer.chrome.com/docs/modern-web-guidance/get-started">docs</a>
-    claim “on average… a 37 percentage point improvement in adherence to
-    modern best practices”, with no methodology or per-feature numbers
-    published.</li>
-    <li>Lag: model release trails training cutoff by a few months
-    (Claude Opus 5.5: cutoff June 2026), but what matters is how much
-    code using a feature exists by then. <a
-    href="https://arxiv.org/abs/2403.12958">Cheng et al., 2024</a>
-    found effective cutoffs often trail reported ones, because new
-    crawls contain a lot of old content. I found no study measuring
-    model uptake of newly Baseline web features (<code>:has()</code>,
-    nesting, popover, View Transitions, anchor positioning).</li>
+    <li>Measured cost mixes design quality with how much the model has seen</li>
+    <li>RustEvo²: pass rate 56% on pre-cutoff APIs vs. 33% post-cutoff</li>
+    <li>OCaml vs. Python: same-size solutions, 1.3–1.7× tokens; penalty shows as cost, not failure</li>
+    <li>Deprecated APIs chosen 25–38% of the time</li>
+    <li>Docs in context help (Vercel 53% → 100%) but aren't free</li>
+    <li>Cleanest familiarity-only test: renamed pandas/NumPy, pass rate 19% → 1.5%</li>
+    <li>Ideas: docs in context for both designs, fresh or renamed APIs, report tokens and turns, re-run each model generation</li>
+    <li>Ask: how do we evaluate a design that's better but new?</li>
    </ul>
-
-   <p><strong>Existing attempts to evaluate API design itself, and ways
-   to separate familiarity from design:</strong></p>
-   <ul>
-    <li><a href="https://arxiv.org/abs/2606.05548">ADK Arena, June
-    2026</a> (“LLM-as-a-Developer”): hold the agent constant, vary the
-    framework, use generation cost as a proxy for API usability (5.6×
-    spread across 51 Python agent frameworks). It does not control for
-    familiarity.</li>
-    <li><a href="https://arxiv.org/abs/2605.20049">Trivedi &amp;
-    Schmitt, 2026</a>: minimal pairs of repos that differ only in
-    cleanliness; same pass rate, but 7–8% fewer tokens on clean code.
-    The same design could compare two API shapes with equal (zero)
-    familiarity.</li>
-    <li>Unseen or renamed APIs: <a
-    href="https://arxiv.org/abs/2210.17236">Zan et al., EMNLP 2022</a>
-    built “private library” benchmarks (MonkeyEval, BeatNumEval) by
-    renaming every pandas/NumPy keyword (<code>pandas</code>→<code>monkey</code>,
-    <code>DataFrame</code>→<code>KnowledgeFrame</code>,
-    <code>isin</code>→<code>iscontain</code>). Identical design, new
-    names: Codex 12B fell from 18.88% to 1.47% pass@1. This is the
-    cleanest measurement of familiarity alone, though on a 2022 model.
-    <a
-    href="https://arxiv.org/abs/2407.06249">CodeUpdateArena</a> uses
-    synthetic API updates. Synthetic APIs remove the familiarity term,
-    but also the transfer from similar APIs that real designs
-    benefit from.</li>
-    <li>Anthropic, <a
-    href="https://www.anthropic.com/engineering/writing-tools-for-agents"><cite>Writing
-    effective tools for agents</cite></a> (Sep 2025): tool design is
-    iterated with evals tracking tokens, tool calls and errors on
-    held-out tasks; naming choices have “non-trivial effects” that vary
-    by model.</li>
-   </ul>
-   <p>Possible directions to put to the room: compare designs with docs
-   in context for both; use fresh or renamed APIs so neither side is
-   familiar; report tokens and turns as well as pass rate; re-run the
-   same eval as each model generation ships, to see whether the gap
-   closes.</p>
   </section>
 
   <section class="slide part" id="field-notes">
@@ -2150,22 +1070,13 @@
   </section>
 
   <section class=comment>
-   <p>First-hand evidence rather than published studies. Every session in
-   two hobby projects, Jul–Oct 2026, both built almost entirely by Claude
-   Code agents: <strong>zpcrweb</strong> (248 sessions; a qPCR instrument
-   app using WebUSB, File System Access, IndexedDB and canvas charts) and
-   <strong>meshcore-web</strong> (81 sessions; an installable PWA for LoRa
-   radios using Web Bluetooth, Web Serial, WebCrypto and IndexedDB).
-   Subagents read every transcript and logged 167 incidents. A second pass
-   counted 14 recurring patterns across the 311 sessions held locally.</p>
-   <p>Caveats up front: one developer, two apps, one agent product, three
-   months. Counts come from LLM-assisted pattern matching (medium
-   confidence for most). Token figures are lower bounds from transcript
-   text, not billed usage. Full method, data and caveats: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md"
-   >analysis/agent-sessions.md</a>; data in <a
-   href="data/agent-session-patterns.csv">agent-session-patterns.csv</a> and
-   <a href="data/agent-session-incidents.csv">agent-session-incidents.csv</a>.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md">analysis/agent-sessions.md</a>; data: <a href="data/agent-session-patterns.csv">patterns</a>, <a href="data/agent-session-incidents.csv">incidents</a></p>
+   <ul>
+    <li>First-hand: 329 Claude Code sessions, two hobby apps, Jul–Oct 2026</li>
+    <li>zpcrweb (WebUSB, File System Access, IndexedDB); meshcore-web (PWA, Web Bluetooth, Web Serial)</li>
+    <li>Subagents read every transcript: 167 incidents, 14 recurring patterns</li>
+    <li>Caveat: one developer, one agent; LLM-assisted counts; token figures are lower bounds</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/agent-sessions.md -->
@@ -2190,30 +1101,14 @@
   </section>
 
   <section class=comment>
-   <p>Analysis: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#1-its-a-pre-existing-flake-async-state-with-no-completion-signal-p6-p7"
-   >analysis/agent-sessions.md, example 1</a>.</p>
-   <p>83 episodes in 70 of 311 sessions (zpcrweb 42, meshcore-web 28);
-   tests surfaced 65. In 49 sessions the agent called the failure “flaky”,
-   “pre-existing” or “environmental” without a root cause; 19 found the
-   cause; 2 found the wrong one. The channel-details dialog race was
-   dismissed in 10 sessions, a hash deep-link race in 6. A dismissal cost
-   about 1 extra suite run and 2.5 min; a root-cause hunt about 7 runs, 34
-   tool calls and 14 min. Worst case: 51 min and 117 tool calls, then
-   declared “environmental” (session 01Jww63r). About 570 min (~10 h) in
-   total, or 845 min including one deliberate 4.6 h flake hunt the user
-   asked for.</p>
-   <p>Root causes, where found: <code>popstate</code> and
-   <code>hashchange</code> fire separately for one hash navigation; a
-   write-behind IndexedDB flush with nothing to await; a dialog read
-   before its async-loaded content rendered; a popover show racing mount.
-   A sub-case (9 episodes): IndexedDB is per-origin and persistent, so
-   state leaked between test pages. One leak added 26 s to every suite run
-   (<code>deleteDatabase</code> blocked by 25 open tabs). In another,
-   parallel test iframes deleted each other's databases.</p>
-   <p>Quote: session 0199FRBg, 29 Jul 2026. Caveat: many of these are app
-   or test-harness bugs, not platform flaws. The platform question is why
-   “wait until it's done” is so often impossible to express.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#1-its-a-pre-existing-flake-async-state-with-no-completion-signal-p6-p7">agent-sessions.md, example 1</a></p>
+   <ul>
+    <li>83 episodes in 70 sessions; agent called it “flaky”/“pre-existing” without root cause in 49</li>
+    <li>~10 h total; worst: 51 min, 117 tool calls, then “environmental”</li>
+    <li>Causes: <code>popstate</code>/<code>hashchange</code> fire separately, IndexedDB flush with nothing to await, dialog/popover not yet rendered</li>
+    <li>IndexedDB state leaking between tests</li>
+    <li>Caveat: many are app bugs; platform question: why is “wait until done” so hard to express?</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/agent-sessions.md -->
@@ -2241,36 +1136,13 @@
   </section>
 
   <section class=comment>
-   <p>Analysis: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md"
-   >analysis/agent-sessions.md</a>, examples 2, 4 and 5.</p>
-   <p><strong>WebUSB</strong> (014TW6Do → 01EAUs81 → 01Q29pfE, 1–8 Aug
-   2026). <code>transferIn</code> rejected with a generic
-   <code>NetworkError</code>. With no doc lookup, the agent decided Chrome
-   throws this for a stalled endpoint and retried 4 times. In WebUSB a
-   stall is reported as <code>status: 'stall'</code> and cleared with
-   <code>clearHalt()</code>, not thrown. The user kept hitting “transferIn
-   error: Cancelled”. The final fix (101 tool calls) classifies errors with
-   a regex over names and messages, because one exception type covers
-   unplug, stall and cancel. WebUSB accounts for 6 of the 13 opaque-error
-   episodes.</p>
-   <p><strong>Web Bluetooth chooser</strong> (01VoiDEJ, 16 Oct). The radio
-   was connected to the user's phone and not advertising, so the chooser
-   was empty, yet <code>requestDevice()</code> rejected with
-   <code>NotFoundError</code> “User cancelled…”. The agent built a CDP
-   trace before the user worked out the cause.</p>
-   <p><strong><code>getDevices()</code></strong> (01EojErv, then 016p7fHi,
-   17–18 Oct). The agent: “in Chrome that function only exists with the
-   persistent-permissions flag turned on.” The user: “I have not turned
-   on the flag but getDevices does exist.” Then two more wrong theories
-   about permission lifetime, one per user correction. A web search found
-   only 2020 sources from when it was behind a flag. About 110 tool calls
-   across 3 sessions.</p>
-   <p>Across the 13 opaque-error episodes, the first interpretation was
-   right in 5, plausible but unverified in 1, and wrong or never
-   root-caused in 7. Even the right ones about device errors needed a
-   human round-trip, because the message never names which context holds
-   the device.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md">analysis/agent-sessions.md</a>, examples 2, 4, 5</p>
+   <ul>
+    <li>WebUSB: generic <code>NetworkError</code> for unplug, stall and cancel; agent guessed wrong, final fix regex-matches messages</li>
+    <li>Web Bluetooth: empty chooser reported as “User cancelled”</li>
+    <li><code>getDevices()</code>: agent relied on stale 2020 info; three wrong theories, ~110 tool calls</li>
+    <li>13 opaque-error episodes: first guess right in only 5</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/agent-sessions.md -->
@@ -2296,36 +1168,14 @@
   </section>
 
   <section class=comment>
-   <p>Analysis: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md"
-   >analysis/agent-sessions.md</a>, examples 6 and 7.</p>
-   <p>15 episodes in 15 sessions, all found by the agent. 9 built a fake or
-   monkeypatch, 2 used a timing or activation hack, 4 left device UI
-   unverified. Fakes: a 121-line fake <code>navigator.usb</code> that
-   replays recorded instrument responses, a ~300-line mock Bluetooth radio
-   plus a mock serial port, an OPFS stand-in for
-   <code>showDirectoryPicker</code>, a <code>NotAllowedError</code> stub, a
-   patched <code>document.visibilityState</code> (Chrome removed
-   <code>Emulation.setPageVisibilityState</code>), and a fake WebAuthn
-   authenticator. At least 6 later sessions reused them. Some encoded a
-   wrong permission model, so tests passed on false beliefs.</p>
-   <p>Agent, 017K1NZU: “The picker cannot be automated, so it is replaced.
-   CDP intercepts <code>showDirectoryPicker</code> … but there is no
-   command that can fulfil it with a directory.”</p>
-   <p><strong>File System Access permission lifecycle</strong> (11
-   episodes, 10 sessions, ~2–2.5 h). A saved directory handle comes back as
-   <code>prompt</code> after a reload, and <code>requestPermission</code>
-   needs a gesture, so <code>#file=</code> deep links silently gave up
-   (01G77vN7). Chrome's raw “The request is not allowed by the user agent
-   or the platform in the current context” reached the UI (019TeUoW). The
-   agent also assumed a re-grant covers one folder; Chrome re-grants them
-   all (65 min, 101 tool calls). The root of the confusion was the agent's
-   own earlier probe in one headless page with no reload, which saw
-   permission “still granted”.</p>
-   <p>Activation hang (0175YVYi, 16 Oct): typing via CDP counted as user
-   activation, so <code>requestDevice()</code> opened a chooser headless
-   Chrome never answers. The connect hung instead of rejecting; the fix
-   was a 6-second wait for the activation to expire.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md">analysis/agent-sessions.md</a>, examples 6, 7</p>
+   <ul>
+    <li>15 episodes: device pickers and permissions can't be automated</li>
+    <li>Agents built fakes: <code>navigator.usb</code> replay, mock Bluetooth radio, picker stand-ins</li>
+    <li>Some fakes encoded the wrong permission model → tests passed on false beliefs</li>
+    <li>File System Access permissions after reload: ~2–2.5 h of confusion</li>
+    <li>CDP typing counted as user activation → chooser hang in headless Chrome</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/agent-sessions.md -->
@@ -2360,43 +1210,14 @@
   </section>
 
   <section class=comment>
-   <p>Analysis: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md"
-   >analysis/agent-sessions.md</a>, examples 9 and 11–13.</p>
-   <p><strong>Layout.</strong> 38 episodes in 30 sessions of ad-hoc CDP
-   measurement scripts (often numbered: <code>zzmeasure</code>…<code>zzmeasure5</code>,
-   <code>dbgwide1..5</code>, <code>anim1..6</code>) and screenshot→tweak
-   loops: 71 probe calls and 121 screenshot reads. All 24 user-reported CSS
-   bugs were missed by the agent. Where we can tell (14 cases), 11 had
-   already been “verified”. Causes the screenshots didn't show:
-   border-collapse tie rules, <code>table-layout: auto</code> widening
-   columns with two-digit headers, <code>flex: 1</code> meaning a 0% basis,
-   sticky with no z-index, an auto track plus <code>aspect-ratio</code>,
-   and a fixed 599px breakpoint standing in for “content no longer fits”
-   (it overflowed at ~780px). One stand-out silent failure:
-   <code>min(1fr, 19px)</code> is invalid, so the whole
-   <code>grid-template-columns</code> was dropped and a 96-well grid
-   collapsed to one 281px column. Only 4 probe scripts revealed it. Agent,
-   017ep63t: “Measured rather than eyeballed, since ‘looks fine in a
-   screenshot’ is how this slipped through in the first place.”</p>
-   <p><strong>Extreme measures.</strong> When a platform API didn't fit,
-   agents often reimplemented the platform instead of adapting. A
-   deterministic device emulator needed synchronous hashing. The agent
-   measured “0 of 50 SHA-256 digests done” by <code>setTimeout(0)</code>
-   and wrote ~300 lines of SHA-256/512, HMAC, Ed25519 and X25519 in BigInt
-   (01PJZjFt). For a PNG chart export it wrote a software rasterizer, PNG
-   encoder and 5×7 pixel font, 728 lines over 78 tool calls. The user:
-   “much of the new 728 lines of code are because we refused to take a
-   dependency … that seems silly to reimplement ourselves” (01HvAN6f). It
-   was redone as a headless-Chrome screenshot. IndexedDB has no partial
-   update, so appending ~1 MB rewrote ~45 MB, which led to three schema
-   redesigns over two days (worst session 286 tool calls, ~2 h).</p>
-   <p>Across 15 such episodes: ~1,900 lines hand-written, ~800 later
-   deleted. Caveat: some of this is agent judgement (taking a dependency
-   was an option), not only missing primitives. In 3 cases the feature
-   existed (anchor positioning, <code>popover=hint</code>,
-   <code>overflow-anchor</code>) but the agent avoided it over
-   cross-browser worries in a Chromium-only app.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md">analysis/agent-sessions.md</a>, examples 9, 11–13</p>
+   <ul>
+    <li>Layout: agent missed all 24 CSS bugs the user reported; 11 of 14 had been “verified” by screenshot</li>
+    <li>Silent failure: invalid <code>min(1fr, 19px)</code> dropped the whole grid template</li>
+    <li>Agents reimplemented the platform: ~300 lines of crypto, 728-line PNG rasterizer</li>
+    <li>~1,900 lines hand-written, ~800 later deleted</li>
+    <li>Caveat: partly agent judgement; in 3 cases it avoided existing features over cross-browser worries</li>
+   </ul>
   </section>
 
   <!-- Analysis: analysis/agent-sessions.md -->
@@ -2423,32 +1244,14 @@
   </section>
 
   <section class=comment>
-   <p>Analysis: <a
-   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#14-mobile-viewport-every-bug-found-by-the-user-on-a-real-phone-p11"
-   >analysis/agent-sessions.md, example 14</a>.</p>
-   <p>4 episodes in 3 meshcore-web sessions (the installed Android PWA);
-   none caught by a test or the agent. Session 017nb1V6, 18 Oct. User: “On
-   android there are issues with the viewport height … the main page
-   scrolls when it should not.” Round 1 replaced <code>100dvh</code> and
-   <code>calc()</code> guesses with <code>position: fixed; inset: 0</code>
-   (45 tool calls). The agent's added
-   <code>interactive-widget=resizes-content</code> then let the keyboard
-   shrink the layout, and the user re-reported it 7 minutes later (36 more
-   calls). Its in-browser measurements printed nothing, so it reported
-   numbers through deliberately failing tests. Never checked on a phone by
-   the agent.</p>
-   <p>Also: missing <code>viewport-fit=cover</code> and
-   <code>env(safe-area-inset-*)</code> left an unthemed bar in the installed
-   app (01T4UTCN). A manifest icon with only <code>purpose: any</code> was
-   shrunk inside a white shape on the Android home screen (01DNJdBz). In a
-   zpcrweb session the agent avoided <code>pointer: coarse</code> because it
-   “can't be tested in headless Chrome”. Across the whole corpus there are
-   0 uses of touch or mobile emulation (<code>setTouchEmulationEnabled</code>,
-   <code>hasTouch</code>, <code>isMobile</code>).</p>
-   <p>Open question: emulation exists but agents don't reach for it, and it
-   doesn't reproduce browser-chrome behaviour like the collapsing URL bar
-   or keyboard anyway. The VirtualKeyboard API is Chromium-only and
-   opt-in.</p>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#14-mobile-viewport-every-bug-found-by-the-user-on-a-real-phone-p11">agent-sessions.md, example 14</a></p>
+   <ul>
+    <li>Android PWA bugs found only by the user on a real phone</li>
+    <li>Viewport height: two rounds of fixes, each re-reported</li>
+    <li>Missing <code>viewport-fit=cover</code>, maskable icon</li>
+    <li>0 uses of touch or mobile emulation in the whole corpus</li>
+    <li>Emulation can't reproduce URL bar or keyboard behaviour anyway</li>
+   </ul>
   </section>
 
   <section class="slide final" id="end">

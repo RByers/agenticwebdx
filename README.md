@@ -27,6 +27,8 @@ Questions this session will explore:
 
 **Tone:** Be humble. We don't have the answers, and the presentation shouldn't pretend to. Acknowledge uncertainty openly: say where the data is thin, conflicting or a lower bound, and where trends could plausibly stall or reverse. Frame slides as questions and evidence for the room to weigh, not conclusions to accept. Prefer "what do we think?" to "here's what's true".
 
+**Speaker notes:** Keep each slide's notes (`<section class=comment>`) short and in point form: a few bullets that help the presenter explain the slide at a glance (the key point, the numbers worth saying aloud, the main caveat, the question for the room). Link to the slide's `analysis/` Markdown file for sources, methodology and detail rather than putting them in the notes.
+
 ## Repository layout
 
 - `web/` – everything published to GitHub Pages

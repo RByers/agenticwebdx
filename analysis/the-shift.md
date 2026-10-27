@@ -121,6 +121,9 @@ Peaks among sampled months: all questions 196,527 (April 2016);
 | Share of own code that is AI-generated (Devographics: State of JS / AI / Devs) | — | 20.4% (median 12.5%) | 28.7% (median 25%) | 54.3%–56.1% (median 62.5%) |
 | Share of own CSS that is AI-generated (State of CSS 2026) | — | — | — | 28.3% (median 12.5%; 26.3% report 0%) |
 | ↳ CSS AI share by framework: `shadcn/ui` / Tailwind / no CSS framework (`State of CSS 2026` GraphQL API) | — | — | — | 45.5% / 37.2% / 16.6% (42.3% at 0% for plain CSS) |
+| ↳ CSS AI share, Open Props users (n=102) | — | — | — | 11.8% (0% at ≥50%) |
+| Preliminary `state_of_html` 2026 (Oct 2026, n=1,445) | — | — | — | 49.9% mean, 50% median (56.4% at ≥50%) |
+| Avg. share of AI-generated code rewritten before commit (State of Web Dev AI, `ai_generated_code_refactoring`) | — | — | 61.0% | 46.7% |
 
 Agent of choice in 2026: Claude Code (66%), GitHub Copilot (59%).
 
@@ -136,6 +139,14 @@ Agent of choice in 2026: Claude Code (66%), GitHub Copilot (59%).
 | Language rank in adopting repos' AI commit share | HTML ~8 pp above 7.8% source median; JS near median; SCSS & Svelte below average | same |
 | Explicit disclosure rate on known AI-assisted commits | 29.5% overall (80.5% Claude Code vs. 9.0% Copilot) | Kraishan, arXiv:2512.00867 (Dec 2025) |
 | Share of new US Python functions on GitHub classified as AI-generated (AST neural detector) | 5% (2022) → 29% (late 2024) | Daniotti et al., *Science* (Feb 2026), arXiv:2506.08945 |
+
+Why there is no AST-classifier number for CSS/HTML/JS: declarative CSS rules,
+utility-class strings and JSX templates lack standalone function ASTs and are
+heavily normalized by Prettier/Tailwind. Line-level alternatives starting to
+appear: [`git-ai`](https://usegitai.com/) (open-source Git extension storing
+line-level AI authorship in `refs/notes/ai` across rebases and squash-merges),
+IDE telemetry (GitHub Copilot Metrics API, VS Code's experimental
+`git.addAICoAuthor`), and diff-churn analyzers such as GitClear.
 
 ### Anthropic Economic Index: coding conversations (sampled 6–13 Apr 2025)
 
