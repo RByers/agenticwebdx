@@ -5,7 +5,9 @@ This repo holds the slides for a W3C TPAC 2026 breakout session (see README.md).
 ## Workflow
 
 - Pull requests are not used for this repo. Do not create PRs.
-- Work directly on `main`. Commit and push only when the user indicates to (e.g. "commit", "push", "save this").
+- Iterate on the session's working branch, committing locally as work progresses.
+- Don't push the working branch to the remote unless the user explicitly asks for it.
+- When the user says the work is complete, merge the branch into `main`, push `main`, and delete the local working branch.
 
 ## Layout
 
