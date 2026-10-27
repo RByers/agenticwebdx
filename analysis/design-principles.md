@@ -1,7 +1,7 @@
 # Which design principles hold for agents
 
-Research record for the TAG-principles slides (`#design-principles`, `#principle-text-formats`,
-`#principle-third-party-tools`, and `#principle-leave-web-better`) of the TPAC 2026 breakout session
+Research record for the TAG-principles slides (`#design-principles`, `#principle-text-formats`
+and `#principle-third-party-tools`) of the TPAC 2026 breakout session
 “Agents are redefining DX. [How] should web standards adapt?” (28 Oct 2026). Research done 27 Oct 2026.
 
 For the complete 103-principle isolated subagent evaluation (one Markdown file per numbered principle in
@@ -11,10 +11,9 @@ see [`../design-principles/README.md`](../design-principles/README.md):
   highlights the top 3: **§2.4/§12.5/§3.5 Consistency**, **§6.5/§6.13 Dictionaries over positional args**,
   and **§10.7/§8.5 Developer-friendly debuggability**, plus **§12.1 Common words** in the stat row).
 - **10 / 103** principles are `clearly-harmful` (their human-centric assumptions or prescriptions fail or
-  backfire for agent-written code), with three dedicated deep-dive slides:
+  backfire for agent-written code), with two dedicated deep-dive slides:
   - `#principle-text-formats`: [§2.7 Design textual formats for humans](../design-principles/02-07-text-formats.md) & [§11.1 Audience of requirements](../design-principles/11-01-requirements-on-authors-and-implementers.md)
   - `#principle-third-party-tools`: [§2.15 Prioritize usability over compatibility with third-party tools](../design-principles/02-15-third-party-tools.md) & [§1.1 Priority of constituencies](../design-principles/01-01-priority-of-constituencies.md)
-  - `#principle-leave-web-better`: [§1.9 Leave the web better than you found it](../design-principles/01-09-leave-the-web-better.md) & [§1.8 Changing or removing features](../design-principles/01-08-removing-features.md)
 - **48 / 103** principles are `neither` (end-user privacy, security, hardware safety, or internal spec
   mechanics that hold regardless of whether a human or an LLM writes the page).
 - Non-TAG guidelines previously on `#design-principles` were moved to the slides where they directly fit:

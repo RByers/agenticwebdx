@@ -625,53 +625,6 @@ function log(value, context) {…}</code></pre>
    </ul>
   </section>
 
-  <!-- Analysis: analysis/design-principles.md, design-principles/01-09-leave-the-web-better.md -->
-  <section class="slide principle-slide" id="principle-leave-web-better">
-   <h2>Leave the web better <small>(TAG §1.9)</small></h2>
-   <div class=columns>
-    <section>
-     <h3>What §1.9 &amp; §1.8 say</h3>
-     <ul class=stat-list>
-      <li><b>Break</b> <span>“consistency with existing problematic design
-       patterns is not a good reason to propagate” them</span></li>
-      <li><b>Replace</b> <span>prefer clean-sheet APIs over extending defective
-       legacy features (§1.9)</span></li>
-      <li><b>Keep old</b> <span>never remove legacy APIs — unless used “only in
-       test cases or examples” (§1.8)</span></li>
-     </ul>
-    </section>
-    <section>
-     <h3>Why it backfires for agents</h3>
-     <ul class=stat-list>
-      <li><b>Traps</b> <span><code>MutationObserver</code> takes options in
-       <code>observe()</code>; <code>IntersectionObserver</code> in
-       <code>new</code></span></li>
-      <li><b>70–90%</b> <span>of completions in older files pick the deprecated
-       API over its clean-sheet replacement</span></li>
-      <li><b>Examples</b> <span>breaking patterns seen “only in test cases or
-       examples” (§1.8) breaks what LLMs trained on</span></li>
-     </ul>
-    </section>
-   </div>
-   <p class=next><strong>When old APIs never die, fixing a flaw only in the new
-   one sets a statistical trap.</strong></p>
-   <p class="source">Sources: W3C TAG <a
-   href="https://w3ctag.github.io/design-principles/#leave-the-web-better">§1.9</a>,
-   <a href="https://w3ctag.github.io/design-principles/#removing-features">§1.8</a>
-   &amp; <a href="https://w3ctag.github.io/design-principles/#events-vs-observers"
-   >§7.10</a>; Wang et al., ICSE 2025.</p>
-  </section>
-
-  <section class=comment>
-   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-09-leave-the-web-better.md">design-principles/01-09-leave-the-web-better.md</a>, <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-08-removing-features.md">design-principles/01-08-removing-features.md</a></p>
-   <ul>
-    <li>§1.9: don't copy flawed patterns; §1.8: old APIs almost never removed</li>
-    <li>Near-miss siblings: <code>io.observe(el, {threshold})</code> silently ignored; live vs. static <code>NodeList</code></li>
-    <li>Legacy APIs dominate training data: deprecated API chosen 70–90% when surrounding code is old</li>
-    <li>“Only in examples” usage is what models train on, so they resurrect it</li>
-   </ul>
-  </section>
-
   <section class="slide part topic" id="topic-tokens">
    <h2>Token efficiency</h2>
    <ul>
