@@ -96,7 +96,8 @@ Peaks among sampled months: all questions 196,527 (April 2016);
 |---|---|---|
 | Agent share of traffic, Mintlify-hosted docs, Feb 2026 | 20.8% | Mintlify, 2026 State of Knowledge Report |
 | Agent share of traffic, Mintlify-hosted docs, Aug 2026 | 66% (257M agent requests vs. 131M human page loads) | same |
-| `/llms.txt` fetches, Aug 2026 | ~10.8M | same |
+| Mintlify scale | 20,000+ companies; 50M+ people/month; 300M+ visitors past year | Mintlify homepage and 2026 report (self-reported, checked 27 Oct 2026) |
+| `/llms.txt` fetches, Aug 2026 | ~10.8M | Mintlify, 2026 State of Knowledge Report |
 | MCP tool calls, Aug 2026 | >2M (~3× since Feb) | same |
 | Agents vs. browsers, 30 days to early Apr 2026 (user-agent only) | 45.3% vs. 45.8% of ~790M requests | Mintlify blog, 3 Apr 2026 |
 | Claude Code / Cursor share of all requests, same snapshot | 25.2% / 18.0% | same |
@@ -189,8 +190,17 @@ Model fits reported by the site (Claude Code, linear space, Feb 2025 → Jul 202
   which lowers counts for all years. The API counts only questions, not
   traffic to existing answers, and people may still read old answers via
   search or via agents.
-- **Mintlify is one platform, not "docs" in general.** Its customers skew
-  towards developer tools that agents use heavily. The report says human
+- **Mintlify is one platform, not "docs" in general.** It is large (it
+  claims 20,000+ companies, 50M+ people a month and 300M+ visitors in the
+  past year, per its homepage and the 2026 report) and the largest docs host
+  publishing agent-traffic data. Named customers include APIs and frameworks
+  web developers integrate with (Laravel, PlanetScale, Resend, Notion, Okta,
+  Zapier, HubSpot, Coinbase, 1Password) and AI platforms (Anthropic,
+  Perplexity, Replit, Lovable, Cognition). It does not host web-platform
+  reference docs (MDN, web.dev) or the big front-end frameworks (React,
+  Vue, Tailwind). Its customers skew towards AI and developer-tool companies
+  whose readers are heavy agent users, so 66% is likely above the web-wide
+  share. The report says human
   traffic (client-side analytics) and agent traffic (server-side requests)
   are measured differently, so the comparison is an estimate. One fetch by
   an agent is not the same as one page read by a human.
@@ -257,6 +267,8 @@ Model fits reported by the site (Claude Code, linear space, Feb 2025 → Jul 202
   <https://api.stackexchange.com/docs/questions>
 - Mintlify, *The 2026 State of Knowledge Report*:
   <https://www.mintlify.com/state-of-knowledge/2026>
+- Mintlify homepage and customers page (company count, visitors, named
+  customers): <https://www.mintlify.com/>, <https://www.mintlify.com/customers>
 - Mintlify, *The state of agent traffic in documentation* (3 Apr 2026):
   <https://www.mintlify.com/blog/state-of-ai>
 - Adam Wathan, comment on tailwindlabs/tailwindcss.com#2388 (7 Jan 2026):
