@@ -148,9 +148,9 @@
    #robustness .next {margin: 0.3em 0 0; font-size: 0.9em}
    /* --- design-principles slides --- */
    /* Principle-by-principle verdict table (design-principles slide) */
-   table.verdicts {width: 100%; border-collapse: collapse; font-size: 0.62em;
-   line-height: 1.25; margin: 0 0 0.35em}
-   table.verdicts th, table.verdicts td {padding: 0.2em 0.4em; text-align: left;
+   table.verdicts {width: 100%; border-collapse: collapse; font-size: 0.85em;
+   line-height: 1.3; margin: 0.4em 0 0.8em}
+   table.verdicts th, table.verdicts td {padding: 0.35em 0.5em; text-align: left;
    vertical-align: baseline}
    table.verdicts thead th {border-bottom: 2px solid currentColor}
    table.verdicts tbody tr:nth-child(even) {background: var(--table-striped-bg);
@@ -159,7 +159,6 @@
    display: block}
    table.verdicts td:first-child {width: 24%; font-weight: 600}
    table.verdicts td:nth-child(2) {width: 22%}
-   #design-principles .stat-row.tight {font-size: 0.68em; margin: 0.15em 0 0.25em}
    .slide p.question {font-size: 0.75em; margin: 0.2em 0 0}
    /* Individual TAG principle deep-dive slides */
    .principle-slide h2 small {font-size: 0.65em; font-weight: normal; opacity: 0.75}
@@ -475,42 +474,34 @@
 
   <!-- Analysis: analysis/design-principles.md -->
   <section class="slide" id="design-principles">
-   <h2>Most TAG principles hold for agents</h2>
+   <h2>Most design principles seem to hold for agents</h2>
    <table class=verdicts>
     <thead>
-     <tr><th>W3C TAG Principle</th><th>For humans</th><th>Why it matters even more for agents</th></tr>
+     <tr><th>W3C TAG Principle</th><th>For humans</th><th>Even more for agents</th></tr>
     </thead>
     <tbody>
      <tr><td>Be consistent
-       <small>TAG §2.4, §12.5, §3.5</small></td>
-      <td>Less to memorize across APIs</td>
-      <td>Models predict tokens from precedent: shared idioms (<code>EventTarget</code>,
-       <code>{signal}</code>) and synced HTML↔IDL attributes enable zero-shot calls</td></tr>
+       <small>TAG §2.4, §12.5</small></td>
+      <td>Less to memorize</td>
+      <td>Shared idioms (<code>EventTarget</code>, <code>{signal}</code>) enable
+       zero-shot calls</td></tr>
      <tr><td>Dictionaries, not positional args
-       <small>TAG §6.5, §6.13</small></td>
-      <td>Self-documenting call sites</td>
-      <td>Eliminates the Boolean trap (<code>scrollIntoView(false)</code>) and coordinate
-       swaps when writing and re-reading code, at ~1.6× the tokens</td></tr>
-     <tr><td>Developer-friendly debuggability
-       <small>TAG §10.7, §8.5</small></td>
-      <td>Pinpoint bugs in DevTools</td>
-      <td>Specific errors and programmatic introspection for declarative specs
-       (<code>el.getAnimations()</code>) close the agent loop without screenshots</td></tr>
+       <small>TAG §6.5</small></td>
+      <td>Readable call sites</td>
+      <td>No Boolean trap: <code>scrollIntoView(false)</code></td></tr>
+     <tr><td>Debuggability
+       <small>TAG §10.7</small></td>
+      <td>Find bugs in DevTools</td>
+      <td>Specific errors and introspection close the loop without
+       screenshots</td></tr>
     </tbody>
    </table>
-   <ul class="stat-row tight">
-    <li><b>45 / 103</b> TAG principles directly help agents (48 neutral, 10 pull against)</li>
-    <li><b>3 vs 5</b> tokens: <code>requestAnimationFrame</code> vs <code>RTCDTMFSender</code>
-     — common words (§12.1) beat abbreviations</li>
-    <li><b>15 vs 9</b> tokens: <code>{bubbles: true, cancelable: false}</code> vs
-     <code>true, false</code> (§6.5)</li>
-   </ul>
    <p class="question next"><strong>No TAG principle mentions AI. What about the guidelines
    that assume a human author?</strong></p>
    <p class="source">Sources: W3C TAG <a href="https://w3ctag.github.io/design-principles/"
    ><cite>Web Platform Design Principles</cite></a> (<a
    href="https://github.com/rbyers/agenticwebdx/tree/main/design-principles"
-   >103-principle audit</a>); Anthropic (Sep 2025); Jain et al., ICSE 2025; o200k_base.</p>
+   >103-principle audit</a>); Anthropic (Sep 2025); Jain et al., ICSE 2025.</p>
   </section>
 
   <section class=comment>
