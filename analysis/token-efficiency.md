@@ -460,3 +460,8 @@ costs tokens. Long names don't.”). Numbers on the slide, all from this file:
 The slide's speaker notes contain the full sources, all 9 pair results, the
 library, `innerHTML` and Lit observations, and the Anthropic tool-design
 numbers, consistent with this file.
+
+## Source audit (2026-10-27)
+
+- The "1 vs 4 tokens" stat (`.getElementsByClassName` vs `popovertarget`) holds in cl100k_base and Qwen2.5-Coder. It does not hold in o200k_base, which gives 5 vs 4 (`web/data/identifier-tokens.csv`). The slide now labels the stat "(cl100k)".
+- "1.4× vs 2.6×" (Wu, Anderson & Guha): the paper states 2.6×, the ratio of median total output (6,706 vs 2,548 tokens). The 1.4× is derived from Appendix J median representation costs (272 vs 190). Both pool only Gemma, Qwen and GLM. The 1.3–1.7× on the evaluation slide is the paper's difficulty-controlled range across all 5 models.
