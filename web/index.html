@@ -134,19 +134,29 @@
    #robustness .stat-list li {grid-template-columns: 4.6em 1fr; margin-bottom: 0.4em}
    #robustness .stat-list b {font-size: 1.2em; white-space: nowrap}
    #robustness .next {margin: 0.3em 0 0; font-size: 0.9em}
-   /* --- design-principles slide --- */
+   /* --- design-principles slides --- */
    /* Principle-by-principle verdict table (design-principles slide) */
-   table.verdicts {width: 100%; border-collapse: collapse; font-size: 0.56em;
-   line-height: 1.25; margin: 0 0 0.5em}
-   table.verdicts th, table.verdicts td {padding: 0.22em 0.4em; text-align: left;
+   table.verdicts {width: 100%; border-collapse: collapse; font-size: 0.62em;
+   line-height: 1.25; margin: 0 0 0.35em}
+   table.verdicts th, table.verdicts td {padding: 0.2em 0.4em; text-align: left;
    vertical-align: baseline}
    table.verdicts thead th {border-bottom: 2px solid currentColor}
    table.verdicts tbody tr:nth-child(even) {background: var(--table-striped-bg);
    text-shadow: none}
-   table.verdicts small {font-size: 0.8em; opacity: 0.75; white-space: nowrap}
-   table.verdicts td:last-child, table.verdicts th:last-child {text-align: center;
-   font-weight: 700; font-size: 1.2em; width: 1.2em; color: var(--figcaption-fg)}
-   .slide p.question {font-size: 0.75em; margin: 0}
+   table.verdicts small {font-size: 0.82em; opacity: 0.78; white-space: nowrap;
+   display: block}
+   table.verdicts td:first-child {width: 24%; font-weight: 600}
+   table.verdicts td:nth-child(2) {width: 22%}
+   #design-principles .stat-row.tight {font-size: 0.68em; margin: 0.15em 0 0.25em}
+   .slide p.question {font-size: 0.75em; margin: 0.2em 0 0}
+   /* Individual TAG principle deep-dive slides */
+   .principle-slide h2 small {font-size: 0.65em; font-weight: normal; opacity: 0.75}
+   .principle-slide h3 {margin-top: 0}
+   .principle-slide .stat-list {font-size: 0.76em; margin: 0}
+   .principle-slide .stat-list li {grid-template-columns: 4.3em 1fr;
+   margin-bottom: 0.32em}
+   .principle-slide .stat-list b {font-size: 1.08em; white-space: nowrap}
+   .principle-slide .next {margin: 0.25em 0 0; font-size: 0.85em}
    /* --- evaluation slide --- */
    #evaluation dl.bars {margin-bottom: 0.4em; gap: 0.25em 0.6em}
    #evaluation dl.bars dd {height: 1.1em}
@@ -1106,6 +1116,17 @@
  JavaScript the most verbose dynamic language. APL's terseness didn't help,
  because the tokenizer splits its rare glyphs into several tokens each.</p>
 
+ <p><strong>Paving the cowpaths.</strong>
+ <a href="https://www.w3.org/TR/html-design-principles/#pave-the-cowpaths">HTML
+ Design Principles §2.4</a> (2007): “When a practice is already widespread among
+ authors, consider adopting it.” Paving cowpaths helps agents because it makes
+ what they already write correct. But as more web code is agent-written, HTTP
+ Archive and use counters measure model priors as much as developer needs—and
+ <a href="https://arxiv.org/abs/2406.10279">Spracklen et al.</a> (USENIX Security
+ 2025) found 43% of hallucinated package names were repeated across all 10 queries.
+ Should the platform pave APIs that agents consistently hallucinate, or does that
+ reward staleness?</p>
+
  <p><strong>Question for the room.</strong> If unfamiliarity costs more than
  verbosity, should a new API aim to look like what agents already write
  (a paved cowpath) even when that isn't the cleanest design?</p>
@@ -1252,10 +1273,22 @@
     prompts lowered Pass@2 by 1.3–4.2% and raised token cost 72–394%;
     anti-pattern rules helped more than examples. Telling agents up front
     is no substitute for the platform telling them at runtime.</li>
-    <li>CSS example: per CSS error-handling rules, an invalid declaration
-    such as <code>display: flexbox</code> is dropped. DevTools' Styles pane
-    marks it, but nothing reaches the console, so an agent that reads
-    console output gets no signal. Possible levers to discuss:
+    <li>Graceful error recovery vs. agent feedback:
+    <a href="https://www.w3.org/TR/html-design-principles/#handle-errors">HTML
+    Design Principles §4.3 Handle Errors</a> (2007; see also
+    <a href="https://www.w3.org/TR/html-design-principles/#degrade-gracefully">§2.2
+    Degrade Gracefully</a>) states: “Prefer graceful error recovery to hard
+    failure, so that users are not exposed to authoring errors.” Similarly, per
+    <a href="https://www.w3.org/TR/CSS2/syndata.html#parsing-errors">CSS 2.1
+    §4.2</a> (“User agents must ignore a declaration with an unknown property”),
+    an invalid declaration such as <code>display: flexbox</code> is silently
+    dropped. Chrome's
+    <a href="https://developer.chrome.com/blog/chrome-devtools-mcp">DevTools MCP
+    launch post</a> (Bynens &amp; Hablich, 23 Sep 2025) notes that without
+    browser inspection tools, coding agents “are not able to see what the code
+    they generate actually does when it runs in the browser. They're effectively
+    programming with a blindfold on.” DevTools' Styles pane marks dropped CSS
+    declarations, but nothing reaches the console. Possible levers to discuss:
     console warnings for invalid declarations or deprecated APIs, a
     reporting or lint channel agents can read, dictionaries instead of
     positional arguments, precise WebIDL that maps to TypeScript types, and
@@ -1265,81 +1298,69 @@
 
   <!-- Analysis: analysis/design-principles.md -->
   <section class="slide" id="design-principles">
-   <h2>Most principles hold. Some backfire.</h2>
+   <h2>Most TAG principles hold for agents</h2>
    <table class=verdicts>
     <thead>
-     <tr><th>Principle</th><th>For humans</th><th>For agents</th><th></th></tr>
+     <tr><th>W3C TAG Principle</th><th>For humans</th><th>Why it matters even more for agents</th></tr>
     </thead>
     <tbody>
-     <tr><td>Use common words <small>TAG §12.1</small></td>
-      <td>Readable on first sight</td>
-      <td>Plain names beat cryptic IDs; abbreviations shatter into tokens</td>
-      <td>✓</td></tr>
-     <tr><td>Be consistent <small>TAG §2.4, §12.5</small></td>
-      <td>Less to memorize</td>
-      <td>Agents guess names from patterns; exceptions invite wrong guesses</td>
-      <td>✓</td></tr>
-     <tr><td>Dictionaries, not positional args <small>TAG §6.5</small></td>
-      <td>Self-documenting calls</td>
-      <td>No argument order to recall, at ~1.6× the tokens</td>
-      <td>✓</td></tr>
-     <tr><td>Readable over compact formats <small>TAG §2.7</small></td>
-      <td>Editable by hand</td>
-      <td>Compact halves tokens (SVG paths); readable avoids errors</td>
-      <td>?</td></tr>
-     <tr><td>Graceful error recovery <small>HTML §4.3</small></td>
-      <td>Users don't see author errors</td>
-      <td>Silent failure leaves agents “programming with a blindfold on”</td>
-      <td>✗</td></tr>
-     <tr><td>Low-level first, libraries on top <small>EWM</small></td>
-      <td>Libraries iterate faster</td>
-      <td>Glue is cheap but per-project; declarative is one-shot, once known</td>
-      <td>?</td></tr>
-     <tr><td>Pave the cowpaths <small>HTML §2.4</small></td>
-      <td>Adopt common practice</td>
-      <td>Today's cowpaths are model priors, even repeated hallucinations</td>
-      <td>?</td></tr>
+     <tr><td>Be consistent
+       <small>TAG §2.4, §12.5, §3.5</small></td>
+      <td>Less to memorize across APIs</td>
+      <td>Models predict tokens from precedent: shared idioms (<code>EventTarget</code>,
+       <code>{signal}</code>) and synced HTML↔IDL attributes enable zero-shot calls</td></tr>
+     <tr><td>Dictionaries, not positional args
+       <small>TAG §6.5, §6.13</small></td>
+      <td>Self-documenting call sites</td>
+      <td>Eliminates the Boolean trap (<code>scrollIntoView(false)</code>) and coordinate
+       swaps when writing and re-reading code, at ~1.6× the tokens</td></tr>
+     <tr><td>Developer-friendly debuggability
+       <small>TAG §10.7, §8.5</small></td>
+      <td>Pinpoint bugs in DevTools</td>
+      <td>Specific errors and programmatic introspection for declarative specs
+       (<code>el.getAnimations()</code>) close the agent loop without screenshots</td></tr>
     </tbody>
    </table>
-   <p class="question next"><strong>No TAG principle mentions AI. Where do agents
-   fit in the priority of constituencies?</strong></p>
-   <p class="source">Sources: W3C TAG <cite>Web Platform Design Principles</cite>
-   (14 Sep 2026); <cite>HTML Design Principles</cite> (2007); Extensible Web
-   Manifesto (EWM, 2013); Anthropic; Chrome DevTools MCP; Spracklen et al. 2025.
-   Tokens: o200k. ✓ holds · ? contested · ✗ works against agents</p>
+   <ul class="stat-row tight">
+    <li><b>45 / 103</b> TAG principles directly help agents (48 neutral, 10 pull against)</li>
+    <li><b>3 vs 5</b> tokens: <code>requestAnimationFrame</code> vs <code>RTCDTMFSender</code>
+     — common words (§12.1) beat abbreviations</li>
+    <li><b>15 vs 9</b> tokens: <code>{bubbles: true, cancelable: false}</code> vs
+     <code>true, false</code> (§6.5)</li>
+   </ul>
+   <p class="question next"><strong>No TAG principle mentions AI. What about the guidelines
+   that assume a human author?</strong></p>
+   <p class="source">Sources: W3C TAG <a href="https://w3ctag.github.io/design-principles/"
+   ><cite>Web Platform Design Principles</cite></a> (<a
+   href="https://github.com/rbyers/agenticwebdx/tree/main/design-principles"
+   >103-principle audit</a>); Anthropic (Sep 2025); Jain et al., ICSE 2025; o200k_base.</p>
   </section>
 
   <section class=comment>
    <p>Full analysis, data and open threads: <a
    href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/design-principles.md"
-   >analysis/design-principles.md</a>.</p>
-   <p><strong>Key claim.</strong> The TAG's
-   <a href="https://www.w3.org/TR/design-principles/">Web Platform Design
-   Principles</a> (W3C Group Note, 14 Sep 2026) has 100+ numbered sections and
-   never mentions AI, LLMs or language models; every “agent” in it is a user
-   agent. Only one principle names its audience:
-   <a href="https://www.w3.org/TR/design-principles/#text-formats">§2.7
-   “Design textual formats for humans”</a>. Most of the document still holds:
-   privacy, security, <a href="https://www.w3.org/TR/design-principles/#js-gc">§5.3
-   don't expose GC</a>, <a href="https://www.w3.org/TR/design-principles/#js-rtc">§5.2
-   run-to-completion</a> and so on protect users from pages, whoever writes the
-   code. The table deliberately picks the author-facing principles where agents
-   change the picture, so it over-represents the contested ones. The ✓/?/✗
-   verdicts are our opinion; the evidence for each is listed below.</p>
-
-   <p><strong>TAG issue tracker.</strong> A search of
+   >analysis/design-principles.md</a>; isolated per-principle evaluations: <a
+   href="https://github.com/rbyers/agenticwebdx/tree/main/design-principles"
+   ><code>design-principles/</code></a>.</p>
+   <p><strong>103-principle audit.</strong> The W3C TAG's
+   <a href="https://w3ctag.github.io/design-principles/">Web Platform Design
+   Principles</a> has 103 numbered sections (§1.1–§12.6) and never mentions AI,
+   LLMs or language models; every “agent” in it is a user agent. We evaluated
+   each of the 103 principles in isolation for coding agents (full write-ups in
+   <a href="https://github.com/rbyers/agenticwebdx/tree/main/design-principles"
+   ><code>design-principles/</code></a>): <strong>45</strong> clearly apply to
+   and help coding agents, <strong>48</strong> are neutral (end-user privacy,
+   security, hardware safety, or internal spec mechanics that apply regardless
+   of who writes the site), and <strong>10</strong> have human-centric
+   assumptions or prescriptions that don't apply to—or actively pull against—agent-written
+   code. A search of
    <a href="https://github.com/w3ctag/design-principles/issues">w3ctag/design-principles
-   issues</a> (27 Oct 2026; LLM, AI, agents, agentic, “language model”, copilot,
-   “code generation”) found <em>no</em> issue about agents as API consumers. The
-   only AI issue,
-   <a href="https://github.com/w3ctag/design-principles/issues/551">#551</a>
-   (Martin Thomson, Feb 2025), is about sourcing models for in-browser inference
-   APIs. The nearest relevant one is
+   issues</a> (27 Oct 2026) found no issue about coding agents as API consumers;
+   <a href="https://github.com/w3ctag/design-principles/issues/551">#551</a> is
+   about browser-hosted ML models, and
    <a href="https://github.com/w3ctag/design-principles/issues/455">#455</a>
-   (Lea Verou, Nov 2023, open), which asks that heuristics or “magic” always come
-   with overrides. Martin Thomson's April 2025 comment there argues for avoiding
-   heuristics in new capabilities because sites depend on predictable behavior.
-   That argument also suits agents, which can't observe a heuristic.</p>
+   (Lea Verou, open) asks that heuristics or “magic” always come with explicit
+   overrides.</p>
 
    <p><strong>Supporting evidence that human and agent ergonomics mostly
    align.</strong> Anthropic,
@@ -1348,160 +1369,339 @@
    ‘ergonomic’ for agents also end up being surprisingly intuitive to grasp as
    humans.” OpenAI's
    <a href="https://developers.openai.com/api/docs/guides/function-calling">function-calling
-   best practices</a> make the human the yardstick: “Pass the intern test: Can an
-   intern/human correctly use the function given nothing but what you gave the
-   model?”</p>
+   best practices</a>: “Pass the intern test: Can an intern/human correctly use
+   the function given nothing but what you gave the model?”</p>
 
-   <p><strong>Token counts</strong> are our own measurements with OpenAI's
-   public <code>o200k_base</code> tokenizer (via <code>tiktoken</code>), checked
-   against <code>cl100k_base</code>. Claude's tokenizer is not public, so the
-   exact numbers will differ, but the ratios are what matter.</p>
+   <h3>The 3 best examples of TAG rules that apply to agents</h3>
 
-   <h3>Row by row</h3>
+   <p><strong>1. Be consistent (<a
+   href="https://w3ctag.github.io/design-principles/#consistency">§2.4</a>, <a
+   href="https://w3ctag.github.io/design-principles/#naming-consistency">§12.5</a>,
+   <a href="https://w3ctag.github.io/design-principles/#html-idl-must-by-synced">§3.5</a>,
+   <a href="https://w3ctag.github.io/design-principles/#aborting">§6.12</a>, <a
+   href="https://w3ctag.github.io/design-principles/#milliseconds">§8.3</a>).</strong>
+   For humans, consistency reduces cognitive load; for LLMs, consistency
+   <em>is</em> the prediction mechanism. Models generate code from statistical
+   precedent across training corpora. On rare or post-cutoff APIs, where
+   <a href="https://arxiv.org/abs/2407.09726">Jain et al. (ICSE 2025)</a> found
+   GPT-4o fails 61% of the time vs. 6% on common APIs, an agent reconstructs
+   the call from platform-wide idioms: <code>EventTarget</code>,
+   <code>{ signal }</code> for cancellation (§6.12), millisecond time units
+   (§8.3), and 1:1 HTML↔IDL attribute reflection (§3.5). When §3.5 is violated
+   (<code>for</code>/<code>htmlFor</code>, <code>input.value</code> vs.
+   <code>defaultValue</code>, or <code>popovertarget</code> vs.
+   <code>popoverTargetElement</code>), setting a mismatched JS property silently
+   creates an inert expando property with no runtime error and leaves serialized
+   DOM snapshots out of sync.</p>
 
-   <p><strong>1. Use common words (✓).</strong>
-   <a href="https://www.w3.org/TR/design-principles/#naming-common-words">TAG
-   §12.1</a>: “Value readability over brevity. Avoid abbreviations…”
-   <em>Evidence:</em> Anthropic (above) says agents “grapple with natural language
-   names, terms, or identifiers significantly more successfully than they do with
-   cryptic identifiers”, and that resolving UUIDs to meaningful language
-   “significantly improves Claude's precision in retrieval tasks by reducing
-   hallucinations”. It also recommends <code>user_id</code> over
-   <code>user</code>. Wang et al.,
-   <a href="https://arxiv.org/abs/2307.12488">How Does Naming Affect LLMs on Code
-   Analysis Tasks?</a> (JSEA 2024), found that LLM-based code analysis “heavily
-   relies on well-defined names in code”. That study used older models. <em>Our
-   measurement:</em> common words are cheap tokens:
-   <code>requestAnimationFrame</code> splits into request·Animation·Frame (3) and
-   <code>structuredClone</code> into 2. Abbreviations shatter:
-   <code>RTCDTMFSender</code> splits into RT·CD·TM·FS·ender (5 meaningless
-   fragments). A side note: the
-   <a href="https://www.w3.org/TR/design-principles/#casing-rules">casing rule</a>
-   to always capitalize repeated initialisms gives HTML·H·RE·lement for
-   <code>HTMLHRElement</code>, while the “infamous”
-   <code>XMLHttpRequest</code> tokenizes cleanly as XML·Http·Request.
-   <em>Opinion:</em> for names, readability and token efficiency point the same
-   way. An abbreviation saves characters, not tokens.</p>
-
-   <p><strong>2. Be consistent (✓, if anything more important).</strong>
-   <a href="https://www.w3.org/TR/design-principles/#consistency">TAG §2.4</a>,
-   <a href="https://www.w3.org/TR/design-principles/#naming-consistency">§12.5</a>.
-   §2.4 already says “follow the more popular precedent”. <em>Evidence
-   (indirect):</em> Jain et al.,
-   <a href="https://arxiv.org/abs/2407.09726">On Mitigating Code LLM
-   Hallucinations with API Documentation</a> (2024): “GPT-4o achieves only 38.58%
-   valid low frequency API invocations.” <em>Opinion:</em> for any API it has
-   rarely seen, an agent rebuilds the name and shape from platform-wide patterns.
-   Consistency is what makes that guess right. Humans look things up; agents often
-   don't.</p>
-
-   <p><strong>3. Dictionaries, not positional arguments (✓, at a cost).</strong>
-   <a href="https://www.w3.org/TR/design-principles/#prefer-dictionaries">TAG
-   §6.5</a>. <em>Our measurement on the TAG's own examples:</em>
+   <p><strong>2. Accept optional and/or primitive arguments through dictionaries
+   (<a href="https://w3ctag.github.io/design-principles/#prefer-dictionaries">§6.5</a>)
+   &amp; use strings for constants and enums (<a
+   href="https://w3ctag.github.io/design-principles/#string-constants">§6.13</a>).</strong>
+   <em>Measurement (o200k_base):</em> the TAG's own example
    <code>new Event("example", { bubbles: true, cancelable: false })</code> is 15
-   tokens vs. 9 for <code>new Event("example", true, false)</code> (1.67×).
-   <code>window.scrollBy({ left: 50, top: 0 })</code> is 14 vs. 9 (1.56×). Both
-   tokenizers give the same counts. <em>Opinion:</em> still worth it. The keys
-   describe themselves when code is read, the “Boolean trap” is exactly where a
-   model has to recall positional meaning, and a few tokens are cheap next to a
-   lookup or a retry. This is a clean case of <em>token efficiency</em> and
-   <em>robustness</em> pulling apart, which is one of the session's
-   questions.</p>
+   tokens vs. 9 for <code>new Event("example", true, false)</code> (1.67×);
+   <code>window.scrollBy({ left: 50, top: 0 })</code> is 14 vs. 9 (1.56×).
+   The extra tokens buy self-describing call sites in context, eliminate the
+   “Boolean trap” (<code>element.scrollIntoView(false)</code>) and positional
+   coordinate transpositions, and let agents add options incrementally without
+   counting <code>undefined</code> placeholders. Caveat: WebIDL silently ignores
+   unknown dictionary keys at runtime, so a hallucinated key name
+   (<code>cancellable</code> with two <code>l</code>s) is caught by TypeScript's
+   <code>lib.dom.d.ts</code> but silent in plain JS.</p>
 
-   <p><strong>4. Readable over compact formats (?).</strong>
-   <a href="https://www.w3.org/TR/design-principles/#text-formats">TAG §2.7</a>:
-   “Favor readability over compactness… SVG path syntax was designed to be
-   compact… the cost to human readability has remained the same.” <em>Our
-   measurement:</em> <code>M10 10 L20 20</code> is 8 tokens vs. 16 for a
-   hypothetical <code>moveTo(10, 10) lineTo(20, 20)</code>. <em>Opinion:</em>
-   compact syntax is cheaper to emit but harder to check, and §2.7's case for
-   lenient syntax (comments, trailing commas) helps agents as much as humans. It is
-   unclear which way agents tip. No direct evidence found.</p>
+   <p><strong>3. Ensure features are developer-friendly (<a
+   href="https://w3ctag.github.io/design-principles/#debuggability">§10.7</a>)
+   &amp; use common words (<a
+   href="https://w3ctag.github.io/design-principles/#naming-common-words">§12.1</a>).</strong>
+   §10.7 requires specific, localizing developer error messages and highlights
+   <strong>Web Animations</strong> as a model for specifying debuggability of
+   declarative features. Because Web Animations defined programmatic JS
+   introspection (<code>el.getAnimations()</code>,
+   <code>effect.getComputedTiming()</code>), a coding agent in a headless
+   Playwright test can inspect and debug animations without taking pixel
+   screenshots—unlike declarative CSS features that fail silently with no DOM/CSSOM
+   introspection. Meanwhile, §12.1 (“Value readability over brevity. Avoid
+   abbreviations…”) aligns directly with BPE tokenization: common English words
+   tokenize cleanly (<code>requestAnimationFrame</code> → 3 tokens,
+   <code>structuredClone</code> → 2) and have a single spelling, whereas
+   abbreviations shatter into fragments (<code>RTCDTMFSender</code> →
+   <code>RT·CD·TM·FS·ender</code>, 5 tokens) and invite guessing
+   (<code>cfg</code> vs. <code>config</code>). See also <a
+   href="https://arxiv.org/abs/2307.12488">Wang et al. (JSEA 2024)</a> and
+   Anthropic (Sep 2025) on meaningful names vs. cryptic identifiers.</p>
+  </section>
 
-   <p><strong>5. Graceful error recovery (✗ for agents as authors).</strong>
-   <a href="https://www.w3.org/TR/html-design-principles/#handle-errors">HTML
-   Design Principles §4.3 Handle Errors</a> (W3C Working Draft, 26 Nov 2007):
-   “Prefer graceful error recovery to hard failure, so that users are not exposed
-   to authoring errors.” See also
-   <a href="https://www.w3.org/TR/html-design-principles/#degrade-gracefully">§2.2
-   Degrade Gracefully</a>, and
-   <a href="https://www.w3.org/TR/CSS2/syndata.html#parsing-errors">CSS 2.1
-   §4.2</a>: “User agents must ignore a declaration with an unknown property.”
-   <em>Evidence:</em> Chrome's
-   <a href="https://developer.chrome.com/blog/chrome-devtools-mcp">DevTools MCP
-   launch post</a> (Bynens &amp; Hablich, 23 Sep 2025) says coding agents “are not
-   able to see what the code they generate actually does when it runs in the
-   browser. They're effectively programming with a blindfold on.” Wu, Anderson
-   &amp; Guha, <a href="https://arxiv.org/abs/2607.22807">The Best Programming
-   Language for Tokenmaxxing</a> (2026), found much of agents' extra cost in
-   unfamiliar languages is error recovery, but compile errors at least give a
-   signal; a CSS typo gives none. <em>Opinion:</em> resilience for end users is
-   right and should stay. The conflict is that recovery is <em>silent</em> at
-   authoring time.
-   <a href="https://www.w3.org/TR/design-principles/#debuggability">TAG §10.7</a>
-   already requires that developer-facing errors “must be meaningful”, but those
-   messages live in DevTools, which an agent sees only through tooling. A possible
-   way out: make authoring-time diagnostics (dropped declarations, ignored
-   attributes) loud and machine-readable, without changing what users see.</p>
+  <!-- Analysis: analysis/design-principles.md, design-principles/02-07-text-formats.md -->
+  <section class="slide principle-slide" id="principle-text-formats">
+   <h2>Textual formats for humans <small>(TAG §2.7)</small></h2>
+   <div class=columns>
+    <section>
+     <h3>What §2.7 &amp; §11.1 say</h3>
+     <ul class=stat-list>
+      <li><b>SVG</b> <span><code>path</code> “designed to be compact… cost to
+       human readability has remained”</span></li>
+      <li><b>JSON</b> <span>no comments or trailing commas, mandatory key quotes
+       → “prone to syntactic errors”</span></li>
+      <li><b>CSS</b> <span>ignores property typos (§2.7); forgiving markup gives
+       a “shallower learning curve” (§11.1)</span></li>
+     </ul>
+    </section>
+    <section>
+     <h3>Why it flips for agents</h3>
+     <ul class=stat-list>
+      <li><b>8 vs 16</b> <span>tokens: <code>M10 10 L20 20</code> vs
+       <code>moveTo(10,10) lineTo(20,20)</code></span></li>
+      <li><b>99.9%</b> <span>of AI code passes syntax checks; strict JSON
+       schemas enable constrained decoding</span></li>
+      <li><b>0 errors</b> <span>when CSS drops a typo — forgiving parsers blind
+       text-native machines in the loop</span></li>
+     </ul>
+    </section>
+   </div>
+   <p class=next><strong>Agents don't need forgiving syntax — they need
+   machine-checkable diagnostics.</strong></p>
+   <p class="source">Sources: W3C TAG <a
+   href="https://w3ctag.github.io/design-principles/#text-formats">§2.7</a> &amp;
+   <a href="https://w3ctag.github.io/design-principles/#requirements-on-authors-and-implementers"
+   >§11.1</a>; Veracode (2026); Mündler et al., PLDI 2025; o200k_base.</p>
+  </section>
 
-   <p><strong>6. Low-level first, libraries on top (?).</strong>
-   <a href="https://github.com/extensibleweb/manifesto">Extensible Web
-   Manifesto</a> (2013; the original domain now redirects elsewhere): browsers
-   should “provide new low-level capabilities”, so that vendors and library
-   authors can “iterate on libraries that provide developer-friendly, high-level
-   APIs”. <a href="https://www.w3.org/TR/design-principles/#high-level-low-level">TAG
-   §2.2</a>: low-level APIs let “high level APIs… organically emerge from usage
-   patterns”, while high-level APIs give the UA room for accessibility and
-   privacy. <em>Evidence:</em> Twist et al.,
-   <a href="https://arxiv.org/abs/2503.17181">A Study of LLMs' Preferences for
-   Libraries and Programming Languages</a> (2025): LLMs prioritize “familiarity and
-   popularity over suitability”, and use NumPy unnecessarily in up to 45% of cases.
-   The MDN MCP announcement on the earlier slide says agents “can surface outdated
-   web platform information”. <em>Opinion:</em> the manifesto assumes glue code is
-   expensive for humans, so it is written once in a shared library. Agents make
-   glue cheap but write it fresh for each project, with no shared bug fixes, or
-   fall back on whichever library is most popular. A high-level declarative
-   feature (popover, <code>&lt;dialog&gt;</code>) can be written in one shot and
-   keeps accessibility in the browser, but only once models know it, which takes
-   years.</p>
+  <section class=comment>
+   <p>Isolated evaluations: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/02-07-text-formats.md"
+   >design-principles/02-07-text-formats.md</a>, <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/11-01-requirements-on-authors-and-implementers.md"
+   >design-principles/11-01-requirements-on-authors-and-implementers.md</a>.</p>
+   <p><strong>Why <a
+   href="https://w3ctag.github.io/design-principles/#text-formats">TAG §2.7</a>
+   is a prime example of a human-era guideline that misfires for agents.</strong>
+   §2.7 is the only section in the TAG Design Principles whose title explicitly
+   names its target audience (“for humans”), and it closes with a pre-LLM
+   dichotomy: “If your format is intended to be used only by machines, a binary
+   format is likely to be more efficient, in addition to discouraging people
+   from authoring or editing content directly.” Coding agents break that split:
+   they are machines whose native interface is text tokens.</p>
 
-   <p><strong>7. Pave the cowpaths (?).</strong>
-   <a href="https://www.w3.org/TR/html-design-principles/#pave-the-cowpaths">HTML
-   Design Principles §2.4</a>: “When a practice is already widespread among
-   authors, consider adopting it.” Precedent in
-   <a href="https://www.w3.org/TR/design-principles/#third-party-tools">TAG
-   §2.15</a>: <code>Array.prototype.contains()</code> became
-   <code>includes()</code> because of PrototypeJS. <em>Evidence:</em> Spracklen et
-   al., <a href="https://arxiv.org/abs/2406.10279">We Have a Package for You!</a>
-   (USENIX Security 2025): at least 5.2% (commercial) and 21.7% (open-source) of
-   suggested packages were hallucinated, 205,474 unique fake names, and “43% of
-   hallucinated packages were repeated in all 10 queries”. Wang et al.,
-   <a href="https://arxiv.org/abs/2406.09834">LLMs Meet Library Evolution</a>
-   (ICSE 2025): 25–38% of completions use deprecated APIs, and 70–90% when the
-   surrounding code is outdated. <em>Opinion:</em> paving cowpaths
-   <em>helps</em> agents, because it makes what they already write correct. But as
-   more web code is agent-written, HTTP Archive and use counters measure model
-   priors as much as developer needs. Should the platform pave the APIs agents
-   consistently hallucinate, or does that reward staleness?</p>
+   <p><strong>1. Strict syntax (JSON) vs. manual-edit flexibility.</strong>
+   §2.7 singles out JSON as a negative example because “there is: no commenting
+   capability, objects and arrays cannot have trailing commas, and quotes are
+   mandatory for object keys. This makes JSON prone to syntactic errors as a
+   result of manual edits.” For an LLM coding agent, manual punctuation typos
+   are a solved problem (99.9% syntax pass rate in Veracode 2026; grammar- and
+   schema-constrained decoding guarantees 100% valid JSON in tool calls and
+   structured outputs). Conversely, “syntactic flexibility—such as in whitespace,
+   quoting, or delimiters” creates multiple equivalent surface forms and parser
+   edge cases.</p>
 
-   <h3>Discussion prompt</h3>
-   <p><a href="https://www.w3.org/TR/design-principles/#priority-of-constituencies">TAG
-   §1.1</a>: “User needs come before the needs of web page authors, which come
-   before the needs of user agent implementors, which come before the needs of
-   specification writers, which come before theoretical purity.” Are agents
-   “authors”? Or are they a tool that authors use? If they are a tool,
-   <a href="https://www.w3.org/TR/design-principles/#third-party-tools">§2.15</a>
-   already has an answer: “Prioritize usability over compatibility with
-   third-party tools… web platform features last a lot longer than most
-   third-party tools.” That is the same objection as the README's, that agents
-   are volatile while Web APIs are permanent. When agent and human DX conflict
-   (rows 3–5), who pays: the human reading the code, or the agent writing it?</p>
+   <p><strong>2. Silent error containment (CSS &amp; HTML) vs. agent verification
+   loops.</strong> §2.7 praises CSS because “Typos in CSS properties only cause
+   that property to be ignored. Errors in properties rarely cause an entire rule
+   to be lost.” Similarly, <a
+   href="https://w3ctag.github.io/design-principles/#requirements-on-authors-and-implementers"
+   >TAG §11.1</a> (“Identify the audience of each requirement in your
+   specification”) explains that the web's forgiving “supported language” is
+   wider than the strict “conforming language” so that “authors have a shallower
+   learning curve.” For a human beginner in a plain text editor, rendering
+   <em>something</em> despite a typo is helpful. For an autonomous coding agent,
+   silent error absorption converts a trivial one-turn fix into a silent bug
+   that passes console and DOM checks without warning.</p>
 
-   <p><strong>Caveats.</strong> Most of the LLM studies cited use Python, not web
-   code. The 2007 HTML Design Principles never went beyond Working Draft, though
-   it is still widely cited. The model studies are 2023–2026 and model behavior
-   moves fast, which is the session's own argument about evaluating designs on a
-   delayed feedback loop.</p>
+   <p><strong>3. Compactness vs. readability (SVG paths and HTML
+   microsyntaxes).</strong> §2.7 criticizes SVG path syntax
+   (<code>d="M10 10 L20 20"</code>) because “while the importance of size
+   efficiency has declined over time, the cost to human readability has remained
+   the same” (see also <a
+   href="https://w3ctag.github.io/design-principles/#html-lists">TAG §3.2</a> on
+   <code>srcset</code> vs. child elements). Over the network, gzip/Brotli
+   neutralizes verbosity; inside an LLM context window, there is no Brotli.
+   <code>M10 10 L20 20</code> is 8 tokens in <code>o200k_base</code> vs. 16 for
+   <code>moveTo(10, 10) lineTo(20, 20)</code>, paid every turn the file is read.
+   Nuance worth noting: unlabeled boolean flags inside compact microsyntaxes
+   (such as SVG arc flags <code>A rx ry rot large-arc sweep x y</code>) <em>do</em>
+   cause agent hallucinations, whereas single-letter command tokens with clear
+   coordinate pairs are both compact and accurate.</p>
+  </section>
+
+  <!-- Analysis: analysis/design-principles.md, design-principles/02-15-third-party-tools.md -->
+  <section class="slide principle-slide" id="principle-third-party-tools">
+   <h2>Usability over third-party tools <small>(TAG §2.15)</small></h2>
+   <div class=columns>
+    <section>
+     <h3>What §2.15 says</h3>
+     <ul class=stat-list>
+      <li><b>Outlive</b> <span>“Web platform features last a lot longer than most
+       third-party tools” that prototype them</span></li>
+      <li><b>Override</b> <span>avoiding tool clashes is “rarely an acceptable
+       tradeoff” if it hurts native syntax</span></li>
+      <li><b>Rare</b> <span><code>Array.includes()</code> (PrototypeJS) and Grid
+       <code>[line-name]</code> (Sass) treated as exceptions</span></li>
+     </ul>
+    </section>
+    <section>
+     <h3>Why it fails for agents</h3>
+     <ul class=stat-list>
+      <li><b>Weights</b> <span>popular tools (Sass, Babel/TS, React, Tailwind)
+       are permanently baked into model priors</span></li>
+      <li><b>Clashes</b> <span>CSS Nesting <code>&amp;</code> vs Sass
+       <code>&amp;__child</code>; Stage 3 vs legacy TS
+       <code>@decorator</code></span></li>
+      <li><b>+20%</b> <span>issues solved when linters/compilers gate edits —
+       breaking tools breaks the agent loop</span></li>
+     </ul>
+    </section>
+   </div>
+   <p class=next><strong>Under §2.15, coding agents are “third-party tools” —
+   yet they write the code.</strong></p>
+   <p class="source">Sources: W3C TAG <a
+   href="https://w3ctag.github.io/design-principles/#third-party-tools">§2.15</a>
+   &amp; <a href="https://w3ctag.github.io/design-principles/#priority-of-constituencies"
+   >§1.1</a>; Yang et al., NeurIPS 2024 (SWE-agent); Amplifying (2026).</p>
+  </section>
+
+  <section class=comment>
+   <p>Isolated evaluations: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/02-15-third-party-tools.md"
+   >design-principles/02-15-third-party-tools.md</a>, <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-01-priority-of-constituencies.md"
+   >design-principles/01-01-priority-of-constituencies.md</a>.</p>
+   <p><strong>Why <a
+   href="https://w3ctag.github.io/design-principles/#third-party-tools">TAG §2.15</a>
+   pulls against agent-written code.</strong> §2.15 notes that “third-party tools
+   are often used to prototype new web platform features” and concludes that when
+   an upcoming standard's optimal syntax conflicts with a tool, spec authors
+   should usually prioritize native usability and let the tool adapt, because
+   “web platform features last a lot longer than most third-party tools.” In an
+   LLM world, that premise fails in three ways:</p>
+
+   <p><strong>1. Third-party tools do not disappear—they fossilize in model
+   weights.</strong> When millions of repositories use Sass, TypeScript, Babel,
+   JSX or Tailwind to prototype or fill gaps in the platform, their syntax and
+   semantics become permanent statistical priors in pre-training corpora. If the
+   web platform later standardizes the <em>same</em> sigil with subtly different
+   semantics for “optimal native usability,” models suffer persistent prior
+   interference. Examples: (a) native CSS Nesting adopted <code>&amp;</code> from
+   Sass, but Sass allows BEM string concatenation (<code>.card { &amp;__title
+   { … } }</code>) whereas native CSS Nesting treats <code>&amp;</code> as a
+   live selector where suffix concatenation is invalid and silently ignored;
+   (b) TC39 Stage 3 standard <code>@decorator</code> syntax shares the exact
+   token of legacy TypeScript/Babel <code>experimentalDecorators</code> (used by
+   Angular, NestJS, MobX, TypeORM for a decade) with incompatible argument
+   signatures and descriptor semantics; (c) CSS Color 4
+   <code>rgb(r g b / a)</code> and CSS <code>min()</code>/<code>max()</code>
+   collided with Sass's own function parser, causing years of build failures.</p>
+
+   <p><strong>2. Third-party tools are the agent's sensory feedback loop.</strong>
+   Autonomous coding agents rely on <code>tsc</code>, ESLint, Biome, PostCSS,
+   and bundlers to verify whether an edit is valid (<a
+   href="https://arxiv.org/abs/2405.15793">SWE-agent</a> showed +20% issues
+   resolved when a linter rejects broken edits). When a new native syntax breaks
+   the project's parser, typechecker or preprocessor, the agent receives an
+   immediate build error, treats it as ground truth, and strips out the native
+   feature in favor of legacy or tool-specific code.</p>
+
+   <p><strong>3. Where do coding agents sit in the Priority of Constituencies
+   (<a href="https://w3ctag.github.io/design-principles/#priority-of-constituencies"
+   >TAG §1.1</a>)?</strong> §1.1 puts users first, then authors, then
+   implementors, then spec writers. Are coding agents “authors,” or are they
+   “third-party tools” under §2.15? If standards treat agents as transient
+   third-party tools whose needs come last, specs optimize for a human typing
+   from memory while ignoring the consumer that now drives 66% of docs traffic.</p>
+  </section>
+
+  <!-- Analysis: analysis/design-principles.md, design-principles/01-09-leave-the-web-better.md -->
+  <section class="slide principle-slide" id="principle-leave-web-better">
+   <h2>Leave the web better <small>(TAG §1.9)</small></h2>
+   <div class=columns>
+    <section>
+     <h3>What §1.9 &amp; §1.8 say</h3>
+     <ul class=stat-list>
+      <li><b>Break</b> <span>“consistency with existing problematic design
+       patterns is not a good reason to propagate” them</span></li>
+      <li><b>Replace</b> <span>prefer clean-sheet APIs over extending defective
+       legacy features (§1.9)</span></li>
+      <li><b>Keep old</b> <span>never remove legacy APIs — unless used “only in
+       test cases or examples” (§1.8)</span></li>
+     </ul>
+    </section>
+    <section>
+     <h3>Why it backfires for agents</h3>
+     <ul class=stat-list>
+      <li><b>Traps</b> <span><code>MutationObserver</code> takes options in
+       <code>observe()</code>; <code>IntersectionObserver</code> in
+       <code>new</code></span></li>
+      <li><b>70–90%</b> <span>of completions in older files pick the deprecated
+       API over its clean-sheet replacement</span></li>
+      <li><b>Examples</b> <span>breaking patterns seen “only in test cases or
+       examples” (§1.8) breaks what LLMs trained on</span></li>
+     </ul>
+    </section>
+   </div>
+   <p class=next><strong>When old APIs never die, fixing a flaw only in the new
+   one sets a statistical trap.</strong></p>
+   <p class="source">Sources: W3C TAG <a
+   href="https://w3ctag.github.io/design-principles/#leave-the-web-better">§1.9</a>,
+   <a href="https://w3ctag.github.io/design-principles/#removing-features">§1.8</a>
+   &amp; <a href="https://w3ctag.github.io/design-principles/#events-vs-observers"
+   >§7.10</a>; Wang et al., ICSE 2025.</p>
+  </section>
+
+  <section class=comment>
+   <p>Isolated evaluations: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-09-leave-the-web-better.md"
+   >design-principles/01-09-leave-the-web-better.md</a>, <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/01-08-removing-features.md"
+   >design-principles/01-08-removing-features.md</a>.</p>
+   <p><strong>Why <a
+   href="https://w3ctag.github.io/design-principles/#leave-the-web-better">TAG §1.9</a>
+   (paired with <a
+   href="https://w3ctag.github.io/design-principles/#removing-features">§1.8</a>)
+   creates traps for coding agents.</strong> §1.9 is the TAG's explicit override
+   to <a href="https://w3ctag.github.io/design-principles/#consistency">§2.4
+   (“Be consistent”)</a>: when an existing Web API pattern is flawed, §1.9 tells
+   spec authors <em>not</em> to follow it in new APIs, and not to extend flawed
+   features without addressing their defects. Meanwhile, <a
+   href="https://w3ctag.github.io/design-principles/#removing-features">§1.8</a>
+   ensures the old API is almost never removed. For humans reading MDN for a new
+   API, a cleaner design is welcome. For statistical models trained on the whole
+   platform at once, combining §1.9 with §1.8 produces three failure modes:</p>
+
+   <p><strong>1. Near-miss consistency traps across sibling APIs.</strong>
+   When a new API fixes a quirk locally while keeping the same naming family or
+   type, LLMs blend priors across the boundary. Example 1 (<a
+   href="https://w3ctag.github.io/design-principles/#events-vs-observers">TAG
+   §7.10</a>): <code>MutationObserver</code> and <code>ResizeObserver</code> pass
+   options to <code>observer.observe(target, options)</code>, whereas
+   <code>IntersectionObserver</code> takes options in <code>new
+   IntersectionObserver(cb, options)</code> (§7.10 explicitly permits both). When
+   an agent writes <code>io.observe(el, { threshold: 0.5 })</code>, WebIDL
+   silently ignores the extra argument and runs with the default threshold of 0.
+   Example 2 (<a href="https://w3ctag.github.io/design-principles/#live-vs-static"
+   >TAG §6.3</a>): <code>el.childNodes</code> returns a live
+   <code>NodeList</code>, while <code>el.querySelectorAll()</code> fixed the
+   liveness footgun by returning a static <code>NodeList</code>—under the exact
+   same interface name, erasing any TypeScript signal.</p>
+
+   <p><strong>2. Training-data gravity defeats unextended legacy APIs.</strong>
+   §1.9 discourages adding small capabilities to defective legacy APIs
+   (<code>Date</code>, <code>localStorage</code>, <code>XMLHttpRequest</code>,
+   <code>innerHTML</code>), favoring clean-sheet replacements
+   (<code>Temporal</code>, <code>IndexedDB</code>/<code>CookieStore</code>,
+   <code>fetch</code>, <code>setHTML</code>). Because the legacy APIs remain
+   working forever (§1.8) and dominate pre-training corpora, <a
+   href="https://arxiv.org/abs/2406.09834">Wang et al. (ICSE 2025)</a> found LLMs
+   choose deprecated APIs in 25–38% of completions overall and 70–90% when the
+   surrounding code already uses older APIs.</p>
+
+   <p><strong>3. The “only in test cases or examples” blind spot in <a
+   href="https://w3ctag.github.io/design-principles/#removing-features">TAG
+   §1.8</a>.</strong> §1.8 states that breaking a feature is acceptable when
+   usage “appears only in test cases or examples.” Browser UseCounters and HTTP
+   Archive measure live production traffic, but LLMs train directly on
+   documentation examples, tutorials, Stack Overflow answers, and test
+   suites—meaning coding agents actively resurrect “example-only” patterns into
+   new production code unless removals emit loud, machine-actionable replacement
+   errors.</p>
   </section>
 
   <!-- Analysis: analysis/what-agents-write.md -->
@@ -1677,6 +1877,20 @@
    reflection of the general rise in Tailwind’s popularity.”
    Homogenization at the stack level is clearer in the data than at the
    visual level.</p>
+
+   <p><strong>Extensible Web Manifesto vs. agent defaults.</strong> The
+   <a href="https://github.com/extensibleweb/manifesto">Extensible Web
+   Manifesto</a> (2013; see also <a
+   href="https://w3ctag.github.io/design-principles/#high-level-low-level">TAG
+   §2.2</a>) argued that browsers should “provide new low-level capabilities” so
+   library authors can iterate on developer-friendly high-level APIs that
+   standards later adopt. That model assumes glue code is expensive for humans, so
+   it is written once in a shared library. Coding agents make bespoke glue cheap
+   per project (with no shared bug fixes) or lock into whichever library already
+   dominates training weights, while high-level declarative features
+   (<code>popover</code>, <code>&lt;dialog&gt;</code>, customizable
+   <code>&lt;select&gt;</code>) keep accessibility in the browser once models
+   know them.</p>
 
    <p><strong>Discussion.</strong> Two readings: (1) freeze: new platform
    features never reach agents' defaults, so they never get the usage that
