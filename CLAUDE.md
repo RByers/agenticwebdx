@@ -6,8 +6,8 @@ This repo holds the slides for a W3C TPAC 2026 breakout session (see README.md).
 
 - Pull requests are not used for this repo. Do not create PRs.
 - Iterate on the session's working branch, committing locally as work progresses.
-- Don't push the working branch to the remote unless the user explicitly asks for it.
-- When the user says the work is complete, merge the branch into `main`, push `main`, and delete the local working branch.
+- Don't push the working branch itself to the remote.
+- When a piece of work is complete, commit it, merge the working branch into `main`, and push `main` without waiting to be asked. If there are unanswered questions to confirm with the user first, ask them and wait instead of pushing.
 
 ## Layout
 
