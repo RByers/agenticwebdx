@@ -27,7 +27,8 @@ Questions this session will explore:
 
 ## Repository layout
 
-- `index.html` – the slide deck (b6+ framework, TPAC 2026 template)
-- `Templates/` – the unmodified [TPAC 2026 slide template](https://www.w3.org/2026/Talks/TPAC/Templates/) files. `Templates/Overview.html` is the template's example deck and user manual.
+- `web/` – everything published to GitHub Pages
+  - `web/index.html` – the slide deck (b6+ framework, TPAC 2026 template)
+  - `web/Templates/` – the unmodified [TPAC 2026 slide template](https://www.w3.org/2026/Talks/TPAC/Templates/) files. `web/Templates/Overview.html` is the template's example deck and user manual.
 
-The repo root is published via GitHub Pages at https://rbyers.github.io/agenticwebdx/.
+The `web/` directory is published via GitHub Pages at https://rbyers.github.io/agenticwebdx/.
