@@ -64,7 +64,10 @@ sampled January, April, July and October each year (`[css]` January and July
 only). Full series:
 [`web/data/stackoverflow-questions.csv`](../web/data/stackoverflow-questions.csv).
 Script: [`tools/so_fetch.py`](../tools/so_fetch.py). Chart:
-[`tools/so_chart.py`](../tools/so_chart.py).
+[`tools/so_chart.py`](../tools/so_chart.py). The slide's chart plots all three series as a % of
+each one's own peak month (all questions 196,527 in Apr 2016, `[javascript]`
+23,799 in Jul 2015, `[css]` 8,426 in Jan 2014), so their shapes can be
+compared on one axis; the legend gives each peak.
 
 | July of | All questions | `[javascript]` | `[css]` |
 |---|---:|---:|---:|
