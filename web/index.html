@@ -228,6 +228,11 @@
    /* On the title slide: a big sticker that spins in on the first "next"
       press (class=next makes it an incremental step), silly on purpose */
    .slide.cover::after {content: none}
+   /* Slides URL on the title slide, just under the speakers' names */
+   .slide.cover .slides-link {position: absolute; left: 18rem; right: 2rem;
+     top: 12.2rem; margin: 0; font-size: 0.8em}
+   .slide.cover .slides-link a {background: rgba(255,255,255,0.85);
+     padding: 0.15em 0.6em; border-radius: 0.4em}
    .sloppy-sticker {position: absolute; bottom: 3.2rem; right: 3rem; z-index: 1;
      margin: 0; text-align: center; font-size: 0.85em; font-weight: 700;
      line-height: 1.25; padding: 0.5em 1em; border-radius: 0.6em;
@@ -278,6 +283,7 @@
   <section class="slide cover" id="cover">
    <h1>Agents are redefining DX.<br>[How] should web standards adapt?</h1>
    <address>Lea Verou &amp; Rick Byers</address>
+   <p class=slides-link>Slides: <a href="https://rbyers.github.io/agenticwebdx/">rbyers.github.io/agenticwebdx</a></p>
    <p class="next sloppy-sticker">⚠ WARNING ⚠<br>AI-assisted content:<br>may be a little sloppy</p>
   </section>
 
@@ -937,12 +943,6 @@ function log(value, context) {…}</code></pre>
 
   <section class="slide final" id="next-steps">
    <h2>Next steps?</h2>
-   <ul>
-    <li>Where should this continue? TAG, a CG, WebDX?</li>
-    <li>What data would change our minds?</li>
-    <li>Who wants to help? <a
-     href="https://github.com/rbyers/agenticwebdx">github.com/rbyers/agenticwebdx</a></li>
-   </ul>
   </section>
 
   <section class=comment>
