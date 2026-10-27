@@ -99,6 +99,9 @@ Peaks among sampled months: all questions 196,527 (April 2016);
 |---|---|---|
 | Agent share of traffic, Mintlify-hosted docs, Feb 2026 | 20.8% | Mintlify, 2026 State of Knowledge Report |
 | Agent share of traffic, Mintlify-hosted docs, Aug 2026 | 66% (257M agent requests vs. 131M human page loads) | same |
+| Agent share by month, Feb–Aug 2026 | 20.8%, 25.1%, 29%, 38.8%, 50.8%, 61.2%, 66% | same (chart table) |
+| Growth since Feb 2026 (to Aug) | Human readership 1.2×; agent readership 9.3× | same |
+| Derived absolute traffic, Feb 2026 | ≈109M human page loads (131M ÷ 1.2), ≈28M agent requests (257M ÷ 9.3); implied agent share 20.2% vs. published 20.8% | derived from the above |
 | Mintlify scale | 20,000+ companies; 50M+ people/month; 300M+ visitors past year | Mintlify homepage and 2026 report (self-reported, checked 27 Oct 2026) |
 | `/llms.txt` fetches, Aug 2026 | ~10.8M | Mintlify, 2026 State of Knowledge Report |
 | MCP tool calls, Aug 2026 | >2M (~3× since Feb) | same |
@@ -206,7 +209,12 @@ Model fits reported by the site (Claude Code, linear space, Feb 2025 → Jul 202
   share. The report says human
   traffic (client-side analytics) and agent traffic (server-side requests)
   are measured differently, so the comparison is an estimate. One fetch by
-  an agent is not the same as one page read by a human.
+  an agent is not the same as one page read by a human. Absolute counts are
+  published only for August; the Feb figures on the slide are derived from
+  the report's rounded growth multiples (1.2×, 9.3×), so treat them as
+  ±5%. On this platform human readership grew slightly (≈1.2×) rather than
+  declining: the shift in share is driven by agent growth, not human loss.
+  The human decline evidence comes from Tailwind and Stack Overflow instead.
 - **Tailwind is one anecdote**, from a founder explaining layoffs. It is
   consistent with the trend but not a measurement of the web as a whole.
 - **Survey samples are self-selected** and skew towards engaged developers.
@@ -302,7 +310,7 @@ followed by speaker notes with the full sources.
 |---|---|---|---|
 | `stackoverflow` | Chart + "−99% all questions since the 2016 peak" | 196,527 → 1,175 / month | Stack Exchange API |
 | `stackoverflow` | `[javascript]`, `[css]` | 23,799 → 69; 8,426 → 31 | Stack Exchange API |
-| `docs` | Agent share of docs traffic | 20.8% → 66% | Mintlify |
+| `docs` | Stacked bars: human vs. agent monthly traffic | Feb ≈109M + ≈28M → Aug 131M + 257M | Mintlify (Feb derived from growth multiples) |
 | `docs` | Tailwind quote | docs traffic −40% | Wathan |
 | `docs` | MDN MCP server | June 2026 | MDN blog |
 | `adoption` | Developers using AI tools | 44% → 62% → 78% | Stack Overflow surveys |
