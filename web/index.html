@@ -758,8 +758,10 @@
    Completion”</a> (ICSE 2025). 7 LLMs, 145 deprecated→replacement API
    mappings in 8 Python libraries, 28,125 line-completion prompts taken
    from real functions. When the surrounding function already used
-   outdated APIs, models used the deprecated API 70–90% of the time; in
-   up-to-date functions, 9–18%; overall 25–38%. Caveats: 2024 models
+   outdated APIs, models picked the deprecated API in 70–90% of the
+   completions that used either the old or the new API; in up-to-date
+   functions, 9–18%; overall 25–38%. (Completions that called either
+   API were only 9–23% of all completions.) Caveats: 2024 models
    (CodeLlama, StarCoder2, DeepSeek-Coder, GPT-3.5 etc.), Python, not
    agents. Relevance: the web never removes APIs, so agents editing old
    pages will keep extending <code>document.write</code>-era patterns
