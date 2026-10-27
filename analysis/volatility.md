@@ -578,8 +578,8 @@ familiar shapes for new APIs.
 
 ## Slide
 
-Slide id `volatility` in `web/index.html` ("Agents churn. Web APIs
-don't."), followed by speaker notes with the full sources. Numbers on the
+Slide id `volatility` in `web/index.html` ("Agents change faster than
+web APIs"), followed by speaker notes with the full sources. Numbers on the
 slide:
 
 | On slide | Value | From |
