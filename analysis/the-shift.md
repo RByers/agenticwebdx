@@ -227,6 +227,7 @@ Model fits reported by the site (Claude Code, linear space, Feb 2025 → Jul 202
 | Wikipedia human pageviews −8% in 2025; Chartbeat publisher pageviews −6% | Real, but about general readers, not developers. |
 | GitHub Octoverse 2025: 43.2M merged PRs/month (+23%), "1M+ PRs by Copilot coding agent" | The PR total doesn't separate agents. The Copilot agent figure appeared only in a secondary blog. |
 | "42% of code is AI-assisted" (Sonar); State of WebDev AI 2025 | Different definitions from the State of JS question; not needed alongside it. |
+| 73% of coding-agent users use them daily (Stack Overflow 2026) | Circular: people who chose to use coding agents use them a lot, which says little about developers overall. Was on the `adoption` slide; removed. |
 | Mintlify "66% in July" / "78% in October" figures seen in search snippets | Not found in the primary report, which gives Feb 20.8% and Aug 66%. |
 
 ## Open threads
@@ -290,7 +291,7 @@ followed by speaker notes with the full sources.
 | `docs` | Tailwind quote | docs traffic −40% | Wathan |
 | `docs` | MDN MCP server | June 2026 | MDN blog |
 | `adoption` | Developers using AI tools | 44% → 62% → 78% | Stack Overflow surveys |
-| `adoption` | Daily coding-agent use; ask AI for answers | 73%; 70% | Stack Overflow 2026 |
+| `adoption` | Ask AI for answers | 70% | Stack Overflow 2026 |
 | `adoption` | JS/TS or HTML/CSS share of coding conversations | 59% | Anthropic |
 | `commits` | Chart: AI-attributed share of push events | 2.2% → 15.1% → 17.8% | botcommits.dev |
 | `commits` | Share of public commits | ~6–18% | botcommits.dev |
