@@ -426,7 +426,7 @@
     <section>
      <h3>Moves in months</h3>
      <ul class=stat-list>
-      <li><b>≥10×</b> cheaper per year for the same capability level</li>
+      <li><b>~10×</b> cheaper per year for the same capability level</li>
      </ul>
     </section>
     <section>
@@ -439,7 +439,12 @@
    </div>
    <p class=next><strong>Design for today's agents, or only for what
    holds across generations?</strong></p>
-   <p class="source">Sources: a16z; Epoch AI; Chrome for Developers.</p>
+   <p class="source">Sources: <a
+   href="https://a16z.com/llmflation-llm-inference-cost/">a16z</a>; <a
+   href="https://epoch.ai/data-insights/llm-inference-price-trends">Epoch AI</a>; <a
+   href="https://www.w3.org/TR/DOM-Level-2-Events/">DOM Level 2 Events</a> (2000); <a
+   href="https://developer.chrome.com/blog/mutation-events-deprecation">Chrome for
+   Developers</a>.</p>
   </section>
 
   <section class=comment>
@@ -467,6 +472,7 @@
     <li>Followed by first-hand field notes from agent sessions</li>
    </ul>
   </section>
+
   <!-- Analysis: analysis/agent-sessions.md -->
   <section class="slide" id="field-notes">
    <h2>Field notes from 329 agent sessions</h2>
@@ -495,25 +501,26 @@
     <li><b>70</b> of 311 sessions hit a flaky browser test</li>
     <li><b>49</b> of them moved on without finding the cause</li>
     <li><b>10</b> sessions waved off the same dialog race</li>
-    <li><b>~10 h</b> of agent time lost to flakes</li>
+    <li><b>~9.5 h</b> of agent time lost to flakes</li>
    </ul>
    <p class=takeaway>The usual cause: browser state with no observable
    “done”, such as an IndexedDB commit, a render, a hash navigation or a
    popover opening. Tests sleep, then flake.</p>
    <blockquote class=note>“I said the Cq-filter test flakiness was
-   pre-existing. It wasn't — it was mine. The check I added yesterday left
+   pre-existing. It wasn't — it was mine. The <code>.pcrd</code>-threshold check I added yesterday left
    its run in IndexedDB…”</blockquote>
    <p class=next><strong>Should async platform state always expose a
    completion signal agents can wait on?</strong></p>
    <p class="source">Source: our own Claude Code sessions, Jul–Oct 2026
-   (see notes). Pattern P6 in agent-session-patterns.csv.</p>
+   (<a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#1-its-a-pre-existing-flake-async-state-with-no-completion-signal-p6-p7">analysis</a>;
+   pattern P6 in <a href="data/agent-session-patterns.csv">patterns data</a>).</p>
   </section>
 
   <section class=comment>
    <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#1-its-a-pre-existing-flake-async-state-with-no-completion-signal-p6-p7">agent-sessions.md, example 1</a></p>
    <ul>
     <li>83 episodes in 70 sessions; agent called it “flaky”/“pre-existing” without root cause in 49</li>
-    <li>~10 h total; worst: 51 min, 117 tool calls, then “environmental”</li>
+    <li>~9.5 h total (~14 h counting one deliberate 4.6 h flake hunt); worst: 51 min, 117 tool calls, then “environmental”</li>
     <li>Causes: <code>popstate</code>/<code>hashchange</code> fire separately, IndexedDB flush with nothing to await, dialog/popover not yet rendered</li>
     <li>IndexedDB state leaking between tests</li>
     <li>Caveat: many are app bugs; platform question: why is “wait until done” so hard to express?</li>
@@ -524,7 +531,7 @@
   <section class="slide" id="unclear-errors">
    <h2>Vague errors breed unreliable hacks</h2>
    <ul class=stat-list>
-    <li><b>4</b><span>sessions hit WebUSB's <code>A transfer error has
+    <li><b>3</b><span>sessions chasing WebUSB's <code>A transfer error has
     occurred</code>. The agent guessed “stalled endpoint” and added
     retries; the eventual fix sorts errors by regex over the message.</span></li>
     <li><b>1</b><span>Web Bluetooth <code>User cancelled the
@@ -532,7 +539,7 @@
     nobody cancelled.</span></li>
     <li><b>3</b><span>wrong theories in a row about whether
     <code>getDevices()</code> needs a flag. The wrong one went into the
-    README and test names.</span></li>
+    README and a test name.</span></li>
    </ul>
    <ul class=stat-row>
     <li><b>7 of 13</b> opaque-error diagnoses wrong or never confirmed</li>
@@ -541,7 +548,10 @@
    <p class=next><strong>Should errors carry machine-readable causes, and
    flag and permission state be queryable?</strong></p>
    <p class="source">Source: our own Claude Code sessions, Jul–Oct 2026
-   (see notes). Patterns P1, P2 and P12.</p>
+   (analysis: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#4-webusb-a-transfer-error-has-occurred-became-a-retry-policy-p2-p12">WebUSB</a>,
+   <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#5-web-bluetooth-user-cancelled-when-nothing-was-advertising-p2">Bluetooth</a>,
+   <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#2-web-bluetooth-getdevices-three-wrong-theories-in-a-row-p1"><code>getDevices()</code></a>;
+   patterns P1, P2, P12 in <a href="data/agent-session-patterns.csv">data</a>).</p>
   </section>
 
   <section class=comment>
@@ -550,7 +560,7 @@
     <li>WebUSB: generic <code>NetworkError</code> for unplug, stall and cancel; agent guessed wrong, final fix regex-matches messages</li>
     <li>Web Bluetooth: empty chooser reported as “User cancelled”</li>
     <li><code>getDevices()</code>: agent relied on stale 2020 info; three wrong theories, ~110 tool calls</li>
-    <li>13 opaque-error episodes: first guess right in only 5</li>
+    <li>13 opaque-error episodes: 7 diagnoses wrong or never confirmed</li>
    </ul>
   </section>
 
@@ -564,16 +574,18 @@
     <li><b>450+</b><span>lines of permanent fakes: a recorded
     <code>navigator.usb</code>, a mock Bluetooth radio, an OPFS stand-in
     for the folder picker</span></li>
-    <li><b>11</b><span>episodes, ~2 h: saved folder permission silently lapses
-    on reload; the agent's headless probe never reloaded, so “confirmed”
-    it persists</span></li>
+    <li><b>11</b><span>episodes, ~2 h of folder-permission confusion; e.g. it
+    lapses on reload, but the agent's headless probe never reloaded, so
+    “confirmed” it persists</span></li>
     <li><b>6 s</b><span>sleep: typing via CDP grants user activation, so
     <code>requestDevice()</code> opened a chooser and hung</span></li>
    </ul>
    <p class=next><strong>Fakes encoded wrong beliefs, so tests passed.
    Should every gated API ship with a testing hook?</strong></p>
    <p class="source">Source: our own Claude Code sessions, Jul–Oct 2026
-   (see notes). Patterns P3 and P4.</p>
+   (analysis: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#7-permission-gated-apis-cant-be-automated-so-agents-build-fakes-p3">fakes</a>,
+   <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#6-file-system-access-permissions-that-lapse-on-reload-p4-p2">permissions</a>;
+   patterns P3, P4 in <a href="data/agent-session-patterns.csv">data</a>).</p>
   </section>
 
   <section class=comment>
@@ -615,7 +627,11 @@
    <p class=next><strong>Agents go to extreme lengths to route around the
    platform. Which gaps should we close?</strong></p>
    <p class="source">Source: our own Claude Code sessions, Jul–Oct 2026
-   (see notes). Patterns P8, P9 and P10.</p>
+   (analysis: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#9-the-agent-cant-see-layout-p9-p10">layout</a>,
+   <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#11-webcrypto-is-async-only-so-a-300-line-bigint-crypto-twin-p8">crypto</a>,
+   <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#13-hand-rolled-png-rasterizer-instead-of-using-the-browser-p8">PNG</a>,
+   <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#12-indexeddb-missing-primitives-and-stale-beliefs-p8-p1">IndexedDB</a>;
+   patterns P8–P10 in <a href="data/agent-session-patterns.csv">data</a>).</p>
   </section>
 
   <section class=comment>
@@ -648,8 +664,9 @@
    check by hand.”</blockquote>
    <p class=next><strong>How can agents verify behaviour that only exists on
    a real device?</strong></p>
-   <p class="source">Source: our own Claude Code sessions, Oct 2026 (see
-   notes). Pattern P11.</p>
+   <p class="source">Source: our own Claude Code sessions, Oct 2026
+   (<a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-sessions.md#14-mobile-viewport-every-bug-found-by-the-user-on-a-real-phone-p11">analysis</a>;
+   pattern P11 in <a href="data/agent-session-patterns.csv">data</a>).</p>
   </section>
 
   <section class=comment>
@@ -662,7 +679,6 @@
     <li>Emulation can't reproduce URL bar or keyboard behaviour anyway</li>
    </ul>
   </section>
-
 
   <section class="slide part topic" id="topic-principles">
    <h2>Design principles</h2>
@@ -707,7 +723,9 @@
    <p class="source">Sources: W3C TAG <a href="https://w3ctag.github.io/design-principles/"
    ><cite>Web Platform Design Principles</cite></a> (<a
    href="https://github.com/rbyers/agenticwebdx/tree/main/design-principles"
-   >103-principle audit</a>); Anthropic (Sep 2025); Jain et al., ICSE 2025.</p>
+   >103-principle audit</a>); Anthropic, <a
+   href="https://www.anthropic.com/engineering/writing-tools-for-agents"><cite>Writing
+   effective tools for agents</cite></a> (Sep 2025).</p>
   </section>
 
   <section class=comment>
@@ -716,7 +734,7 @@
     <li>Evaluated all 103 TAG principles one at a time: 45 help agents, 48 neutral, 10 pull against</li>
     <li>The TAG doc never mentions AI; no TAG issue on coding agents as consumers</li>
     <li>Anthropic, OpenAI: tools ergonomic for agents are also intuitive for humans</li>
-    <li>Consistency: for models it <em>is</em> the prediction mechanism (rare APIs: 61% invalid calls vs. 6% common)</li>
+    <li>Consistency: for models it <em>is</em> the prediction mechanism (rare APIs: 61% invalid calls vs. 6% common; <a href="https://arxiv.org/abs/2407.09726">Jain et al., ICSE-SEIP 2025</a>)</li>
     <li>Dictionaries and string enums: ~1.6× tokens, but self-describing calls, no boolean trap</li>
     <li>Debuggability and common words: introspectable APIs let agents check without screenshots; abbreviations tokenize badly</li>
    </ul>
@@ -741,7 +759,7 @@
      <h3>Why it flips for agents</h3>
      <ul class=stat-list>
       <li><b>8 vs 16</b> <span>tokens: <code>M10 10 L20 20</code> vs
-       <code>moveTo(10,10) lineTo(20,20)</code></span></li>
+       <code>moveTo(10, 10) lineTo(20, 20)</code></span></li>
       <li><b>99.9%</b> <span>of AI code passes syntax checks; strict JSON
        schemas enable constrained decoding</span></li>
       <li><b>0 errors</b> <span>when CSS drops a typo — forgiving parsers blind
@@ -754,7 +772,11 @@
    <p class="source">Sources: W3C TAG <a
    href="https://w3ctag.github.io/design-principles/#text-formats">§2.7</a> &amp;
    <a href="https://w3ctag.github.io/design-principles/#requirements-on-authors-and-implementers"
-   >§11.1</a>; Veracode (2026); Mündler et al., PLDI 2025; o200k_base.</p>
+   >§11.1</a>; <a
+   href="https://www.veracode.com/wp-content/uploads/2026-GenAI-Report-Infographic.pdf"
+   >Veracode</a> (2026); Geng et al., <a
+   href="https://arxiv.org/abs/2501.10868"><cite>JSONSchemaBench</cite></a> (2025);
+   <a href="https://github.com/openai/tiktoken">o200k_base</a>.</p>
   </section>
 
   <section class=comment>
@@ -785,8 +807,6 @@
       <li><b>Sass</b> <span>pastes text: builds <code>.card__title</code> (BEM idiom)</span></li>
       <li><b>CSS</b> <span><code>&amp;</code> is a selector, not text: the rule is
        invalid and silently dropped</span></li>
-      <li><b>Agent</b> <span>writes the Sass idiom in plain <code>.css</code>: no
-       error, styles never apply</span></li>
      </ul>
     </section>
     <section>
@@ -798,26 +818,27 @@ function log(value, context) {…}</code></pre>
      <ul class=clash-list>
       <li><b>Same</b> <span><code>@log</code> at the call site; incompatible function
        signatures and semantics</span></li>
-      <li><b>Agent</b> <span>mixes the two (legacy TS/Angular dominates
-       training data); breaks at compile or run time</span></li>
      </ul>
     </section>
    </div>
-   <p class=next><strong>A human reads the migration note once; an agent fights
-   its training priors every time.</strong></p>
+   <p class=next><strong>A human reads the migration note once. Does an agent
+   fall back to the tool's meaning every time?</strong></p>
    <p class="source">Sources: W3C TAG <a
    href="https://w3ctag.github.io/design-principles/#third-party-tools">§2.15</a>;
    <a href="https://drafts.csswg.org/css-nesting/">CSS Nesting</a>;
-   <a href="https://github.com/tc39/proposal-decorators">TC39 Decorators</a>.</p>
+   <a href="https://sass-lang.com/documentation/style-rules/parent-selector/">Sass</a>;
+   <a href="https://github.com/tc39/proposal-decorators">TC39 Decorators</a>;
+   <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">TS
+   decorators</a>.</p>
   </section>
 
   <section class=comment>
    <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/design-principles/02-15-third-party-tools.md">design-principles/02-15-third-party-tools.md</a></p>
    <ul>
     <li>§2.15 tells spec authors to break tools rather than compromise native syntax, on the assumption tools are short-lived</li>
-    <li>For agents, popular tools never go away: they're fossilized in model weights</li>
-    <li>Nesting: Sass treats <code>&amp;</code> as string concatenation, so <code>&amp;__title</code> → <code>.card__title</code>. Native CSS treats <code>&amp;</code> as the parent selector, so <code>&amp;__title</code> is invalid and dropped. Agents write the Sass form into vanilla CSS and nothing tells them it failed</li>
-    <li>Decorators: legacy TS/Babel decorators get <code>(target, key, descriptor)</code>; standard decorators get <code>(value, context)</code> and return a replacement. Same <code>@</code> syntax, so models blend the two</li>
+    <li>Hypothesis (unmeasured): for agents, popular tools never go away: they're fossilized in model weights</li>
+    <li>Nesting: Sass treats <code>&amp;</code> as string concatenation, so <code>&amp;__title</code> → <code>.card__title</code>. Native CSS treats <code>&amp;</code> as the parent selector, so <code>&amp;__title</code> is invalid and dropped. An agent that writes the Sass form into vanilla CSS gets no error</li>
+    <li>Decorators: legacy TS/Babel decorators get <code>(target, key, descriptor)</code>; standard decorators get <code>(value, context)</code> and return a replacement. Same <code>@</code> syntax for both</li>
    </ul>
   </section>
 
@@ -857,13 +878,14 @@ function log(value, context) {…}</code></pre>
   </tbody>
  </table>
  <ul class="stat-row tight">
-  <li><b>1 vs 4</b> tokens: <code>.getElementsByClassName</code>
+  <li><b>1 vs 4</b> tokens (cl100k): <code>.getElementsByClassName</code>
    vs <code>popovertarget</code></li>
   <li><b>1.4× vs 2.6×</b> OCaml vs Python: final code vs total agent output</li>
   <li><b>5×</b> output vs input token price, yet re-read input dominates agent cost</li>
  </ul>
  <p class="source">Token counts: own measurement, o200k_base tokenizer, hand-written
  equivalent snippets (<a href="data/token-counts.csv">data</a>,
+ <a href="data/identifier-tokens.csv">identifiers</a>,
  <a href="https://github.com/rbyers/agenticwebdx/tree/main/tools/tokens">scripts</a>).
  Wu, Anderson &amp; Guha, <a href="https://arxiv.org/abs/2607.22807">arXiv:2607.22807</a>;
  Bai et al., <a href="https://arxiv.org/abs/2604.22750">arXiv:2604.22750</a>;
@@ -923,9 +945,9 @@ function log(value, context) {…}</code></pre>
    <p class=next><strong>CSS drops <code>display: flexbox</code> silently.
    How should an API that can't throw say so?</strong></p>
    <p class="source">Sources: Veracode, <a
-   href="https://www.veracode.com/blog/2026-genai-code-security-report-ai-risk"
+   href="https://www.veracode.com/wp-content/uploads/2026-GenAI-Report-Infographic.pdf"
    ><cite>2026 GenAI Code Security Report</cite></a>; Jain et al., <a
-   href="https://arxiv.org/abs/2407.09726">ICSE 2025</a> (CloudAPIBench); Wang et al.,
+   href="https://arxiv.org/abs/2407.09726">ICSE-SEIP 2025</a> (CloudAPIBench); Wang et al.,
    <a href="https://arxiv.org/abs/2406.09834">ICSE 2025</a>; Mündler et al.,
    <a href="https://arxiv.org/abs/2504.09246">PLDI 2025</a>; Yang et al.,
    <a href="https://arxiv.org/abs/2405.15793">NeurIPS 2024</a> (SWE-agent).</p>
@@ -956,7 +978,7 @@ function log(value, context) {…}</code></pre>
   <section class=comment>
    <ul>
     <li>Topic 6 of 7. Proposal text: “Where agent ergonomics and human DX conflict, how do we weigh them?”</li>
-    <li>Followed by first-hand field notes from agent sessions</li>
+    <li>No research slide: open discussion</li>
    </ul>
   </section>
 
@@ -995,16 +1017,21 @@ function log(value, context) {…}</code></pre>
      <h3>npm downloads, 2024 → 2026</h3>
      <dl class=bars>
       <dt><code>lucide-react</code></dt><dd style="--v: 80"><span>61×</span></dd>
-      <dt><code>shadcn</code> CLI</dt><dd style="--v: 69"><span>53×</span></dd>
+      <dt><code>shadcn</code> (both names)</dt><dd style="--v: 69"><span>53×</span></dd>
       <dt><code>tailwindcss</code></dt><dd style="--v: 15.7"><span>12×</span></dd>
       <dt><code>react</code></dt><dd style="--v: 8.9"><span>6.8×</span></dd>
-      <dt><code>lodash</code> (all npm)</dt><dd style="--v: 4.2"><span>3.2×</span></dd>
+      <dt><code>lodash</code> (baseline)</dt><dd style="--v: 4.2"><span>3.2×</span></dd>
      </dl>
     </section>
    </div>
    <p class=next><strong>Is the framework now the platform agents target?</strong></p>
-   <p class="source">Sources: Amplifying, <cite>What Claude Code Actually
-   Chooses</cite> (Feb 2026); Lovable docs; v0 FAQ; npm registry download API.</p>
+   <p class="source">Sources: Amplifying, <a
+   href="https://amplifying.ai/research/claude-code-picks"><cite>What Claude Code
+   Actually Chooses</cite></a> (Feb 2026); <a
+   href="https://docs.lovable.dev/introduction/faq">Lovable FAQ</a>; <a
+   href="https://v0.app/docs/faqs">v0 FAQ</a>; <a
+   href="https://api.npmjs.org/downloads/point/2024-09-01:2024-09-30/react">npm
+   download API</a> (<a href="data/npm-downloads.csv">data</a>).</p>
   </section>
 
   <section class=comment>
@@ -1013,7 +1040,8 @@ function log(value, context) {…}</code></pre>
     <li>Agents converge on React + Tailwind + shadcn/ui + lucide</li>
     <li>Claude Code picks: shadcn/ui 90%, Tailwind 68%; v0 and Lovable offer no framework choice</li>
     <li>npm Sep 2024 → Sep 2026: lucide 61×, shadcn 53×, Tailwind 12×, React 6.8× vs. lodash baseline 3.2×</li>
-    <li>All of npm inflated (agents spin up projects), hence the baseline</li>
+    <li>All of npm inflated (agents spin up projects), hence the lodash baseline (express 4.1×, typescript 4.7×)</li>
+    <li><code>shadcn</code> bar combines <code>shadcn</code> + <code>shadcn-ui</code> (CLI renamed Jul 2024)</li>
     <li>Radix Dialog and Floating UI are JS stand-ins for <code>&lt;dialog&gt;</code>/popover and anchor positioning</li>
     <li>Native feature under-use: plausible but unmeasured; only Chrome's own eval (+37 pts with guidance)</li>
     <li>Counterpoint: newer models do pick newer tools (Prisma → Drizzle)</li>
@@ -1028,9 +1056,9 @@ function log(value, context) {…}</code></pre>
     <figcaption>Rust API tasks solved (pass@1, average of 5 models)</figcaption>
     <dl class=bars>
      <dt>APIs older than the model</dt><dd style="--v: 56.1"><span>56.1%</span></dd>
-     <dt class=sub>+ docs in prompt</dt><dd style="--v: 70.9"><span>70.9%</span></dd>
+     <dt class=sub>+ API info in prompt</dt><dd style="--v: 70.9"><span>70.9%</span></dd>
      <dt>APIs newer than the model</dt><dd style="--v: 32.5"><span>32.5%</span></dd>
-     <dt class=sub>+ docs in prompt</dt><dd style="--v: 41.4"><span>41.4%</span></dd>
+     <dt class=sub>+ API info in prompt</dt><dd style="--v: 41.4"><span>41.4%</span></dd>
     </dl>
    </figure>
    <ul class=stat-row>
@@ -1039,8 +1067,12 @@ function log(value, context) {…}</code></pre>
     <li><b>53% → 100%</b> pass rate on Next.js 16 APIs absent from training data, once docs are in context</li>
    </ul>
    <p class=next><strong>So how do we evaluate a design that is better, but new?</strong></p>
-   <p class="source">Sources: Liang et al., <cite>RustEvo²</cite> (2025);
-   Wu, Anderson &amp; Guha (2026); Wang et al., ICSE 2025; Vercel (Jan 2026).</p>
+   <p class="source">Sources: Liang et al., <a
+   href="https://arxiv.org/abs/2503.16922"><cite>RustEvo²</cite></a> (2025), Table 3;
+   Wu, Anderson &amp; Guha, <a href="https://arxiv.org/abs/2607.22807">arXiv:2607.22807</a>;
+   Wang et al., <a href="https://arxiv.org/abs/2406.09834">ICSE 2025</a>; <a
+   href="https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals">Vercel</a>
+   (Jan 2026).</p>
   </section>
 
   <section class=comment>

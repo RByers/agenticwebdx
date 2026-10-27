@@ -230,3 +230,15 @@ Each entry gives what happened, how often it happens, what it cost, a quote, and
 - **Compare with a second agent or model generation** on the same tasks. Do the getDevices() and anchor-positioning beliefs persist?
 - **Ask browser vendors** whether WebDriver BiDi or CDP hooks for permission prompts, device choosers, visibility and the virtual keyboard would have removed the fake layers in P3 and P11.
 - **Check whether the same patterns show up in public agent transcripts** (open-source repos with committed agent logs), to get past n=1.
+
+## Source audit (2026-10-27)
+
+Slide numbers were re-checked against `web/data/agent-session-*.csv` and the examples above. Corrections:
+
+- Flaky slide: "~10 h" is now "~9.5 h". The P6 total is ~845 min (~14 h), or ~570 min (~9.5 h) excluding session 01ABuvcs, which was a deliberate 4.6 h flake hunt the user asked for.
+- Unclear-errors slide:
+  - "4 sessions hit `A transfer error has occurred`" is now 3 sessions. The chain was 014TW6Do → 01EAUs81 → 01Q29pfE, and only the first saw that exact message; the later two saw `transferIn: Cancelled`.
+  - The wrong `getDevices()` theory went into the README and *a* test name, not several test names.
+  - The speaker note "first guess right in only 5" was inconsistent with "7 of 13 wrong or never confirmed". It now uses the latter.
+- Automation slide: the 11 episodes / ~2 h (P4) cover the whole folder-permission lifecycle, not just the lapse on reload. The wording now says so.
+- Mobile quote, in full (transcript 017nb1V6, 2026-10-18): "Typecheck is clean and all tests pass (1399 core, 262 web). I haven't tried it on an Android phone, so that's the thing to check by hand."
