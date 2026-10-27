@@ -172,11 +172,16 @@
      font-size: 0.42em; font-weight: 700; line-height: 1.4;
      padding: 0.1em 0.7em; border-radius: 0.3em;
      background: #ffd23f; color: #1a1a1a; border: 1px solid #8a6d00}
+
+   /* Intro note before the first slide: hidden so notes align with slides */
+   .comment.intro-note {display: none}
   </style>
  </head>
  <body class="shower fade-in duration=60 hidemouse">
 
-  <section class=comment>
+  <!-- Hidden so the speaker notes line up with their slides when shown
+       side by side. -->
+  <section class="comment intro-note">
    <p>Slides for the <a
    href="https://www.w3.org/events/meetings/8371a85c-bb6e-413c-b84e-e41ef38d8089/"
    >TPAC 2026 breakout session</a> “Agents are redefining DX. [How]
