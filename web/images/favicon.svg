@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+ <!-- Agentic web DX: code brackets around an "agent" sparkle, in the TPAC 2026 template greens -->
+ <rect width="64" height="64" rx="14" fill="#0d3020"/>
+ <path d="M20 18 L7 32 L20 46 M44 18 L57 32 L44 46" fill="none" stroke="#76d8ab"
+   stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M32 15 Q34.5 29.5 45 32 Q34.5 34.5 32 49 Q29.5 34.5 19 32 Q29.5 29.5 32 15 Z" fill="#f5fff9"/>
+</svg>
