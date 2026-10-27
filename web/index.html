@@ -1090,11 +1090,11 @@
     <section>
      <h3>npm downloads, 2024 → 2026</h3>
      <dl class=bars>
-      <dt><code>shadcn</code></dt><dd style="--v: 80"><span>96×</span></dd>
-      <dt><code>lucide-react</code></dt><dd style="--v: 51"><span>61×</span></dd>
-      <dt><code>tailwindcss</code></dt><dd style="--v: 10"><span>12×</span></dd>
-      <dt><code>react</code></dt><dd style="--v: 5.7"><span>6.8×</span></dd>
-      <dt><code>lodash</code> (all npm)</dt><dd style="--v: 2.7"><span>3.2×</span></dd>
+      <dt><code>lucide-react</code></dt><dd style="--v: 80"><span>61×</span></dd>
+      <dt><code>shadcn</code> CLI</dt><dd style="--v: 69"><span>53×</span></dd>
+      <dt><code>tailwindcss</code></dt><dd style="--v: 15.7"><span>12×</span></dd>
+      <dt><code>react</code></dt><dd style="--v: 8.9"><span>6.8×</span></dd>
+      <dt><code>lodash</code> (all npm)</dt><dd style="--v: 4.2"><span>3.2×</span></dd>
      </dl>
     </section>
    </div>
@@ -1150,15 +1150,19 @@
    July 2026</a>). Anthropic's own
    <a href="https://github.com/anthropics/skills/blob/main/skills/web-artifacts-builder/SKILL.md">web-artifacts-builder
    skill</a> specifies “React 18 + TypeScript + Vite + Parcel + Tailwind
-   CSS + shadcn/ui”. Lovable's scale is often quoted as 50–60M projects
-   and ~1M new projects/week, but I found only secondary sources (LinkedIn
-   posts, news roundups), so it is not on the slide.</p>
+   CSS + shadcn/ui”. Scale: “100,000 new projects are built on Lovable
+   every single day” (<a href="https://lovable.dev/blog/one-year-of-lovable">Lovable,
+   18 Nov 2025</a>, vendor claim). Later totals (50–60M projects, ~1M/week)
+   appear only in secondary sources.</p>
 
    <p><strong>npm downloads</strong> (monthly totals, September 2024 vs.
    September 2026, from
    <code>https://api.npmjs.org/downloads/point/2026-09-01:2026-09-30/&lt;pkg&gt;</code>,
    fetched 27 Oct 2026):
-   <code>shadcn</code> CLI 0.42M → 40.4M (96×);
+   <code>shadcn</code> CLI 0.78M → 41.1M (53×; <code>shadcn</code> +
+   <code>shadcn-ui</code> combined, because the CLI was renamed from
+   <code>shadcn-ui</code> to <code>shadcn</code> in July 2024; the new name
+   alone is 0.42M → 40.4M, 96×, which overstates the growth);
    <code>lucide-react</code> 6.9M → 426M (61×);
    <code>class-variance-authority</code> 7.8M → 266M (34×);
    <code>tailwind-merge</code> 14.8M → 345M (23×);
@@ -1175,7 +1179,7 @@
    <code>@angular/core</code> 14.6M → 25M (1.7×);
    <code>jquery</code> 48.8M → 66M (1.4×).
    React's share of react+vue+svelte+angular downloads went from 71% to
-   86%. Bars on the slide are drawn to a linear scale (96× = 80% width).</p>
+   86%. Bars on the slide are drawn to a linear scale (61× = 80% width). Raw monthly data: <a href="data/npm-downloads.csv">data/npm-downloads.csv</a>; the script is <code>tools/npm_downloads.py</code>.</p>
    <p>Caveats on npm: downloads are not apps or users. All of npm
    inflated sharply over 2025–26 (lodash and express, which no one chooses
    for UI, grew 3–4×; there is a step up across every package around
@@ -1232,7 +1236,15 @@
    patterns in training data.” Adam Wathan's Aug 2025 tongue-in-cheek
    apology for Tailwind UI's <code>bg-indigo-500</code> buttons being why
    AI UIs are purple is widely reported, but I did not reach the original
-   post.</p>
+   post. Counterpoint from the
+   <a href="https://almanac.httparchive.org/en/2025/generative-ai">Web
+   Almanac 2025 Generative AI chapter</a> (Jan 2026, crawls to Oct 2025):
+   indigo-500 rose from 0.03% to 0.54% of all pages (Q3 2022 → Q4 2025),
+   but within Tailwind pages the “AI colors” stayed at ~2% with no surge,
+   so the rise “may be less a result of AI ‘choosing’ purple and more a
+   reflection of the general rise in Tailwind’s popularity.”
+   Homogenization at the stack level is clearer in the data than at the
+   visual level.</p>
 
    <p><strong>Discussion.</strong> Two readings: (1) freeze: new platform
    features never reach agents' defaults, so they never get the usage that
