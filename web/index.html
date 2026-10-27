@@ -666,13 +666,14 @@ function log(value, context) {…}</code></pre>
   </tbody>
  </table>
  <ul class="stat-row tight">
-  <li><b>1 vs 4</b> tokens: <code>.getElementsByClassName</code>
+  <li><b>1 vs 4</b> tokens (cl100k): <code>.getElementsByClassName</code>
    vs <code>popovertarget</code></li>
   <li><b>1.4× vs 2.6×</b> OCaml vs Python: final code vs total agent output</li>
   <li><b>5×</b> output vs input token price, yet re-read input dominates agent cost</li>
  </ul>
  <p class="source">Token counts: own measurement, o200k_base tokenizer, hand-written
  equivalent snippets (<a href="data/token-counts.csv">data</a>,
+ <a href="data/identifier-tokens.csv">identifiers</a>,
  <a href="https://github.com/rbyers/agenticwebdx/tree/main/tools/tokens">scripts</a>).
  Wu, Anderson &amp; Guha, <a href="https://arxiv.org/abs/2607.22807">arXiv:2607.22807</a>;
  Bai et al., <a href="https://arxiv.org/abs/2604.22750">arXiv:2604.22750</a>;
@@ -732,9 +733,9 @@ function log(value, context) {…}</code></pre>
    <p class=next><strong>CSS drops <code>display: flexbox</code> silently.
    How should an API that can't throw say so?</strong></p>
    <p class="source">Sources: Veracode, <a
-   href="https://www.veracode.com/blog/2026-genai-code-security-report-ai-risk"
+   href="https://www.veracode.com/wp-content/uploads/2026-GenAI-Report-Infographic.pdf"
    ><cite>2026 GenAI Code Security Report</cite></a>; Jain et al., <a
-   href="https://arxiv.org/abs/2407.09726">ICSE 2025</a> (CloudAPIBench); Wang et al.,
+   href="https://arxiv.org/abs/2407.09726">ICSE-SEIP 2025</a> (CloudAPIBench); Wang et al.,
    <a href="https://arxiv.org/abs/2406.09834">ICSE 2025</a>; Mündler et al.,
    <a href="https://arxiv.org/abs/2504.09246">PLDI 2025</a>; Yang et al.,
    <a href="https://arxiv.org/abs/2405.15793">NeurIPS 2024</a> (SWE-agent).</p>
