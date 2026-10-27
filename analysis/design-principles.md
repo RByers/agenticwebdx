@@ -559,3 +559,13 @@ for insertion into `web/index.html`.
   Legend: ✓ holds · ? contested · ✗ works against agents.
 - **Speaker notes** cover rows 1–7, the TAG issue search, the §1.1/§2.15 discussion prompt and the
   caveats. This file is the fuller record, including rows 8–21, which were considered and dropped.
+
+## Source audit (2026-10-27)
+
+Every slide citation was checked against its source:
+
+- §2.7 slide: the token example only holds with spaces. `moveTo(10, 10) lineTo(20, 20)` is 16 o200k tokens, but the space-free `moveTo(10,10) lineTo(20,20)` is 14. The slide now shows the spaced form.
+- "Strict JSON schemas enable constrained decoding" was cited to Mündler et al. (PLDI 2025). That paper is about TypeScript type-constrained decoding and never mentions JSON. It is now cited to Geng et al., JSONSchemaBench, https://arxiv.org/abs/2501.10868 ("Constrained decoding frameworks have standardized around JSON Schema"). The 99.9% syntax figure is from the Veracode infographic (https://www.veracode.com/wp-content/uploads/2026-GenAI-Report-Infographic.pdf), not the blog post, which only says "nearly 100%".
+- §2.15 slide: **no source** was found for "agents write the Sass `&__title` idiom into plain CSS", "agents mix legacy TS and TC39 decorators", or "legacy TS/Angular dominates training data". `design-principles/02-15-third-party-tools.md` asserts these without evidence. These claims were removed from the slide, and the takeaway is now a question.
+  - **Open thread:** measure it, e.g. prompt agents for BEM-style nested CSS and standard decorators, then count Sass-form and legacy-form outputs.
+- Overview slide: Jain et al. (CloudAPIBench) backs only the speaker-note figure (61% vs. 6% invalid calls), so it moved from the slide's source line into the notes. It is ICSE 2025 SEIP track.
