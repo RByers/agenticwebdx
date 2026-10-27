@@ -154,6 +154,19 @@
    #evaluation dl.bars dt.sub {font-size: 0.75em; opacity: 0.85}
    #evaluation .stat-row b {font-size: 1.3em}
    #evaluation p.next {margin: 0.5em 0 0}
+   /* --- code-share slide --- */
+   #code-share h3 {margin-top: 0}
+   #code-share dl.bars {font-size: 0.82em; margin-bottom: 0.3em; gap: 0.2em 0.6em}
+   #code-share dl.bars dd {height: 1.15em}
+   #code-share dl.bars dt {text-align: right}
+   #code-share dl.bars dt.gap, #code-share dl.bars dd.gap {margin-top: 0.3em}
+   #code-share dl.bars dt.sub {font-size: 0.8em; opacity: 0.85}
+   #code-share dl.bars dd.sub::before {opacity: 0.65}
+   #code-share p.note {font-size: 0.72em; margin: 0; line-height: 1.25}
+   #code-share .stat-list {font-size: 0.8em; margin: 0}
+   #code-share .stat-list li {grid-template-columns: 5.4em 1fr; margin-bottom: 0.45em}
+   #code-share .stat-list b {font-size: 1.15em; white-space: nowrap}
+   #code-share .next {margin: 0.35em 0 0; font-size: 0.9em}
    /* --- field-notes slides (agent-sessions analysis) --- */
    #flaky .stat-row, #mobile .stat-row {margin: 0 0 0.5em}
    #unclear-errors .stat-list, #automation .stat-list {font-size: 0.75em; margin: 0}
@@ -226,7 +239,7 @@
    >analysis/the-shift.md</a>.</p>
    <p>Before asking how standards should adapt, establish that the
    change is real and large, and be honest about how far it has got.
-   Four slides of public data; every number links to its source.</p>
+   Five slides of public data; every number links to its source.</p>
   </section>
 
   <!-- Analysis: analysis/the-shift.md -->
@@ -447,10 +460,201 @@
    Development” 8% of tasks. Also: 79% of Claude Code sessions are
    automation (the agent does the task) vs. 49% on Claude.ai. This
    predates the 2025–26 agent boom.</p>
-   <p>Backup, not on the slide: <a
-   href="https://2025.stateofjs.com/en-US/usage/">State of JavaScript
-   2025</a>, “What proportion of the code you produce is
-   AI-generated?”: 29%, up from 20% the previous year (median 25%).</p>
+  </section>
+
+  <!-- Analysis: analysis/the-shift.md -->
+  <section class="slide" id="code-share">
+   <h2>Over half of web code is AI-written—except CSS</h2>
+   <div class=columns>
+    <section>
+     <h3>AI share of web devs’ code</h3>
+     <dl class=bars>
+      <dt>2024 (all code)</dt><dd style="--v: 20.4"><span>20%</span></dd>
+      <dt>2025 (all code)</dt><dd style="--v: 28.7"><span>29%</span></dd>
+      <dt>2026 (all code)</dt><dd style="--v: 56.1"><span>56%</span></dd>
+      <dt class=gap>2026 CSS only</dt><dd class=gap style="--v: 28.3"><span>28%</span></dd>
+      <dt class=sub>↳ with shadcn/ui</dt><dd class=sub style="--v: 45.5"><span>46%</span></dd>
+      <dt class=sub>↳ with Tailwind</dt><dd class=sub style="--v: 37.2"><span>37%</span></dd>
+      <dt class=sub>↳ plain CSS</dt><dd class=sub style="--v: 16.6"><span>17%</span></dd>
+     </dl>
+     <p class=note>Across Devographics surveys (mean self-report; 2026 median: 62.5% all code vs. 12.5% CSS).</p>
+    </section>
+    <section>
+     <h3>Across repos &amp; languages</h3>
+     <ul class=stat-list>
+      <li><b>2%→28%</b> of enterprise PRs include coding-agent commits,
+       Jan → Sep 2026</li>
+      <li><b>29%–75%</b> of new code is AI-written: 29% enterprise median,
+       75% at Google</li>
+      <li><b>3×</b> lines added per agent commit vs. human; HTML &amp; TS/JS
+       lead AI share while SCSS trails</li>
+      <li><b>42%</b> of plain-CSS authors write 0% of their CSS with AI,
+       vs. 8% of shadcn/ui users</li>
+     </ul>
+    </section>
+   </div>
+   <p class="next takeaway"><strong>LLMs now write most JS and component markup,
+   but only 17% of vanilla CSS.</strong></p>
+   <p class="source">Sources: Devographics (<a
+   href="https://2025.stateofjs.com/en-US/usage/#ai_generated_code_balance">JS
+   2024–25</a>, <a
+   href="https://2026.stateofai.dev/en-US/usage/#ai_generated_code_balance">AI
+   2026</a>, <a
+   href="https://2026.stateofdevs.com/en-US/ai/#ai_generated_code_balance">Devs
+   2026</a>, <a
+   href="https://2026.stateofcss.com/en-US/usage/#css_ai_generated_code_balance">CSS
+   2026</a>); <a href="https://jellyfish.co/ai-engineering-trends/">Jellyfish</a>;
+   <a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">Google</a>;
+   Robbes et al., <a href="https://arxiv.org/abs/2601.18341">arXiv:2601.18341</a>.</p>
+  </section>
+
+  <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md"
+   >analysis/the-shift.md</a>.</p>
+   <p><strong>Point of the slide.</strong> No single instrument can tell
+   you the exact fraction of newly written CSS, JS and HTML on the web
+   that comes from LLMs: commit trailers miss ~70% of AI-assisted
+   commits (see the next slide), and AST neural classifiers only exist
+   for standalone Python functions. Combining the two sources we
+   <em>do</em> have—large-scale web-developer surveys and
+   enterprise/repo telemetry—shows a sharp inflection between late 2024
+   and mid-2026, plus a striking split between JavaScript/component
+   markup and vanilla CSS.</p>
+
+   <h4>Left column: Devographics surveys (2024 → 2026)</h4>
+   <p>Every survey below asks the same 9-bucket question (0%, 12.5%, 25%,
+   37.5%, 50%, 62.5%, 75%, 87.5%, 100%): <em>“What proportion of the code
+   you produce is AI-generated? (Including code copy-pasted from ChatGPT
+   or other chatbots, or code co-written using AI tools.)”</em> Raw
+   bucket distributions and framework cross-tabulations were queried
+   directly from the public GraphQL API
+   (<code>https://api.devographics.com/graphql</code>) on 27 Oct 2026:</p>
+   <ul>
+    <li><strong>2024 (all code): 20.4% mean, 12.5% median</strong>
+    (<a href="https://2024.stateofjs.com/en-US/usage/#ai_generated_code_balance">State
+    of JS 2024</a>, Nov–Dec 2024, n=11,371): 19.9% report 0%; only 12.1%
+    report ≥50% AI-generated (3.0% at ≥75%).</li>
+    <li><strong>2025 (all code): 28.7% mean, 25% median</strong>
+    (<a href="https://2025.stateofjs.com/en-US/usage/#ai_generated_code_balance">State
+    of JS 2025</a>, Sep–Nov 2025, n=10,770): 10.5% report 0%; 23.7%
+    report ≥50% (7.8% at ≥75%). Earlier in 2025,
+    <a href="https://2025.stateofai.dev/en-US/usage/#ai_generated_code_balance">State
+    of Web Dev AI 2025</a> (Feb–Mar 2025, n=3,566) found nearly identical
+    numbers: 28.2% mean, 25% median, 23.0% at ≥50%.</li>
+    <li><strong>2026 (all code): 54.3%–56.1% mean, 62.5% median</strong>
+    across both broad 2026 surveys:
+    <a href="https://2026.stateofai.dev/en-US/usage/#ai_generated_code_balance">State
+    of Web Dev AI 2026</a> (Apr–May 2026, n=6,420: 54.3% mean, 62.5%
+    median, 62.3% at ≥50%, 44.3% at ≥75%, 8.3% at 0%) and
+    <a href="https://2026.stateofdevs.com/en-US/ai/#ai_generated_code_balance">State
+    of Devs 2026</a> (Jul–Sep 2026, n=4,846: 56.1% mean, 62.5% median,
+    64.4% at ≥50%, 48.7% at ≥75%, 9.4% at 0%). Preliminary
+    <code>state_of_html</code> 2026 data in the API (Oct 2026, n=1,445)
+    is at 49.9% mean, 50% median (56.4% at ≥50%).</li>
+    <li><strong>2026 CSS only: 28.3% mean, 12.5% median</strong>
+    (<a href="https://2026.stateofcss.com/en-US/usage/#css_ai_generated_code_balance">State
+    of CSS 2026</a>, May–Jun 2026, n=3,732), asking specifically:
+    <em>“What proportion of the CSS code you produce is
+    AI-generated?”</em> More than a quarter of respondents (26.3%) write
+    0% of their CSS with AI, 51.5% write ≤12.5%, and only 27.9% write
+    ≥50% (15.1% at ≥75%).</li>
+    <li><strong>Why CSS splits by framework</strong> (GraphQL query on
+    <code>state_of_css</code> 2026 faceting
+    <code>css_ai_generated_code_balance</code> by
+    <code>other_tools__css_frameworks</code>): respondents using
+    <strong>shadcn/ui</strong> (n=766) average <strong>45.5%</strong>
+    AI-generated CSS (50.1% at ≥50%; only 8.4% at 0%);
+    <strong>Tailwind CSS</strong> users (n=1,792) average
+    <strong>37.2%</strong> (39.4% at ≥50%; 15.0% at 0%); developers using
+    <strong>no CSS framework</strong> (<code>na</code>, n=1,019) average
+    just <strong>16.6%</strong> (only 13.3% at ≥50%, and
+    <strong>42.3%</strong> write 0% with AI); <strong>Open Props</strong>
+    users (n=102) average <strong>11.8%</strong> (0% at ≥50%). The survey
+    commentary notes respondents repeatedly citing that “AI isn’t great
+    at CSS just yet” (e.g. complex Grid layouts), whereas utility classes
+    co-locate styling in component markup where LLMs excel.</li>
+   </ul>
+   <p>Caveats on Devographics: self-reported perception, not line-level
+   git blame; voluntary survey respondents skew toward engaged web
+   developers (and <code>state_of_ai</code> skews toward AI users, though
+   <code>state_of_devs</code> and <code>state_of_html</code> confirm the
+   ~50–56% mean). Even so, because the exact same question was asked
+   across all six waves, the 2024→2026 jump (median 12.5% → 62.5%) and
+   the 2× gap between all code and CSS are internally consistent.</p>
+
+   <h4>Right column: Enterprise PRs, repo diffs &amp; language breakdowns</h4>
+   <p><strong>2% → 28% of enterprise PRs, and company-wide code share.</strong>
+   <a href="https://jellyfish.co/ai-engineering-trends/">Jellyfish’s
+   Oct 2026 AI Engineering Trends benchmark</a> across 1,300+ companies
+   (276K developers, 100M PRs; <a
+   href="https://www.rdworldonline.com/jellyfish-claude-code-bills-hit-252-a-month-per-developer-as-software-factories-automate-code-production-among-early-adopters/">R&amp;D
+   World coverage</a>) reports that coding agents opened or committed to
+   <strong>27.7%</strong> of all PRs in September 2026 (up from ~2% in
+   January 2026), with a median of <strong>29%</strong> of code written
+   by AI. In <a href="https://www.sonarsource.com/state-of-code-developer-survey-report.pdf">Sonar’s
+   2026 State of Code Developer Survey</a> (Oct 2025 fieldwork, n=1,149,
+   published Jan 2026—bridging Devographics’ late-2025 and mid-2026 waves),
+   developers estimate <strong>42%</strong> of their committed code is
+   AI-generated or AI-assisted, up from <strong>6%</strong> in 2023. At
+   Google, Sundar Pichai reported at
+   <a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">Cloud
+   Next ’26 (22 Apr 2026)</a> that <strong>75%</strong> of all new code
+   is now AI-generated and approved by engineers, up from
+   <strong>50%</strong> in Fall 2025 and <strong>&gt;25%</strong> in
+   October 2024.</p>
+
+   <p><strong>3× lines per commit &amp; language breakdown (HTML/TS/JS vs. CSS).</strong>
+   In <a href="https://arxiv.org/abs/2601.18341">Robbes et al., “Agentic
+   Much? Adoption of Coding Agents on GitHub” (arXiv:2601.18341v2, Apr
+   2026)</a>, across 128,018 active GitHub projects (22.2%–28.7% adopting
+   coding agents by Feb 2026), agent-assisted commits add <strong>3×
+   more lines</strong> than human commits (median 31 vs. 11 lines added);
+   among adopting repos, <strong>HTML</strong> has one of the highest
+   median AI commit shares (~8 percentage points above the overall source
+   median of 7.8%), <strong>JavaScript</strong> sits near the median, and
+   <strong>SCSS</strong> and <strong>Svelte</strong> lag below average. In
+   their hand-audited sample of 790 Claude Code commits, TypeScript (213)
+   and JavaScript (73) together outnumbered Python (102) nearly 3:1.
+   Similarly, in <a href="https://2026.stateofai.dev/en-US/usage/#ai_generated_code_type">State
+   of Web Dev AI 2026</a> (<code>ai_generated_code_type</code>),
+   respondents use AI to generate helper functions (<strong>75.1%</strong>),
+   frontend components (<strong>70.6%</strong>, up from 57.0% in 2025),
+   tests (<strong>70.3%</strong>, up from 50.4%), core application logic
+   (<strong>59.4%</strong>, up from 42.9%), scripting (<strong>55.7%</strong>)
+   and CSS code last among web code categories (<strong>55.1%</strong>, up
+   from 39.0%), while the average fraction of AI-generated code rewritten
+   before committing (<code>ai_generated_code_refactoring</code>) fell
+   from <strong>61.0%</strong> in 2025 to <strong>46.7%</strong> in 2026.</p>
+
+   <p><strong>Why commit trailers undercount, and why there is no AST
+   neural-classifier number for CSS/HTML/JS.</strong>
+   <a href="https://arxiv.org/abs/2512.00867">Kraishan (arXiv:2512.00867,
+   Dec 2025)</a> audited 1,879 AI-assisted commits across 47 repos and
+   found only <strong>29.5%</strong> carry explicit disclosure (80.5% for
+   Claude Code CLI defaults vs. 9.0% for Copilot; inline IDE completions
+   add no trailer). <a href="https://arxiv.org/abs/2606.24429">Khosravani
+   &amp; Mockus (arXiv:2606.24429, Jun 2026)</a> audited 180M+ repos in
+   World of Code through April 2026 and showed single-signal bot detection
+   misses 96.7% of agent activity (~30× undercount), while agent config
+   files grew from zero in early 2025 to 888,177 <code>CLAUDE.md</code>,
+   211,166 <code>copilot-instructions.md</code> and 134,810
+   <code>AGENTS.md</code> blobs. Meanwhile,
+   <a href="https://arxiv.org/abs/2506.08945">Daniotti, Wachs, Feng &amp;
+   Neffke (<em>Science</em>, Feb 2026; arXiv:2506.08945)</a> trained a
+   neural classifier on AST-extracted standalone Python functions across
+   30M+ GitHub commits and found AI-generated share of newly written US
+   Python functions rose from <strong>5% (2022) → 29% (late 2024)</strong>.
+   No equivalent classifier exists for CSS, HTML or JS because declarative
+   CSS rules, utility-class strings and JSX templates lack standalone
+   function ASTs and are heavily normalized by Prettier/Tailwind. To
+   measure AI code share at the line level regardless of language, repos
+   are starting to adopt <a href="https://usegitai.com/"><code>git-ai</code></a>
+   (an open-source Git extension storing line-level AI authorship in
+   <code>refs/notes/ai</code> across rebases and squash-merges), IDE
+   telemetry (GitHub Copilot Metrics API, VS Code’s experimental
+   <code>git.addAICoAuthor</code>), and diff-churn analyzers such as
+   GitClear.</p>
   </section>
 
   <!-- Analysis: analysis/the-shift.md -->
