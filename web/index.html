@@ -101,29 +101,8 @@
      border-radius: 0 4px 4px 0}
    dl.bars dd span {position: absolute; top: 50%; translate: 0.4em -50%;
      left: calc(var(--v) * 1%); font-weight: 700; font-size: 0.85em}
-   /* Stacked horizontal bars (docs slide): --v is millions; scale is 0–400M */
-   dl.stacked {display: grid; grid-template-columns: auto 1fr; gap: 0.35em 0.6em;
-     align-items: center; margin: 0 0 0.5em}
-   dl.stacked dt {font-size: 0.85em}
-   dl.stacked dd {margin: 0; display: flex; height: 1.5em}
-   dl.stacked dd span {width: calc(var(--v) / 400 * 100%); position: relative;
-     display: flex; align-items: center; justify-content: center;
-     font-weight: 700; font-size: 0.8em; color: white; text-shadow: none}
-   dl.stacked dd span:last-child {border-radius: 0 4px 4px 0}
-   dl.stacked .human, .legend .human::before {background: hsl(0,0%,55%)}
-   dl.stacked .agent, .legend .agent::before {background: var(--figcaption-fg)}
-   /* Segment too narrow for its label: put the label just after the bar */
-   dl.stacked span.out {color: transparent}
-   dl.stacked span.out::after {content: attr(data-label); position: absolute;
-     left: calc(100% + 0.4em); color: var(--figcaption-fg)}
-   .slide p.legend {font-size: 0.7em; margin: 0 0 0.3em}
-   .legend span {margin-right: 1em; white-space: nowrap}
-   .legend span::before {content: ""; display: inline-block; width: 0.9em;
-     height: 0.9em; border-radius: 2px; margin-right: 0.35em; vertical-align: -0.1em}
    .slide blockquote.note {margin: 0 0 0.6em; font-style: italic}
    .slide .takeaway {font-size: 0.9em; margin: 0.4em 0 1.6em}
-   #commits svg.chart {height: 7.4em}
-   #commits .takeaway {margin: 0.3em 0 0}
 
    /* --- volatility slide --- */
    /* Wider number column: these stats are ranges ("79%→0%"), not single numbers */
@@ -189,12 +168,7 @@
    #code-share dl.bars dd {height: 1.15em}
    #code-share dl.bars dt {text-align: right}
    #code-share dl.bars dt.gap, #code-share dl.bars dd.gap {margin-top: 0.3em}
-   #code-share dl.bars dt.sub {font-size: 0.8em; opacity: 0.85}
-   #code-share dl.bars dd.sub::before {opacity: 0.65}
    #code-share p.note {font-size: 0.72em; margin: 0; line-height: 1.25}
-   #code-share .stat-list {font-size: 0.8em; margin: 0}
-   #code-share .stat-list li {grid-template-columns: 5.4em 1fr; margin-bottom: 0.45em}
-   #code-share .stat-list b {font-size: 1.15em; white-space: nowrap}
    #code-share .next {margin: 0.35em 0 0; font-size: 0.9em}
    /* --- field-notes slides (agent-sessions analysis) --- */
    #flaky .stat-row, #mobile .stat-row {margin: 0 0 0.5em}
@@ -365,58 +339,21 @@
   </section>
 
   <!-- Analysis: analysis/the-shift.md -->
-  <section class="slide" id="docs">
-   <h2>Docs are now read mostly by agents</h2>
+  <section class="slide" id="code-share">
+   <h2>AI writes over half of web code</h2>
    <div class=columns>
     <section>
-     <h3>Mintlify docs traffic</h3>
-     <p class=legend><span class=human>Human page loads</span>
-     <span class=agent>Agent requests</span></p>
-     <dl class=stacked>
-      <dt>Feb 2026</dt><dd><span class=human style="--v: 109">109M</span><span
-       class="agent out" style="--v: 28" data-label="28M">28M</span></dd>
-      <dt>Aug 2026</dt><dd><span class=human style="--v: 131">131M</span><span
-       class=agent style="--v: 257">257M</span></dd>
+     <h3>AI share of web devs’ code</h3>
+     <dl class=bars>
+      <dt>2024</dt><dd style="--v: 20.4"><span>20%</span></dd>
+      <dt>2025</dt><dd style="--v: 28.7"><span>29%</span></dd>
+      <dt>2026</dt><dd style="--v: 56.1"><span>56%</span></dd>
+      <dt class=gap>2026 CSS only</dt><dd class=gap style="--v: 28.3"><span>28%</span></dd>
      </dl>
-     <p class=note>Humans up 1.2×, agents 9.3× (21% → 66% of traffic).
-     Mintlify hosts docs for 20,000+ companies, e.g. Laravel, Notion,
-     Okta, Zapier, Anthropic. It skews towards AI and dev tools, so the
-     web-wide agent share is probably lower.</p>
+     <p class=note>Mean self-report, Devographics surveys. CSS share was
+     first asked in 2026; devs using AI to write CSS rose from 39% to 55%
+     (2025 → 2026).</p>
     </section>
-    <section>
-     <h3>Tailwind CSS, January 2026</h3>
-     <blockquote class=note>“Traffic to our docs is down about 40% from
-     early 2023 despite Tailwind being more popular than ever.”
-     <br>— Adam Wathan, on laying off 75% of the engineering team</blockquote>
-     <h3>MDN, June 2026</h3>
-     <p class=note>Mozilla ships an official MDN MCP server so coding
-     agents get current docs and browser-compat data directly.</p>
-    </section>
-   </div>
-   <p class="source">Sources: Mintlify, <a
-   href="https://www.mintlify.com/state-of-knowledge/2026"><cite>2026
-   State of Knowledge Report</cite></a>; <a
-   href="https://github.com/tailwindlabs/tailwindcss.com/pull/2388#issuecomment-3717222957"
-   >tailwindlabs/tailwindcss.com#2388 (comment)</a>; <a
-   href="https://developer.mozilla.org/en-US/blog/introducing-mdn-mcp-server/"
-   >MDN blog</a>.</p>
-  </section>
-
-  <section class=comment>
-   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md">analysis/the-shift.md</a></p>
-   <ul>
-    <li>Mintlify (largest docs host publishing this): agents 21% → 66% of traffic, Feb → Aug 2026</li>
-    <li>Human readership didn't fall (1.2×); agent traffic grew 9×</li>
-    <li>Caveat: skews to AI/dev-tool companies, so an upper-end signal; humans and agents measured differently</li>
-    <li>Tailwind: docs traffic −40% since 2023, revenue −80%, 75% of engineers laid off</li>
-    <li>MDN launched an MCP server (Jun 2026) because models surface outdated platform info</li>
-   </ul>
-  </section>
-
-  <!-- Analysis: analysis/the-shift.md -->
-  <section class="slide" id="adoption">
-   <h2>AI is now part of most developers’ work</h2>
-   <div class=columns>
     <section>
      <h3>Developers using AI tools</h3>
      <dl class=bars>
@@ -426,66 +363,9 @@
      </dl>
      <p class=note>Stack Overflow Developer Survey, “currently using”.</p>
     </section>
-    <section>
-     <ul class=stat-list>
-      <li><b>70%</b> ask an AI agent when looking for answers (2026)</li>
-      <li><b>59%</b> of coding conversations with Claude are
-       JS/TS or HTML/CSS</li>
-     </ul>
-    </section>
    </div>
-   <p class="source">Sources: Stack Overflow Developer Survey <a
-   href="https://survey.stackoverflow.co/2024/ai">2024</a>, <a
-   href="https://survey.stackoverflow.co/2025/ai">2025</a>, <a
-   href="https://stackoverflow.blog/2026/10/06/the-results-of-the-2026-developer-survey-are-here/"
-   >2026</a>; Anthropic, <a
-   href="https://www.anthropic.com/research/impact-software-development"
-   ><cite>AI's impact on software development</cite></a> (Apr 2025).</p>
-  </section>
-
-  <section class=comment>
-   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md">analysis/the-shift.md</a></p>
-   <ul>
-    <li>Stack Overflow survey: 44% (2023) → 62% → 78.5% (2025) using AI tools</li>
-    <li>2026: 73% of users use AI daily; 66% use coding agents (Claude Code 66%, Copilot 59%)</li>
-    <li>2026 doesn't publish a comparable “currently using” figure, so the chart stops at 2025</li>
-    <li>Anthropic Economic Index (Apr 2025): JS/TS 31%, HTML/CSS 28% of coding queries</li>
-   </ul>
-  </section>
-
-  <!-- Analysis: analysis/the-shift.md -->
-  <section class="slide" id="code-share">
-   <h2>AI writes over half of web code—not CSS</h2>
-   <div class=columns>
-    <section>
-     <h3>AI share of web devs’ code</h3>
-     <dl class=bars>
-      <dt>2024 (all code)</dt><dd style="--v: 20.4"><span>20%</span></dd>
-      <dt>2025 (all code)</dt><dd style="--v: 28.7"><span>29%</span></dd>
-      <dt>2026 (all code)</dt><dd style="--v: 56.1"><span>56%</span></dd>
-      <dt class=gap>2026 CSS only</dt><dd class=gap style="--v: 28.3"><span>28%</span></dd>
-      <dt class=sub>↳ with shadcn/ui</dt><dd class=sub style="--v: 45.5"><span>46%</span></dd>
-      <dt class=sub>↳ with Tailwind</dt><dd class=sub style="--v: 37.2"><span>37%</span></dd>
-      <dt class=sub>↳ plain CSS</dt><dd class=sub style="--v: 16.6"><span>17%</span></dd>
-     </dl>
-     <p class=note>Across Devographics surveys (mean self-report; 2026 median: 62.5% all code vs. 12.5% CSS).</p>
-    </section>
-    <section>
-     <h3>Across repos &amp; languages</h3>
-     <ul class=stat-list>
-      <li><b>2%→28%</b> of enterprise PRs with agent commits,
-       Jan → Sep 2026</li>
-      <li><b>29%–75%</b> of new code is AI-written (enterprise median →
-       Google)</li>
-      <li><b>3×</b> lines per agent commit vs. human; HTML leads in
-       AI share, SCSS lags</li>
-      <li><b>42%</b> of plain-CSS authors use no AI for CSS, vs. 8% with
-       shadcn/ui</li>
-     </ul>
-    </section>
-   </div>
-   <p class="next takeaway"><strong>LLMs now write most JS and component markup,
-   but only 17% of vanilla CSS.</strong></p>
+   <p class="next takeaway"><strong>LLMs now write most web code, but CSS
+   lags behind.</strong></p>
    <p class="source">Sources: Devographics (<a
    href="https://2025.stateofjs.com/en-US/usage/#ai_generated_code_balance">JS
    2024–25</a>, <a
@@ -494,80 +374,21 @@
    href="https://2026.stateofdevs.com/en-US/ai/#ai_generated_code_balance">Devs
    2026</a>, <a
    href="https://2026.stateofcss.com/en-US/usage/#css_ai_generated_code_balance">CSS
-   2026</a>); <a href="https://jellyfish.co/ai-engineering-trends/">Jellyfish</a>;
-   <a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">Google</a>;
-   Robbes et al., <a href="https://arxiv.org/abs/2601.18341">arXiv:2601.18341</a>.</p>
+   2026</a>, <a
+   href="https://2026.stateofai.dev/en-US/usage/#ai_generated_code_type">AI
+   code type 2025–26</a>); Stack Overflow Developer Survey <a
+   href="https://survey.stackoverflow.co/2024/ai">2024</a>, <a
+   href="https://survey.stackoverflow.co/2025/ai">2025</a>.</p>
   </section>
 
   <section class=comment>
    <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md">analysis/the-shift.md</a></p>
    <ul>
-    <li>No single instrument measures this; combine surveys and telemetry</li>
-    <li>Devographics (same question every year): mean AI share 20% (2024) → 29% (2025) → ~55% (2026)</li>
-    <li>CSS is the exception: 28% mean, 26% write none of their CSS with AI</li>
-    <li>CSS splits by framework: shadcn/ui 46%, Tailwind 37%, no framework 17% (42% write 0%)</li>
-    <li>Survey comment: “AI isn't great at CSS just yet”; utility classes live in markup where models do well</li>
-    <li>Enterprise (Jellyfish, 100M PRs): agents in 2% → 28% of PRs, Jan → Sep 2026; Google: 75% of new code</li>
-    <li>Commit trailers miss ~70% of AI-assisted commits, hence no git-based number</li>
+    <li>Devographics (same question every year): mean AI share of own code 20% (2024) → 29% (2025) → ~56% (2026); 2026 median 62.5%</li>
+    <li>CSS is the exception: 28% mean in 2026 (median 12.5%; 26% write none of their CSS with AI)</li>
+    <li>No CSS share before 2026; State of Web Dev AI: share of respondents who generate CSS with AI 39% (2025) → 55% (2026)</li>
+    <li>Stack Overflow survey: 44% (2023) → 62% → 78.5% (2025) currently using AI tools; 2026 has no comparable figure</li>
     <li>Caveat: self-reported, engaged respondents</li>
-   </ul>
-  </section>
-
-  <!-- Analysis: analysis/the-shift.md -->
-  <section class="slide" id="commits">
-   <h2>Agent commits: fast rise, then plateau?</h2>
-   <figure class=chart-figure>
-    <figcaption>AI-attributed commits as a share of public GitHub push events</figcaption>
-<svg class=chart viewBox="0 0 1000 230" role=img aria-labelledby=bc-title bc-desc>
-<title id=bc-title>AI-attributed commits as a share of public GitHub push events, Jan 2025 to Jul 2026</title>
-<desc id=bc-desc>Near zero until mid-2025, rising steeply from about 2% in December 2025 to about 15% in April 2026, then flattening at 17.8% in 2026-07.</desc>
-<line class=grid x1=60 x2=910 y1=196.0 y2=196.0 />
-<text class=tick x=52 y=202.0 text-anchor=end>0%</text>
-<line class=grid x1=60 x2=910 y1=151.5 y2=151.5 />
-<text class=tick x=52 y=157.5 text-anchor=end>5%</text>
-<line class=grid x1=60 x2=910 y1=107.0 y2=107.0 />
-<text class=tick x=52 y=113.0 text-anchor=end>10%</text>
-<line class=grid x1=60 x2=910 y1=62.5 y2=62.5 />
-<text class=tick x=52 y=68.5 text-anchor=end>15%</text>
-<line class=grid x1=60 x2=910 y1=18.0 y2=18.0 />
-<text class=tick x=52 y=24.0 text-anchor=end>20%</text>
-<text class=tick x=60.0 y=222 text-anchor=middle>Jan 2025</text>
-<text class=tick x=201.7 y=222 text-anchor=middle>Apr</text>
-<text class=tick x=343.3 y=222 text-anchor=middle>Jul</text>
-<text class=tick x=485.0 y=222 text-anchor=middle>Oct</text>
-<text class=tick x=626.7 y=222 text-anchor=middle>Jan 2026</text>
-<text class=tick x=768.3 y=222 text-anchor=middle>Apr</text>
-<text class=tick x=910.0 y=222 text-anchor=middle>Jul</text>
-<path class=line d="M60.0,196.0 L107.2,196.0 L154.4,195.8 L201.7,195.8 L248.9,195.3 L296.1,192.1 L343.3,189.7 L390.6,187.9 L437.8,188.9 L485.0,180.4 L532.2,181.4 L579.4,176.1 L626.7,153.0 L673.9,119.5 L721.1,83.6 L768.3,61.7 L815.6,53.6 L862.8,30.7 L910.0,37.5" />
-<circle class=dot cx=579.4 cy=176.1 r=5 />
-<text class=value x=569.4 y=182.1 text-anchor=end>2.2%</text>
-<circle class=dot cx=768.3 cy=61.7 r=5 />
-<text class=value x=758.3 y=67.7 text-anchor=end>15.1%</text>
-<circle class=dot cx=910.0 cy=37.5 r=5 />
-<text class=value x=920.0 y=43.5 text-anchor=start>17.8%</text>
-</svg>
-   </figure>
-   <ul class="stat-row tight">
-    <li><b>~6–18%</b> of public commits (depends on commits per push)</li>
-    <li><b>+89% → +14%</b> monthly growth, Mar → Jul 2026</li>
-    <li><b>S-curve</b> fits beat exponential; inflection ≈ Apr 2026</li>
-   </ul>
-   <p class="next takeaway"><strong>Standards, docs and APIs were designed for a
-   human reading MDN. Agents are now a major consumer too; whether they
-   become the typical one is still open.</strong></p>
-   <p class="source">Source: <a href="https://botcommits.dev/">botcommits.dev</a>
-   (GH Archive + GitHub commit search; <a href="data/ai-commit-share.csv">data</a>).
-   Counts only commits that carry an AI attribution, so a lower bound.</p>
-  </section>
-
-  <section class=comment>
-   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/the-shift.md">analysis/the-shift.md</a></p>
-   <ul>
-    <li>botcommits.dev: AI-attributed commits ~2% (Dec 2025) → ~18% of public pushes (Jul 2026)</li>
-    <li>Claude Code ≈ 99% of attributed commits</li>
-    <li>Growth slowed: +89%/month (Mar) → +14% (Jul); logistic fit beats exponential</li>
-    <li>Caveat: counts attribution markers, not use; plateau could be attribution behaviour</li>
-    <li>Bridge: if the “developer” is increasingly an agent, which principles still hold?</li>
    </ul>
   </section>
 

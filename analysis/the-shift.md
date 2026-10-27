@@ -122,6 +122,7 @@ Peaks among sampled months: all questions 196,527 (April 2016);
 | Share of own CSS that is AI-generated (State of CSS 2026) | — | — | — | 28.3% (median 12.5%; 26.3% report 0%) |
 | ↳ CSS AI share by framework: `shadcn/ui` / Tailwind / no CSS framework (`State of CSS 2026` GraphQL API) | — | — | — | 45.5% / 37.2% / 16.6% (42.3% at 0% for plain CSS) |
 | ↳ CSS AI share, Open Props users (n=102) | — | — | — | 11.8% (0% at ≥50%) |
+| Generate CSS with AI, % of respondents (State of Web Dev AI `ai_generated_code_type`, `css_code`; no CSS-share question before 2026, and no 2024 edition) | — | — | 39.0% (1,235 of 3,165) | 55.1% (3,460 of 6,281) |
 | Preliminary `state_of_html` 2026 (Oct 2026, n=1,445) | — | — | — | 49.9% mean, 50% median (56.4% at ≥50%) |
 | Avg. share of AI-generated code rewritten before commit (State of Web Dev AI, `ai_generated_code_refactoring`) | — | — | 61.0% | 46.7% |
 
@@ -348,31 +349,21 @@ Model fits reported by the site (Claude Code, linear space, Feb 2025 → Jul 202
 ## Slide
 
 Part divider `shift` ("The shift is well under way") and slides
-`stackoverflow`, `docs`, `adoption`, `code-share` and `commits` in `web/index.html`, each
-followed by speaker notes with the full sources.
+`stackoverflow` and `code-share` in `web/index.html`, each followed by
+speaker notes with the full sources. The `docs` (Mintlify agent traffic),
+`adoption` and `commits` (botcommits.dev) slides were cut in Oct 2026 as not
+compelling enough; their data stays above. `adoption`'s Stack Overflow bars
+moved onto `code-share`.
 
 | Slide | On slide | Value | From |
 |---|---|---|---|
 | `stackoverflow` | Chart + "−99% all questions since the 2016 peak" | 196,527 → 1,175 / month | Stack Exchange API |
 | `stackoverflow` | `[javascript]`, `[css]` | 23,799 → 69; 8,426 → 31 | Stack Exchange API |
-| `docs` | Stacked bars: human vs. agent monthly traffic | Feb ≈109M + ≈28M → Aug 131M + 257M | Mintlify (Feb derived from growth multiples) |
-| `docs` | Tailwind quote | docs traffic −40% | Wathan |
-| `docs` | MDN MCP server | June 2026 | MDN blog |
-| `adoption` | Developers using AI tools | 44% → 62% → 78% | Stack Overflow surveys |
-| `adoption` | Ask AI for answers | 70% | Stack Overflow 2026 |
-| `adoption` | JS/TS or HTML/CSS share of coding conversations | 59% | Anthropic |
-| `code-share` | Bars: AI share of web devs' code (all code vs. CSS) | 20% (2024) → 29% (2025) → 56% (2026); 2026 CSS only 28% (shadcn/ui 46%, Tailwind 37%, plain CSS 17%) | Devographics GraphQL API |
-| `code-share` | Enterprise PRs with coding-agent commits | 2% → 28% (Jan → Sep 2026) | Jellyfish (Oct 2026) |
-| `code-share` | Share of new code written by AI | 29% enterprise median; 75% at Google | Jellyfish; Google (Apr 2026) |
-| `code-share` | Agent commit size & language split | 3× lines/commit; HTML & TS/JS lead, SCSS trails | Robbes et al. (Apr 2026) |
-| `code-share` | Plain-CSS authors writing 0% with AI | 42% (vs. 8% of shadcn/ui users) | State of CSS 2026 API |
-| `commits` | Chart: AI-attributed share of push events | 2.2% → 15.1% → 17.8% | botcommits.dev |
-| `commits` | Share of public commits | ~6–18% | botcommits.dev |
-| `commits` | Monthly growth | +89% → +14% | botcommits.dev |
-| `commits` | Takeaway | "…Agents are now a major consumer too; whether they become the typical one is still open." | — |
+| `code-share` | Left bars: AI share of web devs' code | 20% (2024) → 29% (2025) → 56% (2026); 2026 CSS only 28% | Devographics GraphQL API |
+| `code-share` | Note: devs generating CSS with AI | 39% → 55% (2025 → 2026) | State of Web Dev AI (`ai_generated_code_type`) |
+| `code-share` | Right bars: developers currently using AI tools | 44% (2023) → 62% → 78% (2025) | Stack Overflow surveys |
+| `code-share` | Takeaway | "LLMs now write most web code, but CSS lags behind." | — |
 
 In the speaker notes but not on the slides: the 2017–2022 pre-AI decline,
-the Mintlify April snapshot (Claude Code alone 25% of requests), Tailwind's
-revenue and layoffs, the 2025 agent-use figure (31%), Claude Code and
-Copilot as agents of choice, Claude Code's 79% automation rate, State of
-JS (20% → 29% AI-generated), and the botcommits.dev model fits and caveats.
+the 2026 AI-share median (62.5%), the share writing no CSS with AI (26%),
+and the lack of a comparable 2026 Stack Overflow "currently using" figure.
