@@ -1,0 +1,5 @@
+.card { padding: 1rem; }
+.card h2 { margin: 0; }
+.card p { color: gray; }
+.card:hover { outline: 1px solid; }
+.card .actions button { font: inherit; }

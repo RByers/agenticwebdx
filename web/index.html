@@ -426,7 +426,8 @@
    notes after each slide carry the sources and caveats.</p>
   </section>
 
-<section class="slide" id="volatility">
+  <!-- Analysis: analysis/volatility.md -->
+  <section class="slide" id="volatility">
    <h2>Agents churn. Web APIs don't.</h2>
    <div class=columns>
     <section>
@@ -461,6 +462,9 @@
   </section>
 
   <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/volatility.md"
+   >analysis/volatility.md</a>.</p>
    <p><strong>The skeptic's case</strong>: models are not uniform and turn
    over every year, so optimizing a permanent Web API for this year's
    agent is optimizing for a consumer that will be retired long before
@@ -530,8 +534,11 @@
    web platform”. For scale, a pull of the
    <a href="https://chromestatus.com/api/v0/features">chromestatus.com
    API</a> on 27 Oct 2026 lists 1,894 entries “Enabled by default” vs.
-   198 “Removed”, and most removals are prefixed or Chrome-only
-   features (<code>-webkit-*</code>, NPAPI, Flash, AppCache). The
+   198 “Removed”, and few of those are removals of whole,
+   interoperable, standardized APIs: roughly 19 are prefixed features,
+   18 non-standard or legacy ones, 19 TLS or protocol changes, and
+   many of the rest remove single members or restrict a feature to
+   secure contexts (see analysis/volatility.md). The
    chromestatus status field is maintained by hand, so treat that ratio
    as rough. The asymmetry: with models living 1–2 years and APIs
    living decades, an API designed this year will be consumed mostly by
@@ -600,7 +607,8 @@
    machine-readable docs.</p>
   </section>
 
-<section class="slide" id="token-efficiency">
+  <!-- Analysis: analysis/token-efficiency.md -->
+  <section class="slide" id="token-efficiency">
  <h2>Ceremony costs tokens. Long names don't.</h2>
  <table class="striped tokens">
   <thead>
@@ -631,6 +639,9 @@
 </section>
 
 <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/token-efficiency.md"
+   >analysis/token-efficiency.md</a>.</p>
  <p><strong>Claim.</strong> What makes a Web API expensive in tokens is
  ceremony (setup objects, callbacks, lifecycle boilerplate, glue code), not
  long identifiers. Recent platform additions that pave a common pattern
@@ -749,7 +760,8 @@
  (a paved cowpath) even when that isn't the cleanest design?</p>
 </section>
 
-<section class="slide" id="robustness">
+  <!-- Analysis: analysis/robustness.md -->
+  <section class="slide" id="robustness">
    <h2>Agents only fix what fails loudly</h2>
    <div class=columns>
     <section>
@@ -777,6 +789,9 @@
   </section>
 
   <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/robustness.md"
+   >analysis/robustness.md</a>.</p>
    <p><strong>Claim.</strong> Today's models rarely make mistakes that
    something detects and reports (syntax, types, lint): those get fixed in
    the loop. What survives are mistakes nothing reports: insecure but
@@ -827,8 +842,10 @@
    Completion”</a> (ICSE 2025). 7 LLMs, 145 deprecated→replacement API
    mappings in 8 Python libraries, 28,125 line-completion prompts taken
    from real functions. When the surrounding function already used
-   outdated APIs, models used the deprecated API 70–90% of the time; in
-   up-to-date functions, 9–18%; overall 25–38%. Caveats: 2024 models
+   outdated APIs, models picked the deprecated API in 70–90% of the
+   completions that used either the old or the new API; in up-to-date
+   functions, 9–18%; overall 25–38%. (Completions that called either
+   API were only 9–23% of all completions.) Caveats: 2024 models
    (CodeLlama, StarCoder2, DeepSeek-Coder, GPT-3.5 etc.), Python, not
    agents. Relevance: the web never removes APIs, so agents editing old
    pages will keep extending <code>document.write</code>-era patterns
@@ -895,7 +912,8 @@
    </ul>
   </section>
 
-<section class="slide" id="design-principles">
+  <!-- Analysis: analysis/design-principles.md -->
+  <section class="slide" id="design-principles">
    <h2>Most principles hold. Some backfire.</h2>
    <table class=verdicts>
     <thead>
@@ -941,6 +959,9 @@
   </section>
 
   <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/design-principles.md"
+   >analysis/design-principles.md</a>.</p>
    <p><strong>Key claim.</strong> The TAG's
    <a href="https://www.w3.org/TR/design-principles/">Web Platform Design
    Principles</a> (W3C Group Note, 14 Sep 2026) has 100+ numbered sections and
@@ -1132,6 +1153,7 @@
    delayed feedback loop.</p>
   </section>
 
+  <!-- Analysis: analysis/what-agents-write.md -->
   <section class="slide" id="what-agents-write">
    <h2>Agents build on the default stack</h2>
    <div class=columns>
@@ -1149,11 +1171,11 @@
     <section>
      <h3>npm downloads, 2024 → 2026</h3>
      <dl class=bars>
-      <dt><code>shadcn</code></dt><dd style="--v: 80"><span>96×</span></dd>
-      <dt><code>lucide-react</code></dt><dd style="--v: 51"><span>61×</span></dd>
-      <dt><code>tailwindcss</code></dt><dd style="--v: 10"><span>12×</span></dd>
-      <dt><code>react</code></dt><dd style="--v: 5.7"><span>6.8×</span></dd>
-      <dt><code>lodash</code> (all npm)</dt><dd style="--v: 2.7"><span>3.2×</span></dd>
+      <dt><code>lucide-react</code></dt><dd style="--v: 80"><span>61×</span></dd>
+      <dt><code>shadcn</code> CLI</dt><dd style="--v: 69"><span>53×</span></dd>
+      <dt><code>tailwindcss</code></dt><dd style="--v: 15.7"><span>12×</span></dd>
+      <dt><code>react</code></dt><dd style="--v: 8.9"><span>6.8×</span></dd>
+      <dt><code>lodash</code> (all npm)</dt><dd style="--v: 4.2"><span>3.2×</span></dd>
      </dl>
     </section>
    </div>
@@ -1163,6 +1185,9 @@
   </section>
 
   <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/what-agents-write.md"
+   >analysis/what-agents-write.md</a>.</p>
    <p><strong>Claim.</strong> When agents build for the web they converge
    on one framework-shaped stack (React + Tailwind + shadcn/ui + lucide
    icons), and this is now visible in registry-wide numbers. Whether they
@@ -1206,15 +1231,19 @@
    July 2026</a>). Anthropic's own
    <a href="https://github.com/anthropics/skills/blob/main/skills/web-artifacts-builder/SKILL.md">web-artifacts-builder
    skill</a> specifies “React 18 + TypeScript + Vite + Parcel + Tailwind
-   CSS + shadcn/ui”. Lovable's scale is often quoted as 50–60M projects
-   and ~1M new projects/week, but I found only secondary sources (LinkedIn
-   posts, news roundups), so it is not on the slide.</p>
+   CSS + shadcn/ui”. Scale: “100,000 new projects are built on Lovable
+   every single day” (<a href="https://lovable.dev/blog/one-year-of-lovable">Lovable,
+   18 Nov 2025</a>, vendor claim). Later totals (50–60M projects, ~1M/week)
+   appear only in secondary sources.</p>
 
    <p><strong>npm downloads</strong> (monthly totals, September 2024 vs.
    September 2026, from
    <code>https://api.npmjs.org/downloads/point/2026-09-01:2026-09-30/&lt;pkg&gt;</code>,
    fetched 27 Oct 2026):
-   <code>shadcn</code> CLI 0.42M → 40.4M (96×);
+   <code>shadcn</code> CLI 0.78M → 41.1M (53×; <code>shadcn</code> +
+   <code>shadcn-ui</code> combined, because the CLI was renamed from
+   <code>shadcn-ui</code> to <code>shadcn</code> in July 2024; the new name
+   alone is 0.42M → 40.4M, 96×, which overstates the growth);
    <code>lucide-react</code> 6.9M → 426M (61×);
    <code>class-variance-authority</code> 7.8M → 266M (34×);
    <code>tailwind-merge</code> 14.8M → 345M (23×);
@@ -1231,7 +1260,7 @@
    <code>@angular/core</code> 14.6M → 25M (1.7×);
    <code>jquery</code> 48.8M → 66M (1.4×).
    React's share of react+vue+svelte+angular downloads went from 71% to
-   86%. Bars on the slide are drawn to a linear scale (96× = 80% width).</p>
+   86%. Bars on the slide are drawn to a linear scale (61× = 80% width). Raw monthly data: <a href="data/npm-downloads.csv">data/npm-downloads.csv</a>; the script is <code>tools/npm_downloads.py</code>.</p>
    <p>Caveats on npm: downloads are not apps or users. All of npm
    inflated sharply over 2025–26 (lodash and express, which no one chooses
    for UI, grew 3–4×; there is a step up across every package around
@@ -1288,7 +1317,15 @@
    patterns in training data.” Adam Wathan's Aug 2025 tongue-in-cheek
    apology for Tailwind UI's <code>bg-indigo-500</code> buttons being why
    AI UIs are purple is widely reported, but I did not reach the original
-   post.</p>
+   post. Counterpoint from the
+   <a href="https://almanac.httparchive.org/en/2025/generative-ai">Web
+   Almanac 2025 Generative AI chapter</a> (Jan 2026, crawls to Oct 2025):
+   indigo-500 rose from 0.03% to 0.54% of all pages (Q3 2022 → Q4 2025),
+   but within Tailwind pages the “AI colors” stayed at ~2% with no surge,
+   so the rise “may be less a result of AI ‘choosing’ purple and more a
+   reflection of the general rise in Tailwind’s popularity.”
+   Homogenization at the stack level is clearer in the data than at the
+   visual level.</p>
 
    <p><strong>Discussion.</strong> Two readings: (1) freeze: new platform
    features never reach agents' defaults, so they never get the usage that
@@ -1299,7 +1336,8 @@
    Does that change who standards work should be designed for?</p>
   </section>
 
-<section class="slide" id="evaluation">
+  <!-- Analysis: analysis/evaluation.md -->
+  <section class="slide" id="evaluation">
    <h2>Evals reward the familiar</h2>
    <figure class=chart-figure>
     <figcaption>Rust API tasks solved (pass@1, average of 5 models)</figcaption>
@@ -1321,6 +1359,9 @@
   </section>
 
   <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/evaluation.md"
+   >analysis/evaluation.md</a>.</p>
    <p><strong>Point of the slide:</strong> an API’s measured cost to an
    agent mixes two things, how good the design is and how much of it
    the model has seen. Every study below finds the second one is large,

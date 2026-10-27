@@ -1,0 +1,7 @@
+.product-card {
+  padding: 1rem;
+  h2 { margin: 0; }
+  p { color: gray; }
+  &:hover { outline: 1px solid; }
+  .actions button { font: inherit; }
+}
