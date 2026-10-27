@@ -8,6 +8,42 @@
   <meta name=description content="Slides for a TPAC 2026 breakout session on agent developer experience and web standards">
   <link rel="stylesheet" href="Templates/slides.css">
   <script src="Templates/b6plus.js"></script>
+  <style>
+   /* Charts and stats for the data slides */
+   .chart-figure {margin: 0}
+   .chart-figure figcaption {font-size: 0.8em; margin: 0}
+   svg.chart {display: block; width: 100%; height: 9.6em}
+   svg.chart text {font: inherit; font-size: 19px; fill: currentColor}
+   svg.chart .tick {opacity: 0.7}
+   svg.chart .grid {stroke: currentColor; stroke-opacity: 0.15; stroke-width: 1}
+   svg.chart .line {fill: none; stroke: var(--figcaption-fg); stroke-width: 3;
+     stroke-linejoin: round; stroke-linecap: round}
+   svg.chart .dot {fill: var(--figcaption-fg); stroke: var(--slide-bg-color); stroke-width: 2}
+   svg.chart .value {font-weight: 700}
+   svg.chart .event {stroke: currentColor; stroke-opacity: 0.5; stroke-dasharray: 4 4}
+   svg.chart .event-label {font-size: 18px; opacity: 0.85}
+   .stat-row {display: flex; gap: 1.5em; list-style: none; padding: 0;
+     margin: 0.3em 0 0; font-size: 0.85em}
+   .stat-row li {margin: 0; flex: 1; line-height: 1.3}
+   .stat-row b, .stat-list b {font-size: 1.4em; color: var(--figcaption-fg)}
+   .stat-row b {display: block}
+   .stat-list {list-style: none; padding: 0}
+   .stat-list li {line-height: 1.3; margin-bottom: 0.6em; display: grid;
+     grid-template-columns: 3.2em 1fr; align-items: baseline; gap: 0.5em}
+   .stat-list b {text-align: right}
+   .slide .source {position: absolute; bottom: 0.6em; left: 2em; right: 2em;
+     margin: 0; font-size: 0.55em; opacity: 0.8}
+   dl.bars {display: grid; grid-template-columns: auto 1fr; gap: 0.35em 0.6em;
+     align-items: center; margin: 0 0 0.6em}
+   dl.bars dt {font-size: 0.85em}
+   dl.bars dd {margin: 0; position: relative; height: 1.4em}
+   dl.bars dd::before {content: ""; position: absolute; inset: 0 auto 0 0;
+     width: calc(var(--v) * 1%); background: var(--figcaption-fg);
+     border-radius: 0 4px 4px 0}
+   dl.bars dd span {position: absolute; top: 50%; translate: 0.4em -50%;
+     left: calc(var(--v) * 1%); font-weight: 700; font-size: 0.85em}
+   .slide blockquote.note {margin: 0 0 0.6em; font-style: italic}
+  </style>
  </head>
  <body class="shower fade-in duration=60 hidemouse">
 
@@ -42,6 +78,221 @@
    uniformly, and some pull in opposite directions.</p>
    <p>Goal: make progress on the session's questions and identify
    people interested in exploring this further.</p>
+  </section>
+
+  <section class="slide part" id="shift">
+   <h2>The shift has already happened</h2>
+   <p>Web development is moving from human-led to agent-led</p>
+  </section>
+
+  <section class=comment>
+   <p>Before asking how standards should adapt, establish that the
+   change is real and large. The rest of this section is data, most
+   of it public and reproducible.</p>
+  </section>
+
+  <section class="slide" id="stackoverflow">
+   <h2>Developers stopped asking each other</h2>
+   <figure class=chart-figure>
+    <figcaption>New Stack Overflow questions per month</figcaption>
+<svg class=chart viewBox="0 0 1000 290" role=img aria-labelledby=so-title so-desc>
+<title id=so-title>New Stack Overflow questions per month, 2009–2026</title>
+<desc id=so-desc>Peaks at about 197,000 in April 2016, slides to about 106,000 by October 2022, then collapses after ChatGPT to about 1,200 in July 2026.</desc>
+<line class=grid x1=60 x2=930 y1=256.0 y2=256.0 />
+<text class=tick x=52 y=261.0 text-anchor=end>0k</text>
+<line class=grid x1=60 x2=930 y1=196.5 y2=196.5 />
+<text class=tick x=52 y=201.5 text-anchor=end>50k</text>
+<line class=grid x1=60 x2=930 y1=137.0 y2=137.0 />
+<text class=tick x=52 y=142.0 text-anchor=end>100k</text>
+<line class=grid x1=60 x2=930 y1=77.5 y2=77.5 />
+<text class=tick x=52 y=82.5 text-anchor=end>150k</text>
+<line class=grid x1=60 x2=930 y1=18.0 y2=18.0 />
+<text class=tick x=52 y=23.0 text-anchor=end>200k</text>
+<text class=tick x=108.6 y=282 text-anchor=middle>2010</text>
+<text class=tick x=205.8 y=282 text-anchor=middle>2012</text>
+<text class=tick x=303.0 y=282 text-anchor=middle>2014</text>
+<text class=tick x=400.2 y=282 text-anchor=middle>2016</text>
+<text class=tick x=497.4 y=282 text-anchor=middle>2018</text>
+<text class=tick x=594.6 y=282 text-anchor=middle>2020</text>
+<text class=tick x=691.8 y=282 text-anchor=middle>2022</text>
+<text class=tick x=789.1 y=282 text-anchor=middle>2024</text>
+<text class=tick x=886.3 y=282 text-anchor=middle>2026</text>
+<line class=event x1=736.3 x2=736.3 y1=18 y2=256 />
+<text class=event-label x=742.3 y=32>ChatGPT</text>
+<line class=event x1=841.7 x2=841.7 y1=18 y2=256 />
+<text class=event-label x=847.7 y=54>Coding agents</text>
+<path class=line d="M60.0,237.2 L72.2,230.6 L84.3,217.4 L96.5,212.8 L108.6,202.5 L120.8,196.4 L132.9,183.6 L145.1,180.1 L157.2,160.9 L169.4,142.3 L181.5,136.5 L193.7,135.8 L205.8,118.7 L218.0,103.7 L230.1,87.2 L242.3,77.6 L254.4,68.4 L266.6,52.1 L278.7,46.1 L290.9,37.2 L303.0,31.7 L315.2,25.5 L327.3,45.9 L339.5,50.6 L351.6,58.8 L363.8,30.4 L375.9,23.8 L388.1,34.6 L400.2,40.7 L412.4,22.1 L424.5,45.9 L436.7,47.5 L448.8,45.5 L461.0,43.7 L473.1,42.1 L485.3,54.1 L497.4,65.1 L509.6,62.8 L521.7,65.6 L533.9,65.2 L546.0,78.1 L558.2,73.4 L570.3,76.4 L582.5,74.4 L594.6,81.6 L606.8,38.4 L618.9,58.5 L631.1,87.3 L643.2,89.6 L655.4,94.4 L667.5,108.5 L679.7,114.7 L691.8,114.2 L704.0,120.4 L716.1,124.4 L728.3,130.2 L740.4,141.0 L752.6,174.7 L764.7,181.6 L776.9,193.7 L789.1,199.4 L801.2,205.6 L813.4,218.6 L825.5,228.4 L837.7,234.4 L849.8,242.5 L862.0,248.1 L874.1,249.7 L886.3,251.7 L898.4,253.2 L910.6,254.6" />
+<circle class=dot cx=412.4 cy=22.1 r=5 />
+<text class=value x=420.4 y=16.1 text-anchor=start>196,527</text>
+<circle class=dot cx=910.6 cy=254.6 r=5 />
+<text class=value x=908.6 y=242.6 text-anchor=end>1,175</text>
+</svg>
+   </figure>
+   <ul class=stat-row>
+    <li><b>−99%</b> all questions since the 2016 peak</li>
+    <li><b>23,799 → 69</b> <code>[javascript]</code> per month</li>
+    <li><b>8,426 → 31</b> <code>[css]</code> per month</li>
+   </ul>
+   <p class="source">Source: Stack Exchange API, one sample month per quarter
+   (<a href="data/stackoverflow-questions.csv">data</a>). Excludes deleted questions.</p>
+  </section>
+
+  <section class=comment>
+   <p>Counts come straight from the public Stack Exchange API
+   (<code>/2.3/questions?filter=total</code>), sampled every January,
+   April, July and October. Raw numbers are in
+   <a href="data/stackoverflow-questions.csv">data/stackoverflow-questions.csv</a>;
+   the script is <code>tools/so_fetch.py</code>.</p>
+   <p>The slow decline started around 2017 (the easy questions had
+   been answered). ChatGPT (Nov 2022) turned it into a collapse, and
+   coding agents (Claude Code, Copilot agent mode, Cursor agent; early
+   2025) finished it: July 2026 had about 1,200 new questions, fewer
+   than in the site's first month of public beta in 2008.</p>
+   <p>Web-platform tags fell even harder than the site overall:
+   <code>[javascript]</code> is down 99.7% from its July 2015 peak,
+   <code>[css]</code> 99.6% from January 2014.</p>
+  </section>
+
+  <section class="slide" id="docs">
+   <h2>Docs are now read mostly by agents</h2>
+   <div class=columns>
+    <section>
+     <h3>Agent share of docs traffic</h3>
+     <dl class=bars>
+      <dt>Feb 2026</dt><dd style="--v: 20.8"><span>20.8%</span></dd>
+      <dt>Aug 2026</dt><dd style="--v: 66"><span>66%</span></dd>
+     </dl>
+     <p class=note>Across all Mintlify-hosted docs sites. In August,
+     257M agent requests vs. 131M human page loads.</p>
+    </section>
+    <section>
+     <h3>Tailwind CSS, January 2026</h3>
+     <blockquote class=note>“Traffic to our docs is down about 40% from
+     early 2023 despite Tailwind being more popular than ever.”
+     <br>— Adam Wathan, on laying off 75% of the engineering team</blockquote>
+     <h3>MDN, June 2026</h3>
+     <p class=note>Mozilla ships an official MDN MCP server so coding
+     agents get current docs and browser-compat data directly.</p>
+    </section>
+   </div>
+   <p class="source">Sources: Mintlify, <cite>2026 State of Knowledge Report</cite>;
+   tailwindlabs/tailwindcss.com#2388; MDN blog.</p>
+  </section>
+
+  <section class=comment>
+   <p><a href="https://www.mintlify.com/state-of-knowledge/2026">Mintlify
+   2026 State of Knowledge Report</a>: agent share of traffic on
+   Mintlify-hosted docs grew from 20.8% (Feb 2026) to 66% (Aug 2026);
+   in August, 257M agent requests vs. 131M human page loads; 10.8M
+   <code>/llms.txt</code> fetches and 2M+ MCP tool calls that month.
+   Caveat: human and agent traffic are measured differently (client-side
+   analytics vs. server-side requests), and Mintlify widened its agent
+   detection in June 2026. An earlier
+   <a href="https://www.mintlify.com/blog/state-of-ai">user-agent-only
+   snapshot (April 2026)</a> already had agents at 45.3% vs. browsers
+   at 45.8% of ~790M requests, with Claude Code alone at 25%.</p>
+   <p><a href="https://github.com/tailwindlabs/tailwindcss.com/pull/2388">Adam
+   Wathan, 7 Jan 2026</a>: “Traffic to our docs is down about 40% from
+   early 2023 despite Tailwind being more popular than ever… our revenue
+   is down close to 80%.”</p>
+   <p><a href="https://developer.mozilla.org/en-US/blog/introducing-mdn-mcp-server">MDN
+   MCP server, 15 June 2026</a>: “More and more AI tools are being
+   integrated into web development workflows, but they can surface
+   outdated web platform information…”</p>
+  </section>
+
+  <section class="slide" id="adoption">
+   <h2>Agents are now the default tool</h2>
+   <div class=columns>
+    <section>
+     <h3>Developers using AI tools</h3>
+     <dl class=bars>
+      <dt>2023</dt><dd style="--v: 44"><span>44%</span></dd>
+      <dt>2024</dt><dd style="--v: 62"><span>62%</span></dd>
+      <dt>2025</dt><dd style="--v: 78.5"><span>78%</span></dd>
+     </dl>
+     <p class=note>Stack Overflow Developer Survey, “currently using”.</p>
+    </section>
+    <section>
+     <h3>2026: agents take over</h3>
+     <ul class=stat-list>
+      <li><b>66%</b> of AI users use coding agents or assistants</li>
+      <li><b>73%</b> of those use them daily</li>
+      <li><b>70%</b> ask an AI agent when looking for answers</li>
+      <li><b>24%</b> still use Stack Overflow for work answers</li>
+     </ul>
+    </section>
+   </div>
+   <p class="source">Sources: Stack Overflow Developer Surveys 2023–2026.</p>
+  </section>
+
+  <section class=comment>
+   <p><a href="https://survey.stackoverflow.co/2024/ai">2024 survey</a>:
+   62% currently using AI tools, up from 44% in 2023.
+   <a href="https://survey.stackoverflow.co/2025/ai">2025 survey</a>:
+   47.1% daily + 17.7% weekly + 13.7% monthly or less = 78.5% using;
+   84% using or planning to; 31% already using AI agents.</p>
+   <p><a href="https://stackoverflow.blog/2026/10/06/the-results-of-the-2026-developer-survey-are-here/">2026
+   survey</a> (published 6 Oct 2026): coding agents used by 66% of AI
+   users; 73% of AI coding assistant/agent users use them daily; top
+   agents are Claude Code (66%) and GitHub Copilot (59%). When looking
+   for answers, 83% use search and 70% an AI agent; Stack Overflow is
+   used by 24% for work answers, and people visit “less for simple
+   questions”.</p>
+   <p>The 2026 agent figures are a share of AI users, not of all
+   respondents, so they don't extend the bar chart directly.</p>
+  </section>
+
+  <section class="slide" id="web-first">
+   <h2>Web development is ground zero</h2>
+   <ul class=stat-list>
+    <li><b>59%</b> of coding conversations with Claude are in JS/TS (31%)
+     or HTML/CSS (28%); UI component work is the #1 task</li>
+    <li><b>79%</b> of Claude Code sessions are automation (agent does the
+     task) vs. 49% in the chat app</li>
+    <li><b>~4%</b> of all public GitHub commits were authored by Claude
+     Code by February 2026, up from ~0.7% in September 2025</li>
+    <li><b>29%</b> of JavaScript developers' code is AI-generated, up from 20% a year earlier</li>
+   </ul>
+   <p class="source">Sources: Anthropic, <cite>AI's impact on software
+   development</cite> (Apr 2025); SemiAnalysis (Feb 2026);
+   conffab.com commit count; State of JavaScript 2025.</p>
+  </section>
+
+  <section class=comment>
+   <p><a href="https://www.anthropic.com/research/impact-software-development">Anthropic
+   Economic Index, 28 Apr 2025</a>, 500K coding conversations:
+   JavaScript/TypeScript 31% and HTML/CSS 28% of queries;
+   “UI/UX Component Development” 12% and “Web &amp; Mobile App
+   Development” 8% of tasks. Claude Code 79% automation vs. 49% on
+   Claude.ai. This data predates the 2025–26 agent boom.</p>
+   <p><a href="https://newsletter.semianalysis.com/p/claude-code-is-the-inflection-point">SemiAnalysis,
+   5 Feb 2026</a>: ~4% of public GitHub commits authored by Claude Code.
+   An <a href="https://conffab.com/?p=10304">independent count</a>
+   found ~0.7% in late Sept 2025 and 4.5% by mid-March 2026. These only
+   count commits that carry an attribution trailer, so they are a floor
+   and cover one agent.</p>
+   <p><a href="https://2025.stateofjs.com/en-US/usage/">State of
+   JavaScript 2025</a>: share of code that is AI-generated rose from
+   20% to 29% year over year (median answer 25%).</p>
+  </section>
+
+  <section class="slide" id="so-what">
+   <h2>The primary reader of the web platform is changing</h2>
+   <ul>
+    <li>Developers have stopped asking each other: new Stack Overflow questions are down 99%</li>
+    <li>Agents read docs twice as often as humans do (Mintlify, Aug 2026)</li>
+    <li>Coding agents are mainstream, and web code is where they work most</li>
+   </ul>
+   <p class=next><strong>Standards, docs and APIs were designed for a
+   human reading MDN. That is no longer the typical consumer.</strong></p>
+  </section>
+
+  <section class=comment>
+   <p>Bridge to the discussion: if the typical “developer” reading a
+   spec, an MDN page or an error message is now an agent, which of our
+   design principles still hold, and which pull in the opposite
+   direction?</p>
   </section>
 
   <section class="slide final" id="end">
