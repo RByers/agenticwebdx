@@ -31,11 +31,21 @@ Questions this session will explore:
 
 ## Repository layout
 
+Each folder has its own `README.md` describing its contents.
+
 - `web/` – everything published to GitHub Pages
   - `web/index.html` – the slide deck (b6+ framework, TPAC 2026 template)
+  - `web/slide-fit.js` – flags any slide that overflows the fixed 16:9 slide size when the deck loads
   - `web/Templates/` – the unmodified [TPAC 2026 slide template](https://www.w3.org/2026/Talks/TPAC/Templates/) files. `web/Templates/Overview.html` is the template's example deck and user manual.
   - `web/data/` – data behind the slides (CSV), so the deck can link to it
+  - `web/images/` – images and icons used by the deck
 - `analysis/` – research notes behind each discussion slide: findings, data, sources, caveats and open threads. Each slide in the deck points to its file.
-- `tools/` – scripts that fetch or measure the data in `web/data/`
+- `design-principles/` – one file per numbered principle in the [W3C TAG Web Platform Design Principles](https://w3ctag.github.io/design-principles/), each assessing how well it fits AI coding agents (summarised in `analysis/design-principles.md`)
+- `tools/` – scripts that fetch or measure the data in `web/data/`, plus `check-slide-fit.js`
+  - `tools/tokens/` – token-count measurements for web-platform snippets and API identifiers
+    - `tools/tokens/snippets/` – the equivalent code snippets being measured
+  - `tools/transcripts/` – pipeline for mining coding-agent session transcripts for Web API problems
+- `.github/workflows/` – `static.yml`, the GitHub Actions workflow that publishes `web/` to Pages (no README here: this folder can only be changed with workflow permission)
+- `.claude/` – Claude Code project settings (instructions for agents are in `CLAUDE.md`)
 
 The `web/` directory is published to GitHub Pages at https://rbyers.github.io/agenticwebdx/ by the `.github/workflows/static.yml` workflow on every push to `main` that touches `web/` (Pages source must be set to "GitHub Actions" in the repo settings).
