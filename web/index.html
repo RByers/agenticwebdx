@@ -345,7 +345,8 @@
    notes after each slide carry the sources and caveats.</p>
   </section>
 
-<section class="slide" id="volatility">
+  <!-- Analysis: analysis/volatility.md -->
+  <section class="slide" id="volatility">
    <h2>Agents churn. Web APIs don't.</h2>
    <div class=columns>
     <section>
@@ -380,6 +381,9 @@
   </section>
 
   <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/volatility.md"
+   >analysis/volatility.md</a>.</p>
    <p><strong>The skeptic's case</strong>: models are not uniform and turn
    over every year, so optimizing a permanent Web API for this year's
    agent is optimizing for a consumer that will be retired long before
@@ -519,7 +523,8 @@
    machine-readable docs.</p>
   </section>
 
-<section class="slide" id="token-efficiency">
+  <!-- Analysis: analysis/token-efficiency.md -->
+  <section class="slide" id="token-efficiency">
  <h2>Ceremony costs tokens. Long names don't.</h2>
  <table class="striped tokens">
   <thead>
@@ -550,6 +555,9 @@
 </section>
 
 <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/token-efficiency.md"
+   >analysis/token-efficiency.md</a>.</p>
  <p><strong>Claim.</strong> What makes a Web API expensive in tokens is
  ceremony (setup objects, callbacks, lifecycle boilerplate, glue code), not
  long identifiers. Recent platform additions that pave a common pattern
@@ -668,7 +676,8 @@
  (a paved cowpath) even when that isn't the cleanest design?</p>
 </section>
 
-<section class="slide" id="robustness">
+  <!-- Analysis: analysis/robustness.md -->
+  <section class="slide" id="robustness">
    <h2>Agents only fix what fails loudly</h2>
    <div class=columns>
     <section>
@@ -696,6 +705,9 @@
   </section>
 
   <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/robustness.md"
+   >analysis/robustness.md</a>.</p>
    <p><strong>Claim.</strong> Today's models rarely make mistakes that
    something detects and reports (syntax, types, lint): those get fixed in
    the loop. What survives are mistakes nothing reports: insecure but
@@ -814,7 +826,8 @@
    </ul>
   </section>
 
-<section class="slide" id="design-principles">
+  <!-- Analysis: analysis/design-principles.md -->
+  <section class="slide" id="design-principles">
    <h2>Most principles hold. Some backfire.</h2>
    <table class=verdicts>
     <thead>
@@ -860,6 +873,9 @@
   </section>
 
   <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/design-principles.md"
+   >analysis/design-principles.md</a>.</p>
    <p><strong>Key claim.</strong> The TAG's
    <a href="https://www.w3.org/TR/design-principles/">Web Platform Design
    Principles</a> (W3C Group Note, 14 Sep 2026) has 100+ numbered sections and
@@ -1051,6 +1067,7 @@
    delayed feedback loop.</p>
   </section>
 
+  <!-- Analysis: analysis/what-agents-write.md -->
   <section class="slide" id="what-agents-write">
    <h2>Agents build on the default stack</h2>
    <div class=columns>
@@ -1082,6 +1099,9 @@
   </section>
 
   <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/what-agents-write.md"
+   >analysis/what-agents-write.md</a>.</p>
    <p><strong>Claim.</strong> When agents build for the web they converge
    on one framework-shaped stack (React + Tailwind + shadcn/ui + lucide
    icons), and this is now visible in registry-wide numbers. Whether they
@@ -1218,7 +1238,8 @@
    Does that change who standards work should be designed for?</p>
   </section>
 
-<section class="slide" id="evaluation">
+  <!-- Analysis: analysis/evaluation.md -->
+  <section class="slide" id="evaluation">
    <h2>Evals reward the familiar</h2>
    <figure class=chart-figure>
     <figcaption>Rust API tasks solved (pass@1, average of 5 models)</figcaption>
@@ -1240,6 +1261,9 @@
   </section>
 
   <section class=comment>
+   <p>Full analysis, data and open threads: <a
+   href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/evaluation.md"
+   >analysis/evaluation.md</a>.</p>
    <p><strong>Point of the slide:</strong> an API’s measured cost to an
    agent mixes two things, how good the design is and how much of it
    the model has seen. Every study below finds the second one is large,

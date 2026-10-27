@@ -30,5 +30,8 @@ Questions this session will explore:
 - `web/` – everything published to GitHub Pages
   - `web/index.html` – the slide deck (b6+ framework, TPAC 2026 template)
   - `web/Templates/` – the unmodified [TPAC 2026 slide template](https://www.w3.org/2026/Talks/TPAC/Templates/) files. `web/Templates/Overview.html` is the template's example deck and user manual.
+  - `web/data/` – data behind the slides (CSV), so the deck can link to it
+- `analysis/` – research notes behind each discussion slide: findings, data, sources, caveats and open threads. Each slide in the deck points to its file.
+- `tools/` – scripts that fetch or measure the data in `web/data/`
 
 The `web/` directory is published to GitHub Pages at https://rbyers.github.io/agenticwebdx/ by the `.github/workflows/static.yml` workflow on every push to `main` that touches `web/` (Pages source must be set to "GitHub Actions" in the repo settings).
