@@ -1,7 +1,7 @@
 # Which design principles hold for agents
 
 Research record for the TAG-principles slides (`#design-principles` and `#principle-text-formats`)
- of the TPAC 2026 breakout session
+of the TPAC 2026 breakout session
 “Agents are redefining DX. [How] should web standards adapt?” (28 Oct 2026). Research done 27 Oct 2026.
 
 For the complete 103-principle isolated subagent evaluation (one Markdown file per numbered principle in
