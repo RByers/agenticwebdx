@@ -184,6 +184,8 @@
    #code-share dl.bars dd {height: 1.15em}
    #code-share dl.bars dt {text-align: right}
    #code-share dl.bars dt.gap, #code-share dl.bars dd.gap {margin-top: 0.9em}
+   /* Invisible rows that align the two charts' bars by year */
+   #code-share dl.bars .spacer {visibility: hidden}
    /* CSS bar: same green as [css] on the Stack Overflow chart */
    #code-share {--css-bar: #1baf7a}
    @media (prefers-color-scheme: dark) {#code-share {--css-bar: #199e70}}
@@ -379,13 +381,14 @@
     <section>
      <h3>AI share of web devs’ code</h3>
      <dl class=bars>
+      <dt class=spacer aria-hidden="true"></dt><dd class=spacer aria-hidden="true"></dd>
       <dt>2024</dt><dd style="--v: 20.4"><span>20%</span></dd>
       <dt>2025</dt><dd style="--v: 28.7"><span>29%</span></dd>
       <dt>2026</dt><dd style="--v: 56.1"><span>56%</span></dd>
       <dt class=gap>2026* CSS only</dt><dd class=gap style="--v: 28.3"><span>28%</span></dd>
      </dl>
      <p class=note>Mean self-report, Devographics surveys.
-      *first asked in 2026
+      *first asked
 
      <!-- devs using AI to write CSS rose from 39% to 55% (2025 → 2026). -->
     </p>
@@ -396,6 +399,7 @@
       <dt>2023</dt><dd style="--v: 44"><span>44%</span></dd>
       <dt>2024</dt><dd style="--v: 62"><span>62%</span></dd>
       <dt>2025</dt><dd style="--v: 78.5"><span>78%</span></dd>
+      <dt class=spacer aria-hidden="true"></dt><dd class=spacer aria-hidden="true"></dd>
      </dl>
      <p class=note>Stack Overflow Developer Survey, “currently using”.</p>
     </section>
@@ -557,7 +561,7 @@
 
   <!-- Analysis: analysis/design-principles.md, design-principles/02-07-text-formats.md -->
   <section class="slide principle-slide" id="principle-text-formats">
-   <h2>Textual formats for humans <small>(TAG §2.7)</small></h2>
+   <h2>What <i>doesn’t</i>: Textual formats for humans <small>(TAG §2.7)</small></h2>
    <div class=columns>
     <section>
      <h3>What §2.7 &amp; §11.1 say</h3>
@@ -609,6 +613,7 @@
   <section class="slide part topic" id="topic-tokens">
    <h2>Token efficiency</h2>
    <ul>
+    <li>Does token efficiency matter?</li>
     <li>What makes a Web API token-efficient?
     <li>For writing code against it
     <li>For reading code that uses it
