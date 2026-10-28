@@ -195,7 +195,11 @@
    #code-share dl.bars dd.gap::before {background: var(--css-bar)}
    #code-share dl.bars dd.gap span {color: var(--css-bar)}
    #code-share p.note {font-size: 0.72em; margin: 0; line-height: 1.25}
-   #code-share .next {margin: 0.35em 0 0; font-size: 0.9em}
+   /* The takeaway precedes the chart in source so it reveals before the CSS bar,
+      but is displayed after it */
+   #code-share {display: flex; flex-direction: column}
+   #code-share .takeaway {order: 1; margin: 0.35em 0 0; font-size: 0.9em}
+   #code-share dl.bars .next {display: contents}
    /* --- field-notes slides (agent-sessions analysis) --- */
    #field-notes-summary .lede {font-size: 0.8em; margin: 0 0 0.4em}
    table.field-summary {width: 100%; border-collapse: collapse; font-size: 0.72em;
@@ -379,6 +383,7 @@
   <!-- Analysis: analysis/the-shift.md -->
   <section class="slide" id="code-share">
    <h2>AI writes over half of web code</h2>
+   <p class="next takeaway"><strong>LLMs now write most web code, but not uniformly across all web technologies.</strong></p>
    <div class=columns>
     <section>
      <h3>AI share of web devs’ code</h3>
@@ -387,7 +392,9 @@
       <dt>2024</dt><dd style="--v: 20.4"><span>20%</span></dd>
       <dt>2025</dt><dd style="--v: 28.7"><span>29%</span></dd>
       <dt>2026</dt><dd style="--v: 56.1"><span>56%</span></dd>
-      <dt class=gap>2026* CSS only</dt><dd class=gap style="--v: 28.3"><span>28%</span></dd>
+      <div class=next>
+       <dt class=gap>2026* CSS only</dt><dd class=gap style="--v: 28.3"><span>28%</span></dd>
+      </div>
      </dl>
      <p class=note>Mean self-report, Devographics surveys.
       *first asked
@@ -406,7 +413,6 @@
      <p class=note>Stack Overflow Developer Survey, “currently using”.</p>
     </section>
    </div>
-   <p class="next takeaway"><strong>LLMs now write most web code, but not uniformly across all web technologies.</strong></p>
    <p class="source">Sources: Devographics (<a
    href="https://2025.stateofjs.com/en-US/usage/#ai_generated_code_balance">JS
    2024–25</a>, <a
