@@ -2,8 +2,9 @@
 //
 // The template gives .slide a min-height (not a height), so too much content
 // silently makes that slide taller than the others. Content inside an
-// overflow:hidden box (e.g. .columns) gets silently clipped instead. This
-// finds both cases, outlines the offending slides and logs a warning.
+// overflow:hidden box (e.g. .columns) gets silently clipped instead, and
+// content can run under the absolutely positioned .source line. This
+// finds all three, outlines the offending slides and logs a warning.
 // tools/check-slide-fit.js runs the same check headlessly.
 (function () {
   var SLIDE_HEIGHT_EM = 23; // matches the template's --slide-height
@@ -28,6 +29,19 @@
             (el.className ? '.' + String(el.className).trim().replace(/\s+/g, '.') : '') +
             '> clips ' + extra + 'px');
       });
+      // The absolutely positioned sources line can't grow the slide,
+      // so it silently covers content instead.
+      var source = slide.querySelector(':scope > .source');
+      if (source) {
+        var top = source.getBoundingClientRect().top;
+        Array.from(slide.children).forEach(function (el) {
+          if (el === source || getComputedStyle(el).position === 'absolute') return;
+          var extra = el.getBoundingClientRect().bottom - top;
+          if (extra > TOLERANCE_PX)
+            reasons.push('<' + el.tagName.toLowerCase() + '> overlaps .source by ' +
+              Math.round(extra) + 'px');
+        });
+      }
       slide.classList.toggle('overflowing', reasons.length > 0);
       if (reasons.length)
         problems.push({index: i + 1, id: slide.id, reasons: reasons});
