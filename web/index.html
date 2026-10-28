@@ -892,6 +892,7 @@
     <li><b>1.3–1.7×</b> tokens in OCaml vs. Python on the same tasks, mostly fixing failed attempts</li>
     <li><b>25–38%</b> of completions choose a deprecated API over its replacement</li>
     <li><b>53% → 100%</b> pass rate on Next.js 16 APIs absent from training data, once docs are in context</li>
+    <li><b>+30 pts</b> median pass rate on web tasks with Modern Web Guidance</li>
    </ul>
    <p class=next><strong>So how do we evaluate a design that is better, but new?</strong></p>
    <p class="source">Sources: Liang et al., <a
@@ -899,7 +900,7 @@
    Wu, Anderson &amp; Guha, <a href="https://arxiv.org/abs/2607.22807">arXiv:2607.22807</a>;
    Wang et al., <a href="https://arxiv.org/abs/2406.09834">ICSE 2025</a>; <a
    href="https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals">Vercel</a>
-   (Jan 2026).</p>
+   (Jan 2026); <a href="https://github.com/GoogleChrome/modern-web-guidance">Modern Web Guidance</a> (Oct 2026).</p>
   </section>
 
   <section class=comment>
@@ -910,6 +911,7 @@
     <li>OCaml vs. Python: same-size solutions, 1.3–1.7× tokens; penalty shows as cost, not failure</li>
     <li>Deprecated APIs chosen 25–38% of the time</li>
     <li>Docs in context help (Vercel 53% → 100%) but aren't free</li>
+    <li>Modern Web Guidance evals, Oct 19–25: unguided → guided uplift 22–35 pts, median 30, across Claude Code, Codex, Antigravity</li>
     <li>Cleanest familiarity-only test: renamed pandas/NumPy, pass rate 19% → 1.5%</li>
     <li>Ideas: docs in context for both designs, fresh or renamed APIs, report tokens and turns, re-run each model generation</li>
     <li>Ask: how do we evaluate a design that's better but new?</li>

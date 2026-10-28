@@ -201,6 +201,7 @@ problems. CodeGen-Mono 350M also drops sharply (Figure 1).
 | Twist et al. (ACL Findings 2026) | Unnecessary use of popular libraries | Up to 45% of cases; Python is chosen for 58% of high-performance tasks, Rust never |
 | MDN MCP blog (June 2026) | Claude Code (Opus 4.7) without the MCP, browser support for 4 features new in Firefox 151 | 1 of 4 correct; answers with the MCP were "roughly twice as fast" |
 | Chrome Modern Web Guidance docs | Best-practice adherence with vs. without the guidance | "On average… a 37 percentage point improvement" |
+| Chrome Modern Web Guidance README (Oct 2026) | E2E pass rate, unguided vs. guided, 3 coding agents, ~170 tasks | Median +30 points (22–35) over 10 runs |
 | ADK Arena (June 2026) | LLM-as-a-developer generation cost across 51 Python agent frameworks | 5.6× spread ($0.6–$3.4 per agent); generation succeeds in 57% of runs; real use of each framework 28–40% across doc and source ablations (33% with no reference material) |
 | Trivedi & Schmitt (2026) | Clean vs. messy repo minimal pairs, Claude Code, 660 trials | Same pass rate; 7–8% fewer tokens and 34% fewer file revisits on clean code |
 | Constraint Decay (2026) | Backend agents as structural constraints accumulate | −27.28 points in assertion pass rate; worse in convention-heavy frameworks (FastAPI, Django) than in Flask |
@@ -428,8 +429,29 @@ page last updated 30 Jun 2026).**
   words, they already measure familiarity per feature.
 - *Scope:* covers 232 features and 186 use cases. Integrates with Baseline
   targets.
+- *E2E eval snapshot (repo README, "Recent eval results snapshot", fetched 28 Oct 2026):*
+  <https://github.com/GoogleChrome/modern-web-guidance>
+  Pass rate on browser-based assertions, unguided → guided. Prompts avoid
+  naming APIs, so the agent must discover the relevant guide itself.
+
+  | Date | Agent (model) | Tasks / assertions | Unguided → guided | Uplift |
+  | :--- | :--- | :---: | :---: | :---: |
+  | Oct 25 | Claude Code (Sonnet 5.5) | 168 / 1422 | 56% → 90% | +34 |
+  | Oct 24 | Antigravity CLI (Gemini 4 Argon) | 168 / 1373 | 65% → 95% | +30 |
+  | Oct 23 | Codex CLI (GPT-6.1 Sol) | 168 / 1422 | 58% → 85% | +27 |
+  | Oct 22 | Claude Code (Sonnet 5.5) | 168 / 1422 | 56% → 86% | +30 |
+  | Oct 22 | Antigravity CLI (Gemini 4 Argon) | 172 / 1445 | 68% → 96% | +28 |
+  | Oct 20 | Codex CLI (GPT-6.1 Sol) | 172 / 1450 | 58% → 80% | +22 |
+  | Oct 20 | Claude Code (Sonnet 5.5) | 172 / 1450 | 54% → 89% | +35 |
+  | Oct 20 | Antigravity CLI (Gemini 4 Argon) | 172 / 1450 | 65% → 95% | +30 |
+  | Oct 19 | Codex CLI (GPT-6.1 Sol) | 172 / 1445 | 56% → 83% | +27 |
+  | Oct 19 | Claude Code (Sonnet 5.5) | 171 / 1438 | 56% → 88% | +32 |
+
+  Median uplift across the 10 runs: **+30 points** (range 22–35). The deck
+  cites this median; the older 37-point docs figure is superseded.
 - *Limitations:*
-  - No models, tasks or per-feature numbers are published.
+  - The README table is a rolling snapshot; older rows drop off.
+  - Tasks and graders are written by the guidance authors.
   - "Your results may vary."
 
 **Mintlify traffic data (already in the deck).** The deck's `docs` slide
@@ -529,7 +551,7 @@ Minimal-Pair Study.* arXiv 2605.20049, May 2026.**
 | Always-on docs index in `AGENTS.md` | 53% → 100% | Vercel |
 | On-demand skill | 53% → 53% (default; not invoked in 56% of cases); 79% when instructed | Vercel |
 | MCP docs server | 1/4 → 4/4 on browser-support questions; ~2× faster (informal) | MDN |
-| Curated guidance skills | "37 percentage point improvement in adherence to modern best practices" (no methodology) | Chrome Modern Web Guidance |
+| Curated guidance skills | Median +30 points pass rate (22–35, 3 agents, 10 runs, Oct 2026); earlier docs claimed +37 | Chrome Modern Web Guidance |
 | Prompt hint about deprecation | Fix rate 25.7–97.2% | Wang et al. (InsertPrompt) |
 | Decoding-time API substitution | Fix rate 85.2–99.6% (needs model internals) | Wang et al. (ReplaceAPI) |
 | Error feedback / self-debugging | +3.8 points pass@10 (GitChameleon v1); +10–20 points hidden (v2) | GitChameleon |
