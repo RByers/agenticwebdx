@@ -183,7 +183,13 @@
    #code-share dl.bars {font-size: 0.82em; margin-bottom: 0.3em; gap: 0.2em 0.6em}
    #code-share dl.bars dd {height: 1.15em}
    #code-share dl.bars dt {text-align: right}
-   #code-share dl.bars dt.gap, #code-share dl.bars dd.gap {margin-top: 0.3em}
+   #code-share dl.bars dt.gap, #code-share dl.bars dd.gap {margin-top: 0.9em}
+   /* CSS bar: same green as [css] on the Stack Overflow chart */
+   #code-share {--css-bar: #1baf7a}
+   @media (prefers-color-scheme: dark) {#code-share {--css-bar: #199e70}}
+   #code-share dl.bars dt.gap {color: var(--css-bar); font-weight: 700}
+   #code-share dl.bars dd.gap::before {background: var(--css-bar)}
+   #code-share dl.bars dd.gap span {color: var(--css-bar)}
    #code-share p.note {font-size: 0.72em; margin: 0; line-height: 1.25}
    #code-share .next {margin: 0.35em 0 0; font-size: 0.9em}
    /* --- field-notes slides (agent-sessions analysis) --- */
