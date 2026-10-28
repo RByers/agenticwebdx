@@ -1,6 +1,6 @@
 # Token efficiency of Web APIs
 
-Research notes behind the `token-efficiency` slide. Last updated 27 Oct 2026.
+Research notes behind the `token-efficiency` slide. Last updated 28 Oct 2026.
 
 ## Question
 
@@ -96,6 +96,212 @@ comparison.
 | *Variant:* scoped CSS rules (`.product-card`) | Repeated selectors | CSS nesting | 53 → 51 (1.04×) | 53 → 51 (1.04×) | 53 → 51 (1.04×) | 190 → 146 |
 | **Median of the 9 pairs** (excl. variant) | | | **2.15×** | **2.00×** | **1.97×** | |
 
+#### The snippets
+
+Exactly what was tokenized for each pair (each file minus its trailing newline). Both sides do the same job, with the same placeholder names.
+
+**Toggle a class**: 46 → 7 tokens (o200k, 6.57×)
+
+Older, className string ops ([`toggle.old.js`](../tools/tokens/snippets/toggle.old.js)): **46** tokens o200k · 43 cl100k · 43 Qwen · 172 chars
+
+```js
+const classes = el.className.split(' ');
+if (classes.includes('open')) {
+  el.className = classes.filter(c => c !== 'open').join(' ');
+} else {
+  el.className += ' open';
+}
+```
+
+Newer, classList.toggle() ([`toggle.new.js`](../tools/tokens/snippets/toggle.new.js)): **7** tokens o200k · 6 cl100k · 6 Qwen · 28 chars
+
+```js
+el.classList.toggle('open');
+```
+
+**Lazy-load an image**: 76 → 12 tokens (o200k, 6.33×)
+
+Older, IntersectionObserver + data-src ([`lazy.old.html`](../tools/tokens/snippets/lazy.old.html)): **76** tokens o200k · 76 cl100k · 76 Qwen · 337 chars
+
+```html
+<img data-src="photo.jpg" alt="">
+<script>
+  new IntersectionObserver((entries, observer) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.src = entry.target.dataset.src;
+        observer.unobserve(entry.target);
+      }
+    }
+  }).observe(document.querySelector('img[data-src]'));
+</script>
+```
+
+Newer, loading=lazy ([`lazy.new.html`](../tools/tokens/snippets/lazy.new.html)): **12** tokens o200k · 12 cl100k · 12 Qwen · 43 chars
+
+```html
+<img loading="lazy" src="photo.jpg" alt="">
+```
+
+**Remove an element**: 7 → 3 tokens (o200k, 2.33×)
+
+Older, parentNode.removeChild() ([`remove.old.js`](../tools/tokens/snippets/remove.old.js)): **7** tokens o200k · 5 cl100k · 5 Qwen · 30 chars
+
+```js
+el.parentNode.removeChild(el);
+```
+
+Newer, remove() ([`remove.new.js`](../tools/tokens/snippets/remove.new.js)): **3** tokens o200k · 3 cl100k · 3 Qwen · 12 chars
+
+```js
+el.remove();
+```
+
+**Group an array**: 32 → 14 tokens (o200k, 2.29×)
+
+Older, Array.reduce ([`groupby.old.js`](../tools/tokens/snippets/groupby.old.js)): **32** tokens o200k · 32 cl100k · 32 Qwen · 113 chars
+
+```js
+const byType = items.reduce((groups, item) => {
+  (groups[item.type] ??= []).push(item);
+  return groups;
+}, {});
+```
+
+Newer, Object.groupBy() ([`groupby.new.js`](../tools/tokens/snippets/groupby.new.js)): **14** tokens o200k · 14 cl100k · 14 Qwen · 56 chars
+
+```js
+const byType = Object.groupBy(items, item => item.type);
+```
+
+**Promise with external resolvers**: 28 → 13 tokens (o200k, 2.15×)
+
+Older, new Promise + captured resolvers ([`resolvers.old.js`](../tools/tokens/snippets/resolvers.old.js)): **28** tokens o200k · 28 cl100k · 28 Qwen · 101 chars
+
+```js
+let resolve, reject;
+const promise = new Promise((res, rej) => {
+  resolve = res;
+  reject = rej;
+});
+```
+
+Newer, Promise.withResolvers() ([`resolvers.new.js`](../tools/tokens/snippets/resolvers.new.js)): **13** tokens o200k · 14 cl100k · 14 Qwen · 61 chars
+
+```js
+const { promise, resolve, reject } = Promise.withResolvers();
+```
+
+**Fetch with timeout**: 38 → 18 tokens (o200k, 2.11×)
+
+Older, AbortController + setTimeout ([`timeout.old.js`](../tools/tokens/snippets/timeout.old.js)): **38** tokens o200k · 37 cl100k · 39 Qwen · 181 chars
+
+```js
+const controller = new AbortController();
+const timer = setTimeout(() => controller.abort(), 5000);
+const res = await fetch(url, { signal: controller.signal });
+clearTimeout(timer);
+```
+
+Newer, AbortSignal.timeout() ([`timeout.new.js`](../tools/tokens/snippets/timeout.new.js)): **18** tokens o200k · 18 cl100k · 20 Qwen · 68 chars
+
+```js
+const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
+```
+
+**Fetch JSON**: 76 → 40 tokens (o200k, 1.90×)
+
+Older, XMLHttpRequest ([`fetch.old.js`](../tools/tokens/snippets/fetch.old.js)): **76** tokens o200k · 73 cl100k · 77 Qwen · 275 chars
+
+```js
+const xhr = new XMLHttpRequest();
+xhr.open('GET', '/api/user');
+xhr.responseType = 'json';
+xhr.onload = () => {
+  if (xhr.status >= 200 && xhr.status < 300) {
+    render(xhr.response);
+  } else {
+    showError(xhr.status);
+  }
+};
+xhr.onerror = () => showError(0);
+xhr.send();
+```
+
+Newer, fetch + await (try/catch) ([`fetch.new.js`](../tools/tokens/snippets/fetch.new.js)): **40** tokens o200k · 39 cl100k · 39 Qwen · 138 chars
+
+```js
+try {
+  const res = await fetch('/api/user');
+  if (!res.ok) throw res.status;
+  render(await res.json());
+} catch (e) {
+  showError(e);
+}
+```
+
+**Deep clone**: 9 → 7 tokens (o200k, 1.29×)
+
+Older, JSON.parse(JSON.stringify()) ([`clone.old.js`](../tools/tokens/snippets/clone.old.js)): **9** tokens o200k · 9 cl100k · 9 Qwen · 46 chars
+
+```js
+const copy = JSON.parse(JSON.stringify(data));
+```
+
+Newer, structuredClone() ([`clone.new.js`](../tools/tokens/snippets/clone.new.js)): **7** tokens o200k · 7 cl100k · 7 Qwen · 35 chars
+
+```js
+const copy = structuredClone(data);
+```
+
+**Scoped CSS rules (`.card`)**: 48 → 50 tokens (o200k, 0.96×)
+
+Older, Repeated selectors ([`css.old.css`](../tools/tokens/snippets/css.old.css)): **48** tokens o200k · 48 cl100k · 48 Qwen · 150 chars
+
+```css
+.card { padding: 1rem; }
+.card h2 { margin: 0; }
+.card p { color: gray; }
+.card:hover { outline: 1px solid; }
+.card .actions button { font: inherit; }
+```
+
+Newer, CSS nesting ([`css.new.css`](../tools/tokens/snippets/css.new.css)): **50** tokens o200k · 50 cl100k · 50 Qwen · 138 chars
+
+```css
+.card {
+  padding: 1rem;
+  h2 { margin: 0; }
+  p { color: gray; }
+  &:hover { outline: 1px solid; }
+  .actions button { font: inherit; }
+}
+```
+
+**Variant: scoped CSS rules (`.product-card`)** (not in the median): 53 → 51 tokens (o200k, 1.04×)
+
+Older, Repeated selectors ([`css2.old.css`](../tools/tokens/snippets/css2.old.css)): **53** tokens o200k · 53 cl100k · 53 Qwen · 190 chars
+
+```css
+.product-card { padding: 1rem; }
+.product-card h2 { margin: 0; }
+.product-card p { color: gray; }
+.product-card:hover { outline: 1px solid; }
+.product-card .actions button { font: inherit; }
+```
+
+Newer, CSS nesting ([`css2.new.css`](../tools/tokens/snippets/css2.new.css)): **51** tokens o200k · 51 cl100k · 51 Qwen · 146 chars
+
+```css
+.product-card {
+  padding: 1rem;
+  h2 { margin: 0; }
+  p { color: gray; }
+  &:hover { outline: 1px solid; }
+  .actions button { font: inherit; }
+}
+```
+
 ### Component comparison
 
 The task: a button showing “Clicked N times” that increments on click.
@@ -107,6 +313,78 @@ Imports are included.
 | Lit (`LitElement`, `static properties`, `html` template) | 88 | 88 | 88 | 350 |
 | React function component (`useState`, JSX) | 61 | 58 | 58 | 217 |
 | Svelte 5 (`$state` rune) | 29 | 29 | 29 | 107 |
+
+#### The snippets
+
+Each variant renders the same button and is a complete file, imports included.
+
+Vanilla custom element ([`counter.vanilla.js`](../tools/tokens/snippets/counter.vanilla.js)): **123** tokens o200k · 118 cl100k · 118 Qwen · 524 chars
+
+```js
+class ClickCounter extends HTMLElement {
+  #count = 0;
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot.innerHTML = '<button></button>';
+    this.button = this.shadowRoot.querySelector('button');
+    this.button.addEventListener('click', () => {
+      this.#count++;
+      this.render();
+    });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  render() {
+    this.button.textContent = `Clicked ${this.#count} times`;
+  }
+}
+customElements.define('click-counter', ClickCounter);
+```
+
+Lit ([`counter.lit.js`](../tools/tokens/snippets/counter.lit.js)): **88** tokens o200k · 88 cl100k · 88 Qwen · 350 chars
+
+```js
+import { LitElement, html } from 'lit';
+
+class ClickCounter extends LitElement {
+  static properties = { count: { state: true } };
+  constructor() {
+    super();
+    this.count = 0;
+  }
+  render() {
+    return html`<button @click=${() => this.count++}>Clicked ${this.count} times</button>`;
+  }
+}
+customElements.define('click-counter', ClickCounter);
+```
+
+React ([`counter.react.jsx`](../tools/tokens/snippets/counter.react.jsx)): **61** tokens o200k · 58 cl100k · 58 Qwen · 217 chars
+
+```jsx
+import { useState } from 'react';
+
+export function ClickCounter() {
+  const [count, setCount] = useState(0);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Clicked {count} times
+    </button>
+  );
+}
+```
+
+Svelte 5 ([`counter.svelte`](../tools/tokens/snippets/counter.svelte)): **29** tokens o200k · 29 cl100k · 29 Qwen · 107 chars
+
+```svelte
+<script>
+  let count = $state(0);
+</script>
+
+<button onclick={() => count++}>Clicked {count} times</button>
+```
 
 React and Svelte need a build step, and React has no style encapsulation, so
 this is not like-for-like on features. It shows the ceremony gap between the
@@ -130,6 +408,60 @@ kind of thing agents get wrong.
 | | jQuery: `$(document).on('click', '.delete', …)` | 24 | 24 | 24 | 86 |
 | Append a link | DOM: `createElement` + `href`/`textContent` + `append` | 24 | 22 | 22 | 91 |
 | | `list.innerHTML += \`<a href="${url}">${label}</a>\`` (XSS-prone) | 16 | 15 | 15 | 50 |
+
+#### The snippets
+
+Each pair does the same job, with the same placeholder names (`removeItem`, `url`, `label`, `list`).
+
+**Add class to all matches**
+
+Platform (querySelectorAll + classList) ([`addclass.platform.js`](../tools/tokens/snippets/addclass.platform.js)): **18** tokens o200k · 14 cl100k · 14 Qwen · 77 chars
+
+```js
+document.querySelectorAll('.item').forEach(el => el.classList.add('active'));
+```
+
+jQuery ([`addclass.jquery.js`](../tools/tokens/snippets/addclass.jquery.js)): **8** tokens o200k · 7 cl100k · 7 Qwen · 30 chars
+
+```js
+$('.item').addClass('active');
+```
+
+**Delegated click handler**
+
+Platform (addEventListener + closest) ([`delegate.platform.js`](../tools/tokens/snippets/delegate.platform.js)): **32** tokens o200k · 30 cl100k · 30 Qwen · 144 chars
+
+```js
+document.addEventListener('click', event => {
+  const button = event.target.closest('.delete');
+  if (button) removeItem(button.dataset.id);
+});
+```
+
+jQuery ([`delegate.jquery.js`](../tools/tokens/snippets/delegate.jquery.js)): **24** tokens o200k · 24 cl100k · 24 Qwen · 86 chars
+
+```js
+$(document).on('click', '.delete', function () {
+  removeItem($(this).data('id'));
+});
+```
+
+**Append a link**
+
+DOM (createElement + append) ([`link.dom.js`](../tools/tokens/snippets/link.dom.js)): **24** tokens o200k · 22 cl100k · 22 Qwen · 91 chars
+
+```js
+const a = document.createElement('a');
+a.href = url;
+a.textContent = label;
+list.append(a);
+```
+
+innerHTML += template (XSS-prone) ([`link.innerhtml.js`](../tools/tokens/snippets/link.innerhtml.js)): **16** tokens o200k · 15 cl100k · 15 Qwen · 50 chars
+
+```js
+list.innerHTML += `<a href="${url}">${label}</a>`;
+```
 
 jQuery's set-based API (operate on all matches, no explicit loop) is still
 1.3–2.3× terser than the platform. In the link example, the token-cheapest
