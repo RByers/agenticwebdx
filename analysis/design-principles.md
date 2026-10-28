@@ -455,6 +455,39 @@ the tokens, but much less self-describing. Not used on the slide.
     existing thread to agent needs (predictability, observability).
   - [#507](https://github.com/w3ctag/design-principles/issues/507) “name things for what they do, not
     how they do it” became §12.4. It doesn't mention agents.
+- **Testability and debuggability issues.** Searched on 28 Oct 2026 through GitHub's web issue search
+  for test, debug, testable, testability, mock, devtools, “developer tools”, automation and webdriver
+  (the search API and repo-scoped API were unavailable from this session). Most hits are not on topic
+  (#614, #581, #590, #448, #344, #319, #289, #284/#367, #280). The relevant ones:
+  - **[#51](https://github.com/w3ctag/design-principles/issues/51)** “Make it easy to synthesize
+    objects typically created by the UA?” (Rick Byers, 4 Mar 2017, closed Feb 2019). Asks for
+    script-constructible objects such as a fake `MouseEvent` because this is “often necessary to enable
+    good unit testing of components”. Domenic Denicola added mocking libraries as a use case. Resolved
+    by **§6.9 Classes should have constructors when possible**, which now says constructors let
+    developers create instances “for purposes such as testing, mocking, or interfacing with third-party
+    libraries”, with `Event` as the example. This is the only principle that explicitly names developer
+    testing.
+  - **[#156](https://github.com/w3ctag/design-principles/issues/156)** “Taking debugging use cases into
+    account in W3C specifications” (Patrick Brosset, 19 Feb 2020, **still open**, “In Progress”). Cites
+    the Ethical Web Principles on inspectability. Asks specs to expose the data DevTools needs (e.g.
+    *why* a flex item got its size; Firefox's chrome-only `getGridFragments()`), so authors can build
+    their own tools. The partial result was §10.7's “meaningful error messages” text (Sangwhan Moon,
+    commits for PR #264, Jan 2021). Unresolved part: on 2 Feb 2021 Daniel Appelquist (torgo) proposed
+    *“In the context of API design, consider whether hooks implemented for testing and debugging
+    purposes should be part of the standard”*, balanced against fingerprinting. Kenneth Rohde Christiansen
+    noted that WPT test hooks could help debugging, but state-reset hooks invite misuse and some data
+    is privacy-sensitive. No text landed, and assignees were removed in Sep 2025.
+  - **[#368](https://github.com/w3ctag/design-principles/issues/368)** “New principle: Deployability and
+    Monitoring” (Yoav Weiss, May 2022, closed Jun 2024). Argues lab testing is not enough and field
+    reporting (Reporting API) is essential. It was closed in favor of the Privacy Principles' “ancillary
+    uses” text, so it frames observability as a privacy trade-off.
+  - [#55](https://github.com/w3ctag/design-principles/issues/55) “returning error values vs throwing
+    exceptions” (2017, open) touches on error ergonomics but not on testing.
+  - **Gap:** no issue discusses programmatic access to diagnostics (what DevTools shows, but readable
+    from code) or deterministic, test-friendly hooks *for web developers*, as opposed to WPT's
+    implementer-facing WebDriver/`test_driver` hooks. #156 is the natural thread to revive with the
+    agent angle: agents can't look at DevTools panels, so the debugging data has to be readable from
+    code.
 - **The §2.15 angle.** “Prioritize usability over compatibility with third-party tools” uses the
   argument that “web platform features last a lot longer than most third-party tools”. The TAG
   already has a principle for a fast-moving class of consumer. The open question is whether agents
@@ -507,6 +540,9 @@ the tokens, but much less self-describing. Not used on the slide.
   - Make authoring errors observable (machine-readable diagnostics for dropped CSS declarations,
     unknown elements and attributes) without changing end-user behavior.
   - Prefer consistency over local ergonomics more strongly than §2.4 does today.
+  - Or comment on the still-open [#156](https://github.com/w3ctag/design-principles/issues/156)
+    instead of opening a new issue: revive torgo's 2021 “testing and debugging hooks” text, with
+    agents as the new motivating consumer.
 - **Experiments that would turn opinion rows into evidence:**
   - *Consistency (row 2):* give models synthetic web-style APIs with consistent vs. inconsistent
     naming (casing, verb patterns) and measure first-try correctness.
