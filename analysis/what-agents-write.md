@@ -197,6 +197,30 @@ Flat until 2025, then a jump during the coding-agent boom.
   positioning now does (8×). Downloads say nothing about whether native
   features were also used.
 
+### Rank among deployed sites' dependencies (Aug 2025 → Aug 2026)
+
+Monthly rank of each package among the dependencies of sites deployed
+on a large hosting platform (private dataset; source not disclosed on
+the slide). Rank 1 = most sites depend on it.
+
+| Package | Aug 2025 | Feb 2026 | Aug 2026 |
+|---|---|---|---|
+| react | 1 | 1 | 1 |
+| tailwindcss | 3 | 5 | 4 |
+| lucide-react | 12 | 10 | 9 |
+| lodash | 97 | 112 | 134 |
+| clsx (shadcn proxy) | 18 | 17 | 15 |
+| shadcn (direct) | 1627 (as `shadcn-ui`) | 357 | 182 |
+
+- Complements npm downloads: downloads measure installs (inflated by CI
+  and agents), rank measures what actually ships.
+- The slide uses `clsx` as the shadcn proxy. shadcn is a CLI that copies
+  components into the project, so few sites list it as a dependency.
+  Its components' `cn()` helper depends on `clsx` (and `tailwind-merge`).
+- Caveat: `clsx` is also used without shadcn, so it overstates shadcn.
+  `tailwind-merge` (rank 19 in Aug 2025) would be a tighter proxy.
+- lodash, the npm baseline, loses ground as the agent stack gains.
+
 ### App-builder defaults
 
 | Tool | Default stack | Exact words | URL |

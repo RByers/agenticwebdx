@@ -131,7 +131,9 @@
    #what-agents-write .stat-list {font-size: 0.8em; margin: 0}
    #what-agents-write .stat-list li {margin-bottom: 0.4em}
    #what-agents-write .stat-list b {font-size: 1.2em}
-   #what-agents-write dl.bars {font-size: 0.9em}
+   #what-agents-write dl.bars {font-size: 0.9em; margin-bottom: 0.2em}
+   #what-agents-write .rank {font-weight: 600; color: var(--figcaption-fg)}
+   #what-agents-write p.note {font-size: 0.7em; margin: 0}
    #what-agents-write .next {margin: 0.3em 0 0; font-size: 0.9em}
    /* --- conflicts slide --- */
    #conflicts h3 {margin-top: 0}
@@ -838,12 +840,13 @@
     <section>
      <h3>npm downloads, 2024 → 2026</h3>
      <dl class=bars>
-      <dt><code>lucide-react</code></dt><dd style="--v: 80"><span>61×</span></dd>
-      <dt><code>shadcn</code> (both names)</dt><dd style="--v: 69"><span>53×</span></dd>
-      <dt><code>tailwindcss</code></dt><dd style="--v: 15.7"><span>12×</span></dd>
-      <dt><code>react</code></dt><dd style="--v: 8.9"><span>6.8×</span></dd>
-      <dt><code>lodash</code> (baseline)</dt><dd style="--v: 4.2"><span>3.2×</span></dd>
+      <dt><code>lucide-react</code> <small class=rank>#9</small></dt><dd style="--v: 80"><span>61×</span></dd>
+      <dt><code>shadcn</code> (both names) <small class=rank>#15</small></dt><dd style="--v: 69"><span>53×</span></dd>
+      <dt><code>tailwindcss</code> <small class=rank>#4</small></dt><dd style="--v: 15.7"><span>12×</span></dd>
+      <dt><code>react</code> <small class=rank>#1</small></dt><dd style="--v: 8.9"><span>6.8×</span></dd>
+      <dt><code>lodash</code> (baseline) <small class=rank>#134</small></dt><dd style="--v: 4.2"><span>3.2×</span></dd>
      </dl>
+     <p class=note><small class=rank>#</small> rank in deployed sites’ dependencies, Aug 2026</p>
     </section>
    </div>
    <p class=next><strong>Is the framework now the platform agents target?</strong></p>
@@ -864,6 +867,8 @@
     <li>npm Sep 2024 → Sep 2026: lucide 61×, shadcn 53×, Tailwind 12×, React 6.8× vs. lodash baseline 3.2×</li>
     <li>All of npm inflated (agents spin up projects), hence the lodash baseline (express 4.1×, typescript 4.7×)</li>
     <li><code>shadcn</code> bar combines <code>shadcn</code> + <code>shadcn-ui</code> (CLI renamed Jul 2024)</li>
+    <li>Rank among deployed sites' dependencies, Aug 2025 → Aug 2026: lucide #12 → #9, shadcn #18 → #15, Tailwind #3 → #4, React #1 → #1, lodash #97 → #134</li>
+    <li>shadcn rank is <code>clsx</code> as a proxy: shadcn is a CLI that copies code into the project, so it rarely appears as a dependency; its components depend on <code>clsx</code></li>
     <li>Radix Dialog and Floating UI are JS stand-ins for <code>&lt;dialog&gt;</code>/popover and anchor positioning</li>
     <li>Native feature under-use: plausible but unmeasured; only Chrome's own eval (+37 pts with guidance)</li>
     <li>Counterpoint: newer models do pick newer tools (Prisma → Drizzle)</li>
@@ -878,9 +883,9 @@
     <figcaption>Rust API tasks solved (pass@1, average of 5 models)</figcaption>
     <dl class=bars>
      <dt>APIs older than the model</dt><dd style="--v: 56.1"><span>56.1%</span></dd>
-     <dt class=sub>+ API info in prompt</dt><dd style="--v: 70.9"><span>70.9%</span></dd>
+     <dt class=sub>+ API info in prompt</dt><dd style="--v: 70.9"><span>70.9% (1.26x)</span></dd>
      <dt>APIs newer than the model</dt><dd style="--v: 32.5"><span>32.5%</span></dd>
-     <dt class=sub>+ API info in prompt</dt><dd style="--v: 41.4"><span>41.4%</span></dd>
+     <dt class=sub>+ API info in prompt</dt><dd style="--v: 41.4"><span>41.4% (1.27x)</span></dd>
     </dl>
    </figure>
    <ul class=stat-row>
