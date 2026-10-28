@@ -845,108 +845,8 @@
    </ul>
   </section>
 
-  <section class="slide part" id="appendix-topics">
-   <h2>APPENDIX: Topic details</h2>
-  </section>
-
-  <!-- Analysis: analysis/agent-vs-human-dx.md -->
-  <section class="slide" id="conflicts">
-   <h2>Agents write more; humans review it</h2>
-   <div class=columns>
-    <section>
-     <h3>Where the pull shows</h3>
-     <ul class=stat-list>
-      <li><b>40%</b> <span>of State of JS respondents use only TypeScript
-       (28% in 2022), now GitHub’s #1</span></li>
-      <li><b>−40%</b> <span>Tailwind docs traffic as usage grows;
-       <code>llms.txt</code> declined to keep visitors</span></li>
-      <li><b>3×</b> <span>readability issues in AI-co-authored PRs</span></li>
-     </ul>
-    </section>
-    <section>
-     <h3>Teams at high vs. low AI use</h3>
-     <dl class=bars>
-      <dt>Tasks done</dt><dd style="--v: 10.9"><span>+21%</span></dd>
-      <dt>PRs merged</dt><dd style="--v: 50.9"><span>+98%</span></dd>
-      <dt>PR size</dt><dd style="--v: 80"><span>+154%</span></dd>
-      <dt>Review time</dt><dd style="--v: 47.3"><span>+91%</span></dd>
-      <dt>Bugs per dev</dt><dd style="--v: 4.7"><span>+9%</span></dd>
-     </dl>
-     <p class=note>10,000+ developers, 1,255 teams; vendor data, correlational.</p>
-    </section>
-   </div>
-   <p class=next><strong>If humans mostly read and review, should APIs
-   favor the reader over the writer?</strong></p>
-   <p class="source">Sources: Devographics, <a
-   href="https://2025.stateofjs.com/">State of JS 2025</a>; GitHub, <a
-   href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/"
-   ><cite>Octoverse 2025</cite></a>; A. Wathan, <a
-   href="https://github.com/tailwindlabs/tailwindcss.com/pull/2388">tailwindcss.com#2388</a>
-   (Jan 2026); CodeRabbit, <a
-   href="https://www.coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report"
-   >AI vs Human Code</a> (Dec 2025); Faros AI, <a
-   href="https://www.faros.ai/blog/ai-software-engineering">AI Productivity
-   Paradox</a> (Jul 2025).</p>
-  </section>
-
-  <section class=comment>
-   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-vs-human-dx.md">analysis/agent-vs-human-dx.md</a></p>
-   <ul>
-    <li>Conflicts are mostly about who writes vs. who reads</li>
-    <li>Types: ceremony for humans, guardrails for agents; TS-only 28% → 40%, TS #1 on GitHub Aug 2025</li>
-    <li>Docs: agent-readable docs cut human traffic; Tailwind docs −40%, revenue −80%, 75% of engineers laid off</li>
-    <li>Review is the bottleneck: PRs merged +98% but review time +91%, PR size +154%</li>
-    <li>AI PRs: 3× readability issues (CodeRabbit, n=470, authorship inferred)</li>
-    <li>METR: experienced devs 19% slower with AI, felt 20% faster</li>
-    <li>Caveat: vendor data, correlational, early-2025 tools</li>
-    <li>Ask: optimize for reading code (explicit, typed, declarative) over terse writing?</li>
-   </ul>
-  </section>
-
-  <!-- Analysis: analysis/evaluation.md -->
-  <section class="slide" id="evaluation">
-   <h2>Evals reward the familiar</h2>
-   <figure class=chart-figure>
-    <figcaption>Rust API tasks solved (pass@1, average of 5 models)</figcaption>
-    <dl class=bars>
-     <dt>APIs older than the model</dt><dd style="--v: 56.1"><span>56.1%</span></dd>
-     <dt class=sub>+ API info in prompt</dt><dd style="--v: 70.9"><span>70.9% (1.26x)</span></dd>
-     <dt>APIs newer than the model</dt><dd style="--v: 32.5"><span>32.5%</span></dd>
-     <dt class=sub>+ API info in prompt</dt><dd style="--v: 41.4"><span>41.4% (1.27x)</span></dd>
-    </dl>
-   </figure>
-   <ul class=stat-row>
-    <li><b>1.3–1.7×</b> tokens in OCaml vs. Python on the same tasks, mostly fixing failed attempts</li>
-    <li><b>25–38%</b> of completions pick a deprecated API over its replacement (2024 models)</li>
-    <li><b>53% → 100%</b> pass rate on Next.js 16 APIs absent from training data, once docs are in context</li>
-    <li><b>+30 pts</b> median pass rate on web tasks with Modern Web Guidance</li>
-   </ul>
-   <p class=next><strong>So how do we evaluate a design that is better, but new?</strong></p>
-   <p class="source">Sources: Liang et al., <a
-   href="https://arxiv.org/abs/2503.16922"><cite>RustEvo²</cite></a> (2025);
-   Wu et al., <a href="https://arxiv.org/abs/2607.22807">arXiv:2607.22807</a>;
-   Wang et al., <a href="https://arxiv.org/abs/2406.09834">ICSE 2025</a>; <a
-   href="https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals">Vercel</a>
-   (2026); <a href="https://github.com/GoogleChrome/modern-web-guidance">Modern Web Guidance</a> (2026).</p>
-  </section>
-
-  <section class=comment>
-   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/evaluation.md">analysis/evaluation.md</a></p>
-   <ul>
-    <li>Measured cost mixes design quality with how much the model has seen</li>
-    <li>RustEvo²: pass rate 56% on pre-cutoff APIs vs. 33% post-cutoff</li>
-    <li>OCaml vs. Python: same-size solutions, 1.3–1.7× tokens; penalty shows as cost, not failure</li>
-    <li>Deprecated APIs chosen 25–38% of the time, but that paper is from 2024 (older models); the MWG data is from Oct 2026</li>
-    <li>Docs in context help (Vercel 53% → 100%) but aren't free</li>
-    <li>Modern Web Guidance evals, Oct 19–25: unguided → guided uplift 22–35 pts, median 30, across Claude Code, Codex, Antigravity</li>
-    <li>Cleanest familiarity-only test: renamed pandas/NumPy, pass rate 19% → 1.5%</li>
-    <li>Ideas: docs in context for both designs, fresh or renamed APIs, report tokens and turns, re-run each model generation</li>
-    <li>Ask: how do we evaluate a design that's better but new?</li>
-   </ul>
-  </section>
-
   <section class="slide part" id="appendix-field-notes">
-   <h2>APPENDIX: Field notes details</h2>
+   <h2>APPENDIX: Field notes</h2>
   </section>
 
   <section class=comment>
@@ -1160,6 +1060,112 @@
     <li>Missing <code>viewport-fit=cover</code>, maskable icon</li>
     <li>0 uses of touch or mobile emulation in the whole corpus</li>
     <li>Emulation can't reproduce URL bar or keyboard behaviour anyway</li>
+   </ul>
+  </section>
+
+  <section class="slide part" id="appendix-graveyard">
+   <h2>APPENDIX: Graveyard</h2>
+  </section>
+
+  <section class=comment>
+   <ul>
+    <li>Cut from the main talk; kept for reference and Q&amp;A</li>
+   </ul>
+  </section>
+
+  <!-- Analysis: analysis/agent-vs-human-dx.md -->
+  <section class="slide" id="conflicts">
+   <h2>Agents write more; humans review it</h2>
+   <div class=columns>
+    <section>
+     <h3>Where the pull shows</h3>
+     <ul class=stat-list>
+      <li><b>40%</b> <span>of State of JS respondents use only TypeScript
+       (28% in 2022), now GitHub’s #1</span></li>
+      <li><b>−40%</b> <span>Tailwind docs traffic as usage grows;
+       <code>llms.txt</code> declined to keep visitors</span></li>
+      <li><b>3×</b> <span>readability issues in AI-co-authored PRs</span></li>
+     </ul>
+    </section>
+    <section>
+     <h3>Teams at high vs. low AI use</h3>
+     <dl class=bars>
+      <dt>Tasks done</dt><dd style="--v: 10.9"><span>+21%</span></dd>
+      <dt>PRs merged</dt><dd style="--v: 50.9"><span>+98%</span></dd>
+      <dt>PR size</dt><dd style="--v: 80"><span>+154%</span></dd>
+      <dt>Review time</dt><dd style="--v: 47.3"><span>+91%</span></dd>
+      <dt>Bugs per dev</dt><dd style="--v: 4.7"><span>+9%</span></dd>
+     </dl>
+     <p class=note>10,000+ developers, 1,255 teams; vendor data, correlational.</p>
+    </section>
+   </div>
+   <p class=next><strong>If humans mostly read and review, should APIs
+   favor the reader over the writer?</strong></p>
+   <p class="source">Sources: Devographics, <a
+   href="https://2025.stateofjs.com/">State of JS 2025</a>; GitHub, <a
+   href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/"
+   ><cite>Octoverse 2025</cite></a>; A. Wathan, <a
+   href="https://github.com/tailwindlabs/tailwindcss.com/pull/2388">tailwindcss.com#2388</a>
+   (Jan 2026); CodeRabbit, <a
+   href="https://www.coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report"
+   >AI vs Human Code</a> (Dec 2025); Faros AI, <a
+   href="https://www.faros.ai/blog/ai-software-engineering">AI Productivity
+   Paradox</a> (Jul 2025).</p>
+  </section>
+
+  <section class=comment>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/agent-vs-human-dx.md">analysis/agent-vs-human-dx.md</a></p>
+   <ul>
+    <li>Conflicts are mostly about who writes vs. who reads</li>
+    <li>Types: ceremony for humans, guardrails for agents; TS-only 28% → 40%, TS #1 on GitHub Aug 2025</li>
+    <li>Docs: agent-readable docs cut human traffic; Tailwind docs −40%, revenue −80%, 75% of engineers laid off</li>
+    <li>Review is the bottleneck: PRs merged +98% but review time +91%, PR size +154%</li>
+    <li>AI PRs: 3× readability issues (CodeRabbit, n=470, authorship inferred)</li>
+    <li>METR: experienced devs 19% slower with AI, felt 20% faster</li>
+    <li>Caveat: vendor data, correlational, early-2025 tools</li>
+    <li>Ask: optimize for reading code (explicit, typed, declarative) over terse writing?</li>
+   </ul>
+  </section>
+
+  <!-- Analysis: analysis/evaluation.md -->
+  <section class="slide" id="evaluation">
+   <h2>Evals reward the familiar</h2>
+   <figure class=chart-figure>
+    <figcaption>Rust API tasks solved (pass@1, average of 5 models)</figcaption>
+    <dl class=bars>
+     <dt>APIs older than the model</dt><dd style="--v: 56.1"><span>56.1%</span></dd>
+     <dt class=sub>+ API info in prompt</dt><dd style="--v: 70.9"><span>70.9% (1.26x)</span></dd>
+     <dt>APIs newer than the model</dt><dd style="--v: 32.5"><span>32.5%</span></dd>
+     <dt class=sub>+ API info in prompt</dt><dd style="--v: 41.4"><span>41.4% (1.27x)</span></dd>
+    </dl>
+   </figure>
+   <ul class=stat-row>
+    <li><b>1.3–1.7×</b> tokens in OCaml vs. Python on the same tasks, mostly fixing failed attempts</li>
+    <li><b>25–38%</b> of completions pick a deprecated API over its replacement (2024 models)</li>
+    <li><b>53% → 100%</b> pass rate on Next.js 16 APIs absent from training data, once docs are in context</li>
+    <li><b>+30 pts</b> median pass rate on web tasks with Modern Web Guidance</li>
+   </ul>
+   <p class=next><strong>So how do we evaluate a design that is better, but new?</strong></p>
+   <p class="source">Sources: Liang et al., <a
+   href="https://arxiv.org/abs/2503.16922"><cite>RustEvo²</cite></a> (2025);
+   Wu et al., <a href="https://arxiv.org/abs/2607.22807">arXiv:2607.22807</a>;
+   Wang et al., <a href="https://arxiv.org/abs/2406.09834">ICSE 2025</a>; <a
+   href="https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals">Vercel</a>
+   (2026); <a href="https://github.com/GoogleChrome/modern-web-guidance">Modern Web Guidance</a> (2026).</p>
+  </section>
+
+  <section class=comment>
+   <p>Details: <a href="https://github.com/rbyers/agenticwebdx/blob/main/analysis/evaluation.md">analysis/evaluation.md</a></p>
+   <ul>
+    <li>Measured cost mixes design quality with how much the model has seen</li>
+    <li>RustEvo²: pass rate 56% on pre-cutoff APIs vs. 33% post-cutoff</li>
+    <li>OCaml vs. Python: same-size solutions, 1.3–1.7× tokens; penalty shows as cost, not failure</li>
+    <li>Deprecated APIs chosen 25–38% of the time, but that paper is from 2024 (older models); the MWG data is from Oct 2026</li>
+    <li>Docs in context help (Vercel 53% → 100%) but aren't free</li>
+    <li>Modern Web Guidance evals, Oct 19–25: unguided → guided uplift 22–35 pts, median 30, across Claude Code, Codex, Antigravity</li>
+    <li>Cleanest familiarity-only test: renamed pandas/NumPy, pass rate 19% → 1.5%</li>
+    <li>Ideas: docs in context for both designs, fresh or renamed APIs, report tokens and turns, re-run each model generation</li>
+    <li>Ask: how do we evaluate a design that's better but new?</li>
    </ul>
   </section>
 
