@@ -23,6 +23,7 @@ This repo holds the slides for a W3C TPAC 2026 breakout session (see README.md).
 ## Research and analysis notes
 
 - Persist the results of any research or analysis done for the talk as Markdown files under `analysis/`, one file per topic (e.g. `analysis/token-efficiency.md`), so the work can be revisited and deepened over time instead of living only in a chat session.
+- Start each file (right after the `# ` title) with the AI-generated-content warning block used in the existing files (`> [!WARNING]` … not edited for correctness).
 - Each file should hold the question, key findings, the data behind them (tables where useful), full sources with URLs, methodology, caveats, and open threads worth digging into next. Update the file when the analysis is refined; don't start a new one for the same topic.
 - Put reproducible scripts in `tools/` and any data they produce in `web/data/` (so the published deck can link to it), and reference them from the analysis file.
 - Point from the deck to the analysis: put an HTML comment such as `<!-- Analysis: analysis/token-efficiency.md -->` immediately before the slide's `<section>`, and link the file from the slide's speaker-notes `<section class=comment>` (GitHub blob URL, since `analysis/` is not published to Pages).
